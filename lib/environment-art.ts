@@ -6,5 +6,5 @@ export function environmentArt(area:MapArea,values:Values){
  // Illustrative intensity, not measured percent coral cover. Low reef indices
  // retain visible bleaching and pollution; water and health stay independent.
  const weight=(n:number)=>area==='reef'?artWeight(n)**2:artWeight(n);
- return {low:`/environment-states/${area}-low${area==='reef'?'-v2':''}.png`,high:`/environment-states/${area}-high.png`,water:weight(values[1]),habitat:weight(values[2]),power:artWeight(values[0])};
+ return {low:`/optimized/environment-states/${area}-low${area==='reef'?'-v2':''}.webp`,high:`/optimized/environment-states/${area}-high.webp`,water:weight(values[1]),habitat:weight(values[2]),power:artWeight(values[0])};
 }

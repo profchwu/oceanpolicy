@@ -23,7 +23,7 @@ const regions:Record<string,[PolicyArt['box'],PolicyArt['mode'],string]>={
 };
 export function policyArt(area:MapArea,e:PolicyEffect):PolicyArt|null{
  const key=`${area}-${e.step}-${e.visual}`,r=regions[key];
- return r?{key,image:`/policy-art/${key}.png`,box:r[0],mode:r[1],channel:r[2]}:null;
+ return r?{key,image:`/optimized/policy-art/${key}.webp`,box:r[0],mode:r[1],channel:r[2]}:null;
 }
 /** Keep earlier structures; only later actions on the same facility replace it. */
 export function policyLayers(area:MapArea,effects:PolicyEffect[]){

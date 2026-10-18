@@ -50,7 +50,16 @@ export default function NewsGame(){
  const before=outcome?.before??m.initial,projected=outcome?.after??vals;
  const climate=t(climateFeedback(m.id,outcome?.delta??[0,0,0]));
  const impactSummary=outcome?m.metrics.map((label,i)=>outcome.delta[i]===0?null:`${t(label)} ${outcome.delta[i]>0?'▲ +':'▼ '}${outcome.delta[i]}`).filter(Boolean).join(' · ')||b('環境未改善・壓力仍在','No improvement · pressure remains'):'';
- useEffect(()=>{for(const step of [0,2])for(const o of m.options[step]){const art=policyArt(m.id as 'reef'|'grass'|'wind',{step,visual:o.visual,progress:1});if(art){const img=new Image();img.src=art.image;}}for(const state of ['low','high']){const img=new Image();img.src=`/environment-states/${m.id}-${state}${m.id==='reef'&&state==='low'?'-v2':''}.png`;}},[m.id]);
+ // Warm the newspaper first; speculative policy art must not compete with it.
+ useEffect(()=>{const img=new Image();img.fetchPriority='high';img.src=m.image;},[m.image]);
+ useEffect(()=>{
+  if(['consent','identity','declined','news','results'].includes(view))return;
+  let cancelled=false;
+  const urls=new Set<string>([`/optimized/mission-${m.id}-v2.webp`,...['low','high'].map(state=>`/optimized/environment-states/${m.id}-${state}${m.id==='reef'&&state==='low'?'-v2':''}.webp`)]);
+  for(const step of [0,2])for(const o of m.options[step]){const art=policyArt(m.id as 'reef'|'grass'|'wind',{step,visual:o.visual,progress:1});if(art)urls.add(art.image);}
+  void(async()=>{for(const url of urls){if(cancelled)break;await new Promise<void>(resolve=>{const img=new Image();img.fetchPriority='low';img.onload=img.onerror=()=>resolve();img.src=url;});}})();
+  return()=>{cancelled=true;};
+ },[m.id,view]);
  const consequence=last&&!last.automatic?policyConsequence(MISSIONS.findIndex(x=>x.id===m.id),last.step,last.choice):null;
  const hasFeedback=!!last&&last.ackAt!==undefined&&!['news','results'].includes(view);
  const receipt=outcome?<div className="consequence-receipt"><strong>{outcome.event?b('外部新事件的影響（不是政策造成）','EXTERNAL EVENT · not caused by your policy'):view==='building'?b('政策完成時的預估結果','PROJECTED RESULT AT COMPLETION'):b('本次政策結果','THIS POLICY’S RESULT')}</strong><div className="receipt-metrics">{m.metrics.map((metric,i)=><div key={i}><span>{t(metric)} {before[i]} → {projected[i]}</span><MetricDelta value={outcome.delta[i]} en={en}/></div>)}</div></div>:null;

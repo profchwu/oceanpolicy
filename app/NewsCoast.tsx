@@ -19,7 +19,7 @@ export default function NewsCoast({area,values,choice,progress,works,motion,en,e
  return <div className={'rts-scene news-coast '+(motion?'animated':'quiet-world')} data-scene={area} data-water={values[1]} data-health={values[2]}>
  <svg viewBox="0 0 1672 941" role="img" aria-label={`${map.title[en?1:0]} · ${en?'Walking residents, workers, traffic, boats and policy effects':'步行居民、作業人員、車輛、船隻與政策效果'}`}>
  <defs><radialGradient id={'reef-feather'+id}><stop offset=".6" stopColor="white"/><stop offset="1" stopColor="black"/></radialGradient><mask id={'reef-health'+id}><ellipse cx="1030" cy="640" rx="470" ry="220" fill={'url(#reef-feather'+id+')'}/></mask><filter id={'reef-pale'+id}><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="linear" slope="1.3" intercept=".12"/><feFuncG type="linear" slope="1.3" intercept=".12"/><feFuncB type="linear" slope="1.3" intercept=".12"/></feComponentTransfer></filter><radialGradient id={'coast-mud'+id}><stop stopColor="#84572b" stopOpacity="1"/><stop offset="1" stopColor="#927e4f" stopOpacity="0"/></radialGradient><linearGradient id={'coast-health'+id}><stop stopColor={reef?'#fff2dc':'#a89b61'} stopOpacity=".2"/><stop offset="1" stopColor={reef?'#fff8ed':'#9d945f'} stopOpacity=".75"/></linearGradient><clipPath id={'coast-water'+id}><path d={map.water}/></clipPath></defs>
- <image href={'/mission-'+area+'-v2.png'} width="1672" height="941"/>
+ <image href={'/optimized/mission-'+area+'-v2.webp'} width="1672" height="941"/>
  <EnvironmentArtwork area={area} values={values}/>
 
  <g clipPath={'url(#coast-water'+id+')'}>
