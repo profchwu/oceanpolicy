@@ -14,7 +14,8 @@
     "db:generate": "drizzle-kit generate",
     "preview": "wrangler dev --config dist/server/wrangler.json",
     "deploy": "wrangler deploy --config dist/server/wrangler.json",
-    "test": "node scripts/test-news-flow.mjs && node scripts/test-consent.mjs && node scripts/test-news-sync.mjs"
+    "test": "node scripts/test-news-flow.mjs && node scripts/test-consent.mjs && node scripts/test-news-sync.mjs",
+    "test:all-policies": "node scripts/test-all-policy-branches.mjs && node scripts/test-education-visuals.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

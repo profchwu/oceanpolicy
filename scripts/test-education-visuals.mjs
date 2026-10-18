@@ -1,4 +1,5 @@
 import ts from 'typescript';
+import sharp from 'sharp';
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -107,7 +108,7 @@ console.log('PASS: 3 clean baseline scenes; 27 current-flow routes, five-second 
 
 const {environmentArt,artWeight}=await get('environment-art');
 const openingReef=environmentArt('reef',MISSIONS[2].initial);
-assert.ok(openingReef.low.endsWith('reef-low-v2.png'));
+assert.ok(openingReef.low.endsWith('reef-low-v2.webp'));
 assert.ok(openingReef.water<.1,'Poor initial water must remain visibly polluted');
 assert.ok(openingReef.habitat<.5,'Initial reef retains visible bleaching');
 assert.ok(environmentArt('reef',[65,30,33]).habitat<.12,'Low-health final reef cannot look recovered');
@@ -117,7 +118,7 @@ for(const area of ['reef','grass','wind']){
  const low=environmentArt(area,[20,20,20]),high=environmentArt(area,[80,80,80]);
  for(const k of ['water','habitat','power'])assert.ok(high[k]>low[k]);
  const waterOnly=environmentArt(area,[20,80,20]);assert.equal(waterOnly.habitat,low.habitat);assert.equal(waterOnly.power,low.power);
- for(const asset of [low.low,high.high]){const bytes=fs.readFileSync('public'+asset);assert.ok(bytes.length>10000);assert.equal(bytes.readUInt32BE(20),941,'Keep reference framing height');}
+ for(const asset of [low.low,high.high]){const bytes=fs.readFileSync('public'+asset);assert.ok(bytes.length>10000);assert.equal((await sharp(bytes).metadata()).height,941,'Keep reference framing height');}
 }
 console.log('PASS: 6 generated assets exist; bounded continuous state blending; each metric has an independent art weight.');
 const {policyArt,policyLayers}=await get('policy-art');
