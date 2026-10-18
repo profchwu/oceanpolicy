@@ -1,0 +1,12 @@
+{
+  "version": "ocean-rts-v5.3.0",
+  "scope": "Ambient island life, fixed camera and stronger ocean motion. No changes to scoring or policy simulation.",
+  "changes": ["Four residents walk village and farm paths", "Two small vehicles travel village and pier routes", "Masked moving ocean ripples, 24 surface glints and three staggered shoreline surf layers", "Explicit Motion OFF stops all new animations"],
+  "verification": {"typescript": "passed", "modelAndReceiverTests": 12, "http": "passed", "movingCoordinatesObserved": "all four residents, both vehicles and ocean layer", "offCoordinatesStable": true, "phoneViewport": "390x667, document height 667, no buttons outside viewport"},
+  "nextDesignPriorities": [
+    "Replace repetitive right-answer cards with explicit island goals and constrained policy tradeoffs",
+    "Use short news-triggered crises and one meaningful repair decision, explaining policy mechanisms and limits",
+    "Use equivalent but different assessment scenarios; immediate feedback means level one is initial performance rather than an uncontaminated pretest"
+  ],
+  "research": "Three behavioral outcomes unchanged. Ambient people and vehicles do not imply measured policy benefits. New version separates visual exposure. Google Sheets remains unconfigured."
+}

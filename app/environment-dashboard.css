@@ -1,0 +1,50 @@
+/* Use isolated cards: legacy dashboard flex rules must not lay out their contents. */
+.news-app[data-playing=true] .news-dashboard.environment-dashboard{height:100%;max-height:none;grid-template-rows:repeat(3,minmax(0,1fr)) 62px;align-self:stretch;gap:8px}
+.news-app .environment-dashboard .environment-card,.news-app .environment-dashboard .environment-budget{box-sizing:border-box;min-width:0;min-height:0;padding:12px;border:2px solid #688b88;border-radius:9px;background:#193f47;display:grid;align-content:center;gap:8px}
+.news-app .environment-dashboard .environment-card[data-direction=up]{border-color:#79eeb0;background:#184c44}.news-app .environment-dashboard .environment-card[data-direction=down]{border-color:#ff9389;background:#513b3b}
+.news-app .environment-dashboard .environment-card-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+.news-app .environment-dashboard .environment-card-heading>span{font-size:15px;line-height:1.35;min-width:0;overflow-wrap:anywhere}
+.news-app .environment-dashboard .environment-card-heading>strong,.news-app .environment-dashboard .environment-budget>strong{font:30px/1.1 ui-monospace,monospace;color:#f6ddaa;flex:none;margin:0}
+.news-app .environment-dashboard .environment-card-details{display:grid;gap:4px;min-width:0}.news-app .environment-dashboard .environment-card-range{font-size:14px;line-height:1.35;color:#d4e9dc}.news-app .environment-dashboard .environment-card-range small{font-size:11px;display:block;line-height:1.2}
+.news-app .environment-dashboard .environment-card-details .metric-change{font-size:15px!important;line-height:1.3;display:block;white-space:normal}
+.news-app .environment-dashboard .environment-card-track{position:relative;flex:none;width:100%;height:6px;border-radius:4px;background:#092b35;overflow:hidden;margin:0}
+.news-app .environment-dashboard .environment-card-track i{display:block;height:100%;background:#9bd4b6;transition:width .1s linear}
+.news-app .environment-dashboard .environment-budget{display:flex;align-items:center;justify-content:space-between;gap:8px}.news-app .environment-dashboard .environment-budget>span{font-size:13px;line-height:1.3}
+@media(max-width:999px) and (min-height:501px){
+ .news-app[data-playing=true] .news-dashboard.environment-dashboard{height:112px;grid-template-columns:repeat(3,minmax(0,1fr)) 60px;grid-template-rows:1fr;gap:5px;flex:none}
+ .news-app .environment-dashboard .environment-card,.news-app .environment-dashboard .environment-budget{padding:6px;gap:4px}
+ .news-app .environment-dashboard .environment-card-heading{display:block}
+ .news-app .environment-dashboard .environment-card-heading>span{display:block;font-size:12px;line-height:16px;white-space:nowrap}
+ .news-app .environment-dashboard .environment-card-heading>strong{font-size:24px;line-height:26px;display:block}
+ .news-app .environment-dashboard .environment-card-range{font-size:11px;line-height:13px}.news-app .environment-dashboard .environment-card-range small{font-size:9px;display:inline}
+ .news-app .environment-dashboard .environment-card-details{gap:1px}.news-app .environment-dashboard .environment-card-details .metric-change{font-size:11px!important;line-height:14px}
+ .news-app .environment-dashboard .environment-card-track{height:4px}
+ .news-app .environment-dashboard .environment-budget{flex-direction:column;justify-content:center}.news-app .environment-dashboard .environment-budget>span{font-size:11px}.news-app .environment-dashboard .environment-budget>strong{font-size:24px}
+}
+@media(min-width:1000px) and (max-height:680px){
+ .news-app .environment-dashboard .environment-card{padding:7px;gap:4px}
+ .news-app .environment-dashboard .environment-card-heading>strong{font-size:25px}.news-app .environment-dashboard .environment-card-heading>span{font-size:13px}
+ .news-app .environment-dashboard .environment-card-details{gap:2px}.news-app .environment-dashboard .environment-card-range{font-size:12px}.news-app .environment-dashboard .environment-card-details .metric-change{font-size:12px!important}
+}
+@media(max-height:500px){
+ .news-app[data-playing=true] .environment-dashboard .environment-card-range small{display:none}
+ .news-app[data-playing=true] .news-dashboard.environment-dashboard{grid-template-rows:repeat(3,minmax(0,1fr)) 32px;gap:4px}
+ .news-app .environment-dashboard .environment-card,.news-app .environment-dashboard .environment-budget{padding:3px 6px;gap:2px}
+ .news-app .environment-dashboard .environment-card-heading>span{font-size:11px}.news-app .environment-dashboard .environment-card-heading>strong,.news-app .environment-dashboard .environment-budget>strong{font-size:20px}
+ .news-app .environment-dashboard .environment-card-details{display:flex;justify-content:space-between;gap:3px;align-items:center}.news-app .environment-dashboard .environment-card-range{font-size:10px;line-height:1.1}.news-app .environment-dashboard .environment-card-range small{font-size:8px;line-height:1.1}.news-app .environment-dashboard .environment-card-details .metric-change{font-size:10px!important;line-height:1.1}
+ .news-app .environment-dashboard .environment-card-track{height:3px}.news-app .environment-dashboard .environment-budget>span{font-size:11px}
+}
+@media(min-width:1000px) and (max-height:680px){
+ .news-app[data-playing=true] .environment-dashboard .environment-card{padding:5px 7px;gap:3px}
+ .news-app[data-playing=true] .environment-dashboard .environment-card-heading>strong{font-size:24px!important;line-height:26px}
+ .news-app[data-playing=true] .environment-dashboard .environment-card-details{display:flex;align-items:center;justify-content:space-between;gap:3px}
+ .news-app[data-playing=true] .environment-dashboard .environment-card-range{font-size:12px;line-height:15px}
+ .news-app[data-playing=true] .environment-dashboard .environment-card-details .metric-change{font-size:12px!important;line-height:15px}
+ .news-app[data-playing=true] .environment-dashboard .environment-card-track{height:4px}
+}
+@media(max-height:500px){
+ .news-app[data-playing=true] .environment-dashboard .environment-card{padding:2px 6px;gap:1px}
+ .news-app[data-playing=true] .environment-dashboard .environment-card-heading>strong{font-size:18px!important;line-height:20px}
+ .news-app[data-playing=true] .environment-dashboard .environment-card-details .metric-change{font-size:10px!important;line-height:11px}
+ .news-app[data-playing=true] .environment-dashboard .environment-card-range{font-size:10px;line-height:11px}
+}

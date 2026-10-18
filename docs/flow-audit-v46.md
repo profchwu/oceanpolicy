@@ -1,0 +1,11 @@
+# Gameplay and scoring review — 2026-10-17
+
+New sessions: User ID → first newspaper → initial island → policy selector → selector closes → five-second policy animation → numeric result dialog → external event → response selector → selector closes → five-second response animation → result dialog → return to unobstructed island → manually open level report → next newspaper. Existing sessions resume under their saved ID. The ten-minute game timer starts on entering the first island.
+
+The final result button no longer opens the level report automatically. It returns to the changed island with a persistent instruction; only the player's report button opens the next-step controls. No additional timed observation task is introduced.
+
+Initial scenes retain their background habitats and ambient residents, boats, vehicles and water. Added seagrass restoration/growth overlays are gated on an intervention. The oversized schematic coral overlay is not displayed. Heat-driven bleaching uses a masked desaturated copy of the existing reef image, only after the heat event; local wastewater treatment does not erase this heat signal. New construction remains tied to selected policies and their progress.
+
+Policy score tables read labels, reasons and `correct` flags directly from `missionsFor(run)`. Only steps 0 and 2 are included: policy judgment and adaptive response. Each raw score is 0 or 1; level score is (policy + response)/2 × 100. Level 1 is the baseline; levels 2 and 3 are averaged for post. Events are unscored, missing answers stay null, and historical runs retain their order. The scoring guide discloses answers and therefore notes that research protocols must standardize access timing. Cross-topic comparisons remain exploratory, not validated equivalent pre/post tests.
+
+Checks: TypeScript; existing flow, scoring, persistence and sync-contract tests; 54 legacy decision routes, 162 outcome reconciliations, 18 policies × 4 visual phases; 27 current-flow routes; clean entry scenes without future construction/heat/growth; manual advancement after completion. Browser review covers new-ID entry, newspapers, three islands, policy-panel dismissal during building, final return to scene, scoring tables and responsive layout. Local browser QA uses a stubbed sync hook, so no QA records are sent to the research sheet.

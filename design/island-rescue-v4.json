@@ -1,0 +1,27 @@
+{
+  "version": "ocean-behavior-v4.0.0",
+  "trigger": "Player reported that the game was not fun and the scene did not change.",
+  "changes": [
+    "Replace the static bitmap scene in the active game with state-driven SVG landscapes for wind, estuary and reef missions.",
+    "Replace three one-click news demonstrations with three budget-constrained rescue simulations, each with three visible goals and a second-move event.",
+    "Render infrastructure, grid delivery, village lights, runoff, meadow growth, monitoring buoys, reef protection and persistent heat stress.",
+    "Keep each assessment deployment on screen until the player continues, instead of advancing after 550 ms.",
+    "Respect reduced-motion preferences by default; provide an explicit motion toggle. Final visual states remain visible without animation."
+  ],
+  "retained_constraints": {"single_player": true, "required_user_id": true, "default_language": "zh-Hant", "english_complete": true, "limit_ms": 600000, "primary_outcome_count": 3},
+  "research": {
+    "outcomes": ["policy fit", "monitoring choice accuracy", "adaptive response fit"],
+    "score": "0–3 per variable per phase; change equals post minus pre; incomplete measures remain null.",
+    "process_events": "training[] stores ordered lesson/action/at/elapsedMs. These are exposure records, not a fourth primary outcome.",
+    "comparability": "Do not pool v3 and v4 as the same intervention. The learning experience and assessment visuals changed.",
+    "limits": "The rubric and parallel forms are not validated. Deployment visuals may cue subsequent decisions; pilot this effect. Repeated option labels may permit recall. No evidence of enjoyment or causal learning gains is claimed.",
+    "motion_context": "Session reducedMotion records the operating-system preference at session start; the optional UI toggle is not a psychometric measure.",
+    "simulation": "Budget points and environmental changes are educational illustrations, not calibrated costs, climate predictions or verified carbon credits. Reef heat persists after local protection."
+  },
+  "verification": {
+    "automated": "17 behavior/simulation/receiver tests pass, including exhaustive reachable rescue states, spending failure, immutable training records, 600-second boundaries, scoring and partial records. HTTP checks and TypeScript pass.",
+    "browser": "TEST_ISLAND_V4 completed 27 decisions and 11 training moves across three rescue missions. Pre scores 2/1/1, post1 and post2 3/3/3; differences +1/+2/+2. Resume preserved training state and deadline. Full English scene and UI had no Han text. Mobile clientWidth and scrollWidth both 375. Motion-on wind rotor computed rotation changed from 19.3019deg to 230.553deg.",
+    "interpretation": "Functional and visual verification only; real-player enjoyment and completion time require playtesting."
+  },
+  "google_sheets": {"live_connected": false, "receiver": "google-apps-script/Code-v4.gs", "instructions": "google-apps-script/SETUP-V4.html", "note": "Live Google write verification remains pending researcher configuration. Demo records remain local."}
+}

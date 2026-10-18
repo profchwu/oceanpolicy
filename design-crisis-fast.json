@@ -1,0 +1,9 @@
+{
+  "version": "crisis-pilot-2",
+  "construction": "All seven construction/rescue actions finish in five seconds. Time-based 0, 50 and 100 percent verified. Ninety-second mission unchanged.",
+  "feedback": "Native modal opens immediately after each accepted choice with bilingual explanation, projected final-index differences against no action, live build progress and explicit OK. Choice is committed once; the mission continues while the modal is open.",
+  "map": "Persistent labeled impact rings; amber for damaging or risky interventions. Sequential sandbag wall, power poles/cables, sediment tanks, battery unit, seagrass plots and dredger. Animated crane during construction; completion labels stay on map.",
+  "ambient": "Eight residents, three vehicles, six birds and three waving flags, plus existing ocean, boats, fish and turbines. Motion switch covers new effects.",
+  "data": "Separate pilot-2 storage and version; original records preserved. No new research variables. Google Sheets remains unconfigured.",
+  "verification": "Desktop policy modal and visible site-to-completed wall observed; 390x667 English negative-impact modal fits without scrolling. Correct negative water and seagrass deltas. TypeScript and deterministic model tests."
+}

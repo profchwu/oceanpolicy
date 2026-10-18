@@ -1,0 +1,14 @@
+{
+  "tool": "Built-in image_gen",
+  "purpose": "Three AI illustrations, not actual news photography",
+  "assets": [
+    "public/news-wind.png",
+    "public/news-grass.png",
+    "public/news-reef.png"
+  ],
+  "prompts": [
+    "Use case: stylized-concept. Asset type: landscape 16:9 editorial illustration for an ocean policy educational game news card, no text in image. Create a beautiful clean realistic miniature diorama in warm sunshine, teal ocean, sandy limestone green island, terracotta-roof village. Offshore wind turbines with a visible cable route leading toward a small coastal substation and village. One survey vessel, miniature workers at the substation, focus on the connection from turbines to homes. Tilt-shift 3D craftsmanship, soft shadows, tactile natural materials, restrained colors, clear readable composition at small size. NOT a real news photograph, no logos, numbers, lettering, border or UI. Topic: wind development must become delivered electricity. Wide framing, large distinct elements, uncluttered.",
+    "Use case: stylized-concept. Asset type: landscape 16:9 editorial illustration for an ocean policy educational game news card, no text in image. Create a beautiful clean realistic miniature coastal diorama in warm sunshine, teal ocean, sandy limestone green island, terracotta-roof village. Shallow clear bay with distinct underwater seagrass plots, a small research boat and two miniature researchers monitoring the meadow using a sample quadrat and water instrument. A gentle muddy runoff plume at the far edge contrasts with the healthy meadow. Tilt-shift 3D craftsmanship, soft shadows, tactile natural materials, restrained colors, clear readable composition at small size. NOT a real news photograph, no logos, numbers, lettering, border or UI. Topic: seagrass restoration and evidence for blue carbon. Wide framing, large distinct elements, uncluttered.",
+    "Use case: stylized-concept. Asset type: landscape 16:9 editorial illustration for an ocean policy educational game news card, no text in image. Create a beautiful clean realistic miniature coastal diorama in warm sunshine, teal ocean, sandy limestone green island, terracotta-roof village. Foreground cutaway shallow coral reef with a clear mix of warm-colored healthy corals and pale white bleached corals, small reef fish. Coastal wastewater treatment ponds are visible on land, a tiny research boat measures ocean temperature near the reef. Bright slightly hazy hot sunlight conveys marine heat stress without apocalyptic drama. Tilt-shift 3D craftsmanship, soft shadows, tactile natural materials, restrained colors, clear readable composition at small size. NOT a real news photograph, no logos, numbers, lettering, border or UI. Topic: local pollution control helps coral but does not remove ocean warming. Wide framing, large distinct elements, uncluttered."
+  ]
+}

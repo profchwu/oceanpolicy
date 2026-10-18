@@ -1,0 +1,9 @@
+import ts from 'typescript';import fs from 'node:fs';import path from 'node:path';import{pathToFileURL}from'node:url';import assert from'node:assert/strict';
+const dir=path.resolve('.sites-runtime/export-test');fs.mkdirSync(dir,{recursive:true});
+for(const name of ['news-missions','news-flow','news-assessment','play-record-xlsx']){const s=fs.readFileSync(`lib/${name}.ts`,'utf8');const js=ts.transpileModule(s,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText.replace(/from '(\.\/[^']+)'/g,"from '$1.mjs'");fs.writeFileSync(path.join(dir,name+'.mjs'),js);}
+const f=await import(pathToFileURL(path.join(dir,'news-flow.mjs'))),e=await import(pathToFileURL(path.join(dir,'play-record-xlsx.mjs')));
+let r={...f.makeRun('export-test'),userId:'00123',flow:'direct-effects-1',missionOrder:'reef-grass-wind'},now=1000;
+for(let level=0;level<3;level++){r=f.enter(r,now);r=f.acknowledge(f.choose(r,0,now,'zh-Hant'),now);now+=5001;r=f.revealEvent(r,now,'zh-Hant');r=f.acknowledge(f.choose(r,0,now,'zh-Hant'),now);now+=5001;r=f.nextRound(r,now);}
+const sheets=e.recordSheets(r,now,true);assert.equal(sheets.length,3);assert.equal(sheets[0].rows[1][0],'00123');assert.deepEqual(sheets[0].rows[1].slice(1,4),[100,100,0]);assert.equal(sheets[2].rows.length,28);assert.equal(sheets[2].rows[4][5],null);fs.writeFileSync(path.join(dir,'complete.xlsx'),e.xlsxBytes(sheets));
+const partial=e.recordSheets({...f.makeRun('partial'),userId:'=1+1',flow:'direct-effects-1',missionOrder:'reef-grass-wind'},now,false,true);assert.equal(partial[0].rows[1][1],null);assert.equal(partial[0].rows[1][0],'=1+1');fs.writeFileSync(path.join(dir,'partial.xlsx'),e.xlsxBytes(partial));
+console.log('PASS: complete and partial exports, 3 sheets, 27 metric detail rows, scores, event exclusion, leading-zero and formula-like IDs.');

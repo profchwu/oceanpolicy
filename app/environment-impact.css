@@ -1,0 +1,22 @@
+.impact-causal-flow{animation:impact-flow .8s linear infinite}.impact-region-pulse{animation:impact-region 1s ease-in-out infinite alternate}
+@keyframes impact-flow{to{stroke-dashoffset:-60}}@keyframes impact-region{to{stroke-width:12;fill-opacity:.2}}
+.news-app .climate-explainer{display:block;color:#e8e7d0;line-height:1.5}.climate-explainer>b{display:block;color:#ffe0a2;font-size:14px;margin-bottom:3px}.climate-explainer>small{display:block;margin-top:5px;font-size:10px;color:#bfd4cb}
+.news-app .news-dashboard>div[data-direction=up]{border:2px solid #79eeb0;background:#184c44}.news-app .news-dashboard>div[data-direction=down]{border:2px solid #ff9389;background:#513b3b}.news-app .news-dashboard>div[data-direction=same]{border-color:#8c9d96}
+.news-app .news-dashboard .live-change{font-size:16px!important;font-weight:900;display:block}.news-app .news-dashboard .live-change.up{color:#8dffc0}.news-app .news-dashboard .live-change.down{color:#ffa299}.news-app .news-dashboard .live-change.same{color:#d3d8cc}
+.news-app .news-dashboard .effect-range{font-weight:bold}.news-app .scene-dock .impact-summary{display:block;color:#e8f9dc;font-size:17px;font-weight:800;line-height:1.35}.news-app .scene-dock .impact-summary[data-harmful=true]{color:#ffb0a4}
+.policy-result-dialog .climate-result{border:2px solid #e6c480;background:#3f4636;padding:12px;color:#fff0cc;font-size:17px;line-height:1.5}.policy-result-dialog .climate-result strong{display:block;color:#ffe0a2;margin-bottom:4px}
+@media(max-width:999px){.news-app .climate-explainer{font-size:12px;line-height:1.3;display:flex;align-items:center;gap:6px}.climate-explainer>b{font-size:12px;flex:none;margin:0}.climate-explainer>small{display:none}.news-app .news-dashboard .live-change{font-size:12px!important}.news-app .scene-dock .impact-summary{font-size:14px}}
+@media(max-height:500px) and (min-width:600px){.news-app .climate-explainer{display:block;font-size:11px}.news-app .climate-explainer>b{font-size:11px}.news-app .news-dashboard .live-change{font-size:11px!important}.news-app .scene-dock .impact-summary{font-size:13px}}
+@media(max-width:599px){
+ .news-app[data-playing=true][data-feedback=true] .news-dashboard{height:116px;flex:none}
+ .news-app[data-feedback=true] .news-dashboard>div:not(:last-child){display:block;padding:5px 6px;min-width:0}
+ .news-app[data-feedback=true] .news-dashboard>div:not(:last-child)>span{display:block;font-size:11px;line-height:14px;white-space:nowrap}
+ .news-app[data-feedback=true] .news-dashboard>div:not(:last-child)>strong{display:block;font-size:23px!important;line-height:26px}
+ .news-app[data-feedback=true] .news-dashboard .effect-range{font-size:10px!important;white-space:nowrap}
+ .news-app[data-feedback=true] .news-dashboard .live-change{font-size:11px!important;line-height:13px}
+ .news-app[data-feedback=true] .news-dashboard .dashboard-delta{margin:1px 0 3px}
+}
+
+/* Perspective water rings: warm highlights match the miniature island lighting. */
+.impact-water-ripple{transform-box:fill-box;transform-origin:center;animation:impact-water-ripple 1.7s ease-out infinite}
+@keyframes impact-water-ripple{0%{transform:scale(.94);opacity:.8}100%{transform:scale(1.24);opacity:0}}

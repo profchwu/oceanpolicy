@@ -1,0 +1,27 @@
+{
+  "version": "ocean-rts-v5.2.0",
+  "layout": "100dvh single viewport. Header, dashboard, scene, policy panel and footer stay visible. Three news lessons use one-card pagination.",
+  "motion": "On by default per user request. Explicit animation declarations override legacy global reduced-motion rule only inside animated island. In-game OFF still removes animation classes.",
+  "visuals": [
+    "Sea waves, moving boats, turbine rotors, fish, seagrass sway, work barge, treatment bubbles, monitoring pulses and heat haze",
+    "Four seagrass plots grow or fade according to model; treatment facility progressively reveals",
+    "Broad moving pollution clouds scale with water index; bleaching strengthens as coral health drops",
+    "Water, meadow and coral teaching indices use visible fill bars and damaged-state colors"
+  ],
+  "verification": {
+    "desktop": [
+      1366,
+      768
+    ],
+    "smallPhone": [
+      390,
+      667
+    ],
+    "pageFitsViewport": true,
+    "clippedButtons": 0,
+    "boatMotionObserved": true,
+    "modelReceiverTests": 12,
+    "typescript": "passed"
+  },
+  "research": "Three outcome variables unchanged. Visual teaching indices are not additional research measures. New instrument version distinguishes UI exposure. Google Sheets still unconfigured."
+}

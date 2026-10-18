@@ -1,0 +1,11 @@
+{
+  "version": "crisis-pilot-1",
+  "scope": "Approved 90-second playable core pilot. Original three-level game retained at /research.",
+  "loop": "80 budget; up to two preventive measures before rain at 40s; one monitoring choice from 10s; one rescue after 40s; automatic outcome at 90s.",
+  "goal": "Power, water and seagrass each at least 45 at the deadline. Two viable strategies: runoff barrier + backup batteries; grid reinforcement + sediment control.",
+  "policyMeaning": "Measures protect different outcomes; inappropriate dredging/planting damages habitat; delivery takes time; adaptation and visible plants are not verified carbon reductions.",
+  "news": "https://enews.moenv.gov.tw/moenv-news/zh-tw/News/2278",
+  "newsBoundary": "2025-07-24 blue-carbon methodology review informs the educational context; the storm scenario and indices are fictional.",
+  "data": "Separate local-storage namespace and version, automatic action records, downloadable JSON, three provisional binary behavioral rubrics. No pre/post or cloud-write claim. Incomplete measures null; reaction time not scored.",
+  "verification": "Four deterministic tests cover winning alternatives, harmful actions, budget and phase gates, duplicate prevention, deadline and reload. Browser tested a complete winning run and 390x667 ending without scrolling."
+}

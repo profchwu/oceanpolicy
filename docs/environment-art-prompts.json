@@ -1,0 +1,42 @@
+{
+  "generator": "Built-in image_gen",
+  "date": "2026-10-17",
+  "assets": [
+    {
+      "area": "reef",
+      "state": "low",
+      "prompt": "Edit target: the supplied coral island game background. Generate a LOW environmental condition variant, exact same 1672:941 wide composition, same camera, coast, mountain, houses, roads, treatment plant, boats and positions. Change ONLY the reef in the lower/right shallow sea and water near the outfall: visibly stressed sparse dull brown/tan coral with pale bleached patches (bleaching is not necessarily death), and murky sediment/polluted water near outfall. Keep the entire island and all built objects unchanged. High quality realistic miniature 3D game rendering identical to reference. No UI, text, symbols, labels, arrows, giant schematic coral or new structures. Strong local environmental contrast but same daylight. Do not shift or zoom the image.",
+      "path": "public/environment-states/reef-low.png"
+    },
+    {
+      "area": "reef",
+      "state": "high",
+      "prompt": "Edit target: supplied coral island game background. Generate a BETTER local environmental condition variant. Exact same wide 1672:941 framing and precise camera, coast, mountain, village, roads, treatment plant, boats and positions. Change ONLY lower/right underwater reef and outfall water: clearer turquoise water and a visibly fuller living reef with natural muted gold/ochre and soft purple healthy coral mixed with remaining pale stressed patches. Not a completely healed reef: marine heat risk still exists. Do not add fish, people, buildings, roads, equipment. Preserve original realistic miniature 3D style and daylight. No UI, labels, symbols, arrows, giant coral icons. No camera changes.",
+      "path": "public/environment-states/reef-high.png"
+    },
+    {
+      "area": "grass",
+      "state": "low",
+      "prompt": "Edit target: supplied seagrass bay game background. LOW ecosystem-condition variant. Preserve exact wide1672:941 composition, all island terrain, coastline, farm, houses, roads, bridge, monitoring station, boats, quadrat frames and their positions. Change ONLY bay vegetation and water: sparse short dull brown-green seagrass with large bare-sand gaps, sediment cloud from existing river mouth spreading into bay. Plants must remain underwater and plausibly scaled. This is environmental stress not total extinction. Same realistic miniature 3D daylight style. No new objects, no text/UI/labels/arrows, no change camera or framing.",
+      "path": "public/environment-states/grass-low.png"
+    },
+    {
+      "area": "grass",
+      "state": "high",
+      "prompt": "Edit target: supplied seagrass bay game background. BETTER ecosystem-condition variant. Preserve exact wide1672:941 composition, all island terrain, coastline, farm, houses, roads, bridge, monitoring station, boats, quadrat frames and positions. Change ONLY underwater vegetation and bay water: noticeably denser long natural emerald/olive-green seagrass beds occupying the existing bed footprints with some small sandy gaps, clear turquoise water and reduced visible sediment at river outlet. No implied carbon credits or temperature change. Same realistic miniature 3D daylight style. No new objects or buildings, no text/UI/labels/arrows, no camera/framing changes.",
+      "path": "public/environment-states/grass-high.png"
+    },
+    {
+      "area": "wind",
+      "state": "low",
+      "prompt": "Edit target: supplied wind island background. LOW state variant preserving exact wide1672:941 framing, camera, every hill, coast, road, village building, substation, turbine and boat in place, same daylight. Change only environmental/operational appearance: village windows unlit, existing substation looks inactive with no lights, locally murky ochre coastal water around offshore works, sparse disturbed sandy seabed patches in lower-right shallow sea. Preserve existing wind turbines, do not add or remove turbines, cranes, cables, houses, boats. Match realistic miniature 3D style. No night scene, no explosions, no text, icons, UI or arrows. Changes must be locally visible.",
+      "path": "public/environment-states/wind-low.png"
+    },
+    {
+      "area": "wind",
+      "state": "high",
+      "prompt": "Edit target: supplied wind island background. BETTER state variant preserving exact wide1672:941 composition, camera, hills, coast, roads, village, substation, all turbines and boats in same precise positions and same daylight. Change only operational/environmental appearance: warm visible lit windows on existing village houses and modest operational lights at existing substation, clearer blue-turquoise coastal water and intact subtle green-brown benthic habitat patches in lower-right shallow sea. No extra turbines or infrastructure, no altered coast, no extra houses/boats/people, no climate cooling effects. Match realistic miniature 3D style. No UI/text/symbols/arrows. Not night.",
+      "path": "public/environment-states/wind-high.png"
+    }
+  ]
+}

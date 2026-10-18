@@ -1,0 +1,3 @@
+# Local development only; never commit real values.
+NEWS_SHEETS_URL=
+NEWS_SHEETS_SECRET=

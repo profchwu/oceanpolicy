@@ -1,0 +1,26 @@
+{
+  "version": "ocean-rts-v5.1.0",
+  "changes": [
+    "Fixed full-island camera; no automatic zoom, pan, or scrolling",
+    "One decision card at a time; automatically routes through policy, monitoring, and response decisions",
+    "Immediate cause and short staged dispatch feedback before explicit Next",
+    "Shared diorama art and regional progressive reveals; original terrain stays fixed"
+  ],
+  "art": {
+    "tool": "built-in imagegen",
+    "asset": "public/island-developed-v51.png",
+    "prompt": "Edit this exact island background into its upgraded game state. Preserve the exact camera, island silhouette, rock positions, village houses, trees, ocean color and wave texture, canvas aspect ratio and composition. No camera shift, no zoom, no new terrain. Add only small realistic miniature 3D structures in the same warm sunlight and shaded materials as the village. Three white offshore wind turbines with yellow footings in the empty upper right sea (around 78-90% across, 18-43% down), one small work barge nearby. Natural submerged seagrass patches in the shallow sea lower left (18-36% across, 65-75% down). Subtle natural coral patches UNDER the clear water below/right of the pier (65-76% across, 73-83% down), small not giant coral sculptures. A tiny wastewater facility adjoining the right end of the village shoreline (60-65% across, 53-59% down), cream walls terracotta roof and two small basins. Two tiny realistic fishing boats on the right-hand sea, at 78% across 63% down and 87% across 54% down. Match the reference image materials exactly: miniature diorama, textured realistic wood stone plaster leaves; no vector art, no outlines, no flat symbols. Keep all of the sea blue and healthy. No text, no labels, no UI, no checkerboard, no transparent background. This will be overlaid on the original using region masks so precise alignment is paramount.",
+    "rendering": "Original plate with region masks for progressive facilities and ecosystem appearance. Rejected opaque sprite atlases are excluded from published assets."
+  },
+  "research": {
+    "outcomes": 3,
+    "scoring": "Each variable 0–3 in each round, progress = post minus initial.",
+    "limitSeconds": 600,
+    "limitations": [
+      "Immediate feedback in round one means initial performance, not a pure pretest.",
+      "Same policy tools across rounds can create practice effects.",
+      "Indices illustrative, not calibrated environmental predictions.",
+      "Google Sheets not yet connected."
+    ]
+  }
+}

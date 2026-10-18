@@ -1,0 +1,33 @@
+{
+  "style": "C",
+  "name": "Ocean Command Center",
+  "selectedBy": "user",
+  "userInstruction": "畫風我要C",
+  "date": "2026-10-09",
+  "reference": "visual-proposals-v1/command-mockup.png",
+  "artwork": {
+    "source": "visual-proposals-v1/assets/command.png",
+    "deployedAsset": "/command-island.png",
+    "originalCreator": "OpenAI imagegen, generated during the original three-style comparison",
+    "modification": "Original raster reused unchanged; policy effects drawn with SVG/CSS overlays",
+    "scope": "Fictional island and explanatory animation, not live monitoring or an actual forecast"
+  },
+  "palette": {
+    "background": "#071c2b",
+    "panel": "#102b3b",
+    "accent": "#77e3cf",
+    "caution": "#efb976"
+  },
+  "preserved": [
+    "single-player click-only flow",
+    "Chinese default and complete English switch",
+    "stable item/option IDs and scoring",
+    "automatic phase submission and pending Google Sheets integration"
+  ],
+  "motion": [
+    "wind energy route or site survey",
+    "seagrass growth and carbon transfer",
+    "partial coral recovery with continuing heat stress"
+  ],
+  "reducedMotion": "CSS and existing user preference disable animations"
+}

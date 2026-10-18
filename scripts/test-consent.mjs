@@ -1,0 +1,24 @@
+import {build} from 'esbuild';
+import assert from 'node:assert/strict';
+const effects=[];
+globalThis.__consentEffects=effects;
+const bundle=await build({stdin:{contents:`export {useNewsSync} from './app/useNewsSync';export {hasResearchConsent,CONSENT_VERSION} from './lib/research-consent';export {validateNewsRecord} from './lib/news-record';export {makeRun,enter} from './lib/news-flow';`,resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',write:false,plugins:[{name:'hook-harness',setup(b){b.onResolve({filter:/^react$/},()=>({path:'react',namespace:'mock'}));b.onLoad({filter:/.*/,namespace:'mock'},()=>({contents:`export const useRef=v=>({current:v});export const useState=v=>[v,()=>{}];export const useEffect=f=>globalThis.__consentEffects.push(f);`}));}}]});
+const m=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
+const now=Date.now(),id='12345678-1234-4123-8123-123456789abc';
+const legacy={...m.enter(m.makeRun(id),now),userId:'QA_CONSENT'};
+const accepted={...legacy,consent:{accepted:true,version:m.CONSENT_VERSION,at:now-1000,language:'zh-Hant'}};
+assert.equal(m.hasResearchConsent(legacy),false);
+assert.equal(m.hasResearchConsent(accepted),true);
+assert.equal(m.hasResearchConsent({...accepted,consent:{...accepted.consent,at:now+1}}),false);
+const record={schema:'news-sheet-1',playerId:id,run:accepted,observedAt:now,language:'zh-Hant'};
+assert.deepEqual(m.validateNewsRecord(record).run.consent,accepted.consent);
+const storage=new Map([['ocean-news-upload-1',JSON.stringify({[id]:{...record,run:legacy}})]]),requests=[];
+globalThis.localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)};
+globalThis.window={addEventListener(){},removeEventListener(){}};
+globalThis.fetch=async(url,options)=>{requests.push({url,options});return {json:async()=>({configured:true})};};
+async function render(run){effects.length=0;m.useNewsSync(run,now,false);const cleanup=effects.map(f=>f());await new Promise(r=>setTimeout(r,10));cleanup.forEach(f=>typeof f==='function'&&f());}
+await render(null);assert.equal(requests.length,0);
+await render(legacy);assert.equal(requests.length,0);
+await render({...accepted,startedAt:null});assert.equal(requests.length,1);assert.equal(requests[0].options,undefined);
+assert.ok(storage.has('ocean-news-upload-1-legacy'));
+console.log('PASS: no requests before consent; legacy queue excluded; valid consent survives server validation; consent must precede play.');

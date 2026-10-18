@@ -1,0 +1,149 @@
+{
+  "generator": "built-in imagegen",
+  "assets": [
+    {
+      "area": "reef",
+      "step": 0,
+      "visual": "filter",
+      "key": "reef-0-filter",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At the existing upper-right wastewater treatment works (around x1000 y230 in a 1672x941 frame), add realistic upgraded aeration equipment, clean blue circular tanks and a short clean-water outflow. Keep reef and all other locations unchanged. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/reef-0-filter.png"
+    },
+    {
+      "area": "reef",
+      "step": 0,
+      "visual": "dredge",
+      "key": "reef-0-dredge",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. Add a realistic small visitor pier with three red-roof tourist huts projecting from the upper-right shoreline into the bay around x1160 y400, with a localized dirty wastewater plume. Existing island unchanged. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/reef-0-dredge.png"
+    },
+    {
+      "area": "reef",
+      "step": 0,
+      "visual": "hold",
+      "key": "reef-0-hold",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. Add a curved chain of small yellow marine protected-area buoys around the right foreground coral reef at x1200 y650. Wastewater outfall still polluted, bleached coral unchanged. No treatment equipment upgrades. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/reef-0-hold.png"
+    },
+    {
+      "area": "reef",
+      "step": 2,
+      "visual": "filter",
+      "key": "reef-2-filter",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. Show ongoing wastewater control at existing upper-right plant x1000 y230: neat blue treatment basins, maintenance truck and small monitoring instrument beside outfall, clean short discharge. No new tourist pier, no reef recoloring, bleaching remains. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/reef-2-filter.png"
+    },
+    {
+      "area": "reef",
+      "step": 2,
+      "visual": "dredge",
+      "key": "reef-2-dredge",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. Show existing upper-right wastewater plant shut down: stagnant brown circular tanks, unused pumps and strong dark olive-brown untreated effluent plume emerging beside x1100 y300. Keep reef footprint and island unchanged. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/reef-2-dredge.png"
+    },
+    {
+      "area": "reef",
+      "step": 2,
+      "visual": "hold",
+      "key": "reef-2-hold",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. Show existing right foreground bleached coral x1200 y650 with small temperature-monitoring buoy and no restoration activity. Coral stays pale white and stressed. No new facilities or recovery. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/reef-2-hold.png"
+    },
+    {
+      "area": "grass",
+      "step": 0,
+      "visual": "barrier",
+      "key": "grass-0-barrier",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. Add realistic small sediment-settling basins and vegetated runoff interception strips beside the right river mouth x1390 y340, treating the muddy inflow; tiny three pilot seagrass quadrats adjacent to mouth. Keep main seagrass beds unchanged. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/grass-0-barrier.png"
+    },
+    {
+      "area": "grass",
+      "step": 0,
+      "visual": "plant",
+      "key": "grass-0-plant",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. In the center foreground seabed x850 y650 add nine orderly underwater seagrass planting quadrats with newly planted short green shoots. Water remains visibly turbid; existing runoff unchanged. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/grass-0-plant.png"
+    },
+    {
+      "area": "grass",
+      "step": 0,
+      "visual": "dredge",
+      "key": "grass-0-dredge",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At center bay x850 y650 add realistic small dredging vessel with yellow excavator, disturbed bare seabed and spreading local brown sediment plume, sparse damaged seagrass. Do not change island. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/grass-0-dredge.png"
+    },
+    {
+      "area": "grass",
+      "step": 2,
+      "visual": "filter",
+      "key": "grass-2-filter",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At right river mouth x1390 y340 show maintained sediment interception system: two settling basins with collected brown sediment upstream and clearer downstream discharge, vegetated filter strip and maintenance vehicle. No new offshore buildings. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/grass-2-filter.png"
+    },
+    {
+      "area": "grass",
+      "step": 2,
+      "visual": "expand",
+      "key": "grass-2-expand",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At center foreground x850 y650 show expanded 12 underwater seagrass planting quadrats; many young shoots yellow-brown and wilted under turbid low-light water. More planting effort, NOT healthy recovery. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/grass-2-expand.png"
+    },
+    {
+      "area": "grass",
+      "step": 2,
+      "visual": "hold",
+      "key": "grass-2-hold",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At right river mouth x1390 y440 show uninterrupted muddy runoff pouring into bay, brown sediment fan, no interception construction. This policy takes no physical action, no improvement. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/grass-2-hold.png"
+    },
+    {
+      "area": "wind",
+      "step": 0,
+      "visual": "grid",
+      "key": "wind-0-grid",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At right offshore wind farm add neatly laid realistic dark subsea cable visible through shallow water linking the existing turbines to existing substation, cable-laying vessel at x1260 y590, commissioned substation. No additional turbines. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/wind-0-grid.png"
+    },
+    {
+      "area": "wind",
+      "step": 0,
+      "visual": "dredge",
+      "key": "wind-0-dredge",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At nearshore lower-right sea x1400 y690 add two extra realistic offshore wind turbines and construction barge, localized brown construction sediment plume and disturbed seabed. Keep original three turbines. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/wind-0-dredge.png"
+    },
+    {
+      "area": "wind",
+      "step": 0,
+      "visual": "hold",
+      "key": "wind-0-hold",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At existing substation near x900 y400 place a small temporary publicity display stand with blank blue panel and rolled engineering plans beside it. No new cables, no new turbines, no added village lighting. Symbolizes claims without actual delivery. No text. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/wind-0-hold.png"
+    },
+    {
+      "area": "wind",
+      "step": 2,
+      "visual": "grid",
+      "key": "wind-2-grid",
+      "prompt": "Edit the exact provided wind-island game background. Preserve ALL THREE existing wind turbines exactly including the turbine at x1430 y400, all island structures, coastline, original ships, lighting and camera. Add only ONE small realistic cable repair workboat centered at x1120 y720, entirely within rectangle x1000..1250, y640..800 of the 1672x941 image. The workboat has a small yellow crane, repair crew, and a short dark submarine cable emerging from the sea, showing cable repair. This new boat is below and left of all existing turbines and must not overlap or remove any turbine or original ship. Bright detailed miniature 3D style matching the reference. No labels, UI, arrows, night lighting, changed water color, or additional turbines.",
+      "asset": "public/policy-art/wind-2-grid.png"
+    },
+    {
+      "area": "wind",
+      "step": 2,
+      "visual": "dredge",
+      "key": "wind-2-dredge",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At lower-right offshore area x1400 y790 add two additional turbines with a construction barge and muddy seabed plume. The broken cable elsewhere remains unresolved. Keep original turbines and village unchanged, no added lights. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/wind-2-dredge.png"
+    },
+    {
+      "area": "wind",
+      "step": 2,
+      "visual": "hold",
+      "key": "wind-2-hold",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game scene into ONE policy outcome image. At existing substation x900 y400 show a slightly larger publicity display with two blank colorful blue-and-gold panels and a small camera tripod. No repairs, no new power infrastructure, no additional village lights. No letters or text. Match the existing bright realistic miniature 3D style exactly; detailed small objects at correct scale. Preserve exact 1672x941 camera, landscape framing, coastline, roads, mountains, buildings and all unrelated features. Keep changes localized to the specified area so the image can be composited over the original scene. No UI, captions, arrows, labels, giant icons, night lighting or new islands.",
+      "asset": "public/policy-art/wind-2-hold.png"
+    }
+  ]
+}
