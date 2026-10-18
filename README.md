@@ -58,3 +58,6 @@ See docs/V2-DEPLOYMENT-STATUS.md. Legacy documentation is preserved as docs/READ
 
 ### Private receiver destination
 For a new deployment of NewsReceiver.gs, set Script Properties SHEET_ID and NEWS_SHARED_SECRET privately. The repository contains neither the research spreadsheet ID nor the receiver URL/secret. Existing deployed receivers are unchanged; do not redeploy them just to publish this repository.
+
+## Portable HTML manual
+Open `readme.html` locally for installation, migration, private configuration locations, image architecture and four embedded bilingual A4 figures. Original figure PNGs are in `docs/figures/`. The public manual contains no live research destination or secret.
