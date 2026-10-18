@@ -1,5 +1,11 @@
 # INSTALL — 安裝、部署與移機指南
 
+**作者｜Author**  
+國立清華大學 數理教育研究所 吳智鴻教授  
+Professor Chih-Hung Wu, Graduate Institute of Mathematics and Science Education, National Tsing Hua University
+
+**版本｜Version：2.0.0** · **更新日期｜Updated：2026-10-18**
+
 海島新聞任務 Version 2 的技術安裝文件。遊戲玩法與說明圖請見 [README.md](README.md)。
 
 ## Identity and preservation

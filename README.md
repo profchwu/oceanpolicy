@@ -1,5 +1,11 @@
 # 海島新聞任務｜Island News Missions
 
+**作者｜Author**  
+國立清華大學 數理教育研究所 吳智鴻教授  
+Professor Chih-Hung Wu, Graduate Institute of Mathematics and Science Education, National Tsing Hua University
+
+**版本｜Version：2.0.0** · **更新日期｜Updated：2026-10-18**
+
 透過真實新聞認識海洋政策，用決策改變海島環境。這是一款 **單人、點選操作、10 分鐘內完成** 的網頁政策教育遊戲，支援中文與英文。
 
 **[立即遊玩：Cloudflare Version 2](https://oceanpolicy-v2.nthuchwu.workers.dev)** · [原版 ChatGPT Sites](https://ocean-policy-dispatch.nthuchwu.chatgpt.site)
