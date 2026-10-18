@@ -65,6 +65,8 @@
 
 ## 系統架構與安裝
 
+完整安裝、部署、Google Sheets 設定及備份方式請見 **[INSTALL.md](INSTALL.md)**。
+
 `玩家瀏覽器 → 同網域網站 API → Google Apps Script → Google Sheets`
 
 前端以 React 呈現新聞、SVG 動畫與政策結果；Cloudflare Workers 執行網站與資料驗證 API。研究同意後，系統才啟動遊玩紀錄上傳。
