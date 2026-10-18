@@ -1,19 +1,19 @@
-# V2 deployment status — 2026-10-18
+# Version 2 deployment status
 
-- Separate Cloudflare configuration and entry point: prepared.
-- Production build: passed.
-- Flow/scoring regression: passed.
-- Consent gating: passed.
-- Mock Sheets receiver and retry/validation: passed. Fixed missing consent import in test harness.
-- Live deployment: pending Cloudflare authorization.
-- Live Sheets write: pending Worker secrets and synthetic verification.
-- Original Site and its local source remain unchanged.
+## Published 2026-10-18
+- Public game: https://oceanpolicy-v2.nthuchwu.workers.dev
+- Independent Worker: oceanpolicy-v2
+- Cloudflare deployment version: 531d759a-5db2-43de-8042-0802b9024f08
+- Source baseline: sanitized commit cd78585.
+- Production build passed; 55 static assets uploaded.
+- Public consent page rendered and interactive; English switching verified.
+- Gameplay/scoring, consent and mock receiver tests passed.
+- Original ChatGPT Site remains unchanged.
 
-Local checks reuse existing dependencies through an ignored junction; fresh lockfile installation is not independently verified. Build and mock tests are not evidence of a live Sheets write.
+## Research synchronization pending
+The owner will enter NEWS_SHEETS_URL and NEWS_SHEETS_SECRET as Worker secrets. No secret values are stored here. The latter must match the existing Apps Script NEWS_SHARED_SECRET. Do not change the original secret.
 
-Additional verification:
-- GitHub main backup pushed successfully (initial commit bf5ef32).
-- Local Cloudflare runtime: homepage HTTP 200; consent page rendered in browser; scene assets HTTP 200.
-- Local /api/news-record responds with configured:false, correctly reflecting absent secrets.
-- Original project git status remains clean.
-- Cloudflare OAuth timed out without authorization; no deployment was made to the user's account.
+A confirmed synthetic write is still required before using V2 for research collection. Mock tests and successful website publication do not establish live Sheets storage.
+
+## Reproducibility
+Local checks reused installed dependencies through an ignored junction; fresh lockfile installation is not independently verified. See README.md for build and deployment commands and PUBLICATION-PRIVACY-REVIEW.md for the publication audit.
