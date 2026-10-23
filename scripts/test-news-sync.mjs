@@ -26,3 +26,24 @@ assert.equal(send(directBody).ok,true);assert.deepEqual(sheets['遊玩資料'].r
 const fake=structuredClone(directPacket);delete fake.run.rounds[0].actions[1].automatic;assert.throws(()=>validateNewsRecord(fake));
 console.log('PASS: system events remain unscored; removed evidence fields are blank in Sheets, with flow version retained in sync records.');
 
+const timed=structuredClone(directPacket);
+timed.run.userIdEnteredAt=timed.run.startedAt-12000;
+const timedValid=validateNewsRecord(timed);
+assert.equal(timedValid.run.userIdEnteredAt,timed.run.userIdEnteredAt);
+assert.equal(timedValid.run.completedAt,now);
+assert.equal((timedValid.run.completedAt-timedValid.run.userIdEnteredAt)/1000,57);
+assert.equal(f.nextRound(timedValid.run,now+30000).completedAt,now);
+assert.equal(validateNewsRecord({...timedValid,observedAt:now+1000}).run.completedAt,now);
+for(const patch of [{userIdEnteredAt:now+1},{completedAt:now-6000},{completedAt:now+1},{completedAt:now,current:2}])assert.throws(()=>validateNewsRecord({...timedValid,run:{...timedValid.run,...patch}}));
+const historical=structuredClone(timedValid);delete historical.run.userIdEnteredAt;delete historical.run.completedAt;
+assert.equal(validateNewsRecord(historical).run.userIdEnteredAt,undefined);
+assert.equal(validateNewsRecord(historical).run.completedAt,undefined);
+const timeoutRun={...f.makeRun('44444444-4444-4444-8444-444444444444'),startedAt:now-600000};
+assert.equal(f.nextRound(timeoutRun,now).completedAt,undefined);
+const fresh={...timedValid,run:{...timedValid.run,id:'55555555-5555-4555-8555-555555555555'}};
+assert.equal(send({...directBody,record:fresh}).ok,true);
+const ledger=JSON.parse(sheets['同步紀錄'].rows.at(-1)[2]);
+assert.equal(ledger.run.userIdEnteredAt,fresh.run.userIdEnteredAt);
+assert.equal(ledger.run.completedAt,fresh.run.completedAt);
+console.log('PASS: ID confirmation timestamp and immutable completion timestamp survive validation and GAS storage; 57-second total includes news reading; historical/timeout records have no invented completion.');
+

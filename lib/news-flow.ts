@@ -2,7 +2,7 @@ import type {ResearchConsent} from './research-consent';
 import {MISSIONS,missionsFor,type Values} from './news-missions';
 export type NewsAction={step:number;choice:number;at:number;ackAt?:number;language:'zh-Hant'|'en';automatic?:true};
 export type NewsRound={openedAt:number|null;actions:NewsAction[]};
-export type NewsRun={consent?:ResearchConsent;version:'news-pilot-1';flow?:'direct-effects-1';missionOrder?:'reef-wind-grass'|'reef-grass-wind';id:string;userId?:string;startedAt:number|null;current:number;rounds:NewsRound[]};
+export type NewsRun={consent?:ResearchConsent;version:'news-pilot-1';flow?:'direct-effects-1';missionOrder?:'reef-wind-grass'|'reef-grass-wind';id:string;userId?:string;userIdEnteredAt?:number;completedAt?:number;startedAt:number|null;current:number;rounds:NewsRound[]};
 export const LIMIT=600000;
 export const makeRun=(id:string):NewsRun=>({version:'news-pilot-1',id,startedAt:null,current:0,rounds:MISSIONS.map(()=>({openedAt:null,actions:[]}))});
 export const timedOut=(r:NewsRun,now:number)=>r.current<3&&r.startedAt!==null&&now>=r.startedAt+LIMIT;
@@ -22,7 +22,7 @@ export function choose(r:NewsRun,choice:number,now:number,language:'zh-Hant'|'en
  return {...r,rounds:r.rounds.map((v,i)=>i===r.current?{...v,actions:[...v.actions,{step,choice,at:now,language}]}:v)};
 }
 export function acknowledge(r:NewsRun,now:number):NewsRun{const round=r.rounds[r.current];if(!round?.actions.length||round.actions.at(-1)?.ackAt!==undefined)return r;return {...r,rounds:r.rounds.map((v,i)=>i===r.current?{...v,actions:v.actions.map((a,j)=>j===v.actions.length-1?{...a,ackAt:now}:a)}:v)};}
-export function nextRound(r:NewsRun,now:number):NewsRun{return stage(r,now)==='report'?{...r,current:r.current+1}:r;}
+export function nextRound(r:NewsRun,now:number):NewsRun{return stage(r,now)==='report'?{...r,current:r.current+1,...(r.current===2?{completedAt:now}:{})}:r;}
 export function valuesAt(r:NewsRun|null,index:number,now:number):Values{
  const m=missionsFor(r)[index],round=r?.rounds[index];const values=[...m.initial] as Values;
  const end=r?.startedAt===null||!r?now:Math.min(now,r.startedAt+LIMIT);

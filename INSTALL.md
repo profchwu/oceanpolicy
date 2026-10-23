@@ -4,7 +4,7 @@
 國立清華大學 數理教育研究所 吳智鴻教授  
 National Tsing Hua University, Graduate Institute of Mathematics and Science Education. Professor Chih-Hung Wu
 
-**版本｜Version：2.0.0** · **更新日期｜Updated：2026-10-18**
+**版本｜Version：2.0.1** · **更新日期｜Updated：2026-10-23**
 
 海島新聞任務 Version 2 的技術安裝文件。遊戲玩法與說明圖請見 [README.md](README.md)。
 
@@ -67,3 +67,6 @@ For a new deployment of NewsReceiver.gs, set Script Properties SHEET_ID and NEWS
 
 ## Portable HTML manual
 Open [readme.html](readme.html) locally for installation, migration, private configuration locations, image architecture and four embedded bilingual A4 figures. Original figure PNGs are in `docs/figures/`. The public manual contains no live research destination or secret.
+
+
+研究收集版：新增 User ID 確認時間、完成時間與總秒數；完成三關顯示通關密碼。暫時隱藏研究變數與英文按鈕，功能保留。設定、時間定義與欄位公式請見 [研究收集版說明](docs/research-collection.md)。

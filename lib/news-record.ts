@@ -12,6 +12,7 @@ export function validateNewsRecord(value:unknown):NewsRecord{
  if(!Number.isInteger(r.current)||r.current<0||r.current>3||!Array.isArray(r.rounds)||r.rounds.length!==3)return fail();
  if(r.flow!==undefined&&r.flow!=='direct-effects-1')return fail();
  if(r.missionOrder!==undefined&&!['reef-wind-grass','reef-grass-wind'].includes(r.missionOrder))return fail();
+ if(r.userIdEnteredAt!==undefined&&(!Number.isSafeInteger(r.userIdEnteredAt)||r.userIdEnteredAt<1700000000000||r.userIdEnteredAt>r.startedAt||(r.consent&&r.userIdEnteredAt<r.consent.at)))return fail();
  let previous=r.startedAt;
  for(let i=0;i<3;i++){
   const round=r.rounds[i];if(!round||!Array.isArray(round.actions)||round.actions.length>3)return fail();
@@ -26,7 +27,8 @@ export function validateNewsRecord(value:unknown):NewsRecord{
    if(j<round.actions.length-1&&a.ackAt===undefined)return fail();previous=a.ackAt??a.at;
   }
  }
- return {schema:RECORD_VERSION,playerId:p.playerId,language:p.language,observedAt:p.observedAt,run:{...(hasResearchConsent(r)?{consent:r.consent}:{}),version:r.version,...(r.flow?{flow:r.flow}:{}),...(r.missionOrder?{missionOrder:r.missionOrder}:{}),id:r.id,userId:r.userId,startedAt:r.startedAt,current:r.current,rounds:r.rounds.map(x=>({openedAt:x.openedAt,actions:x.actions.map(a=>({...(a.automatic?{automatic:true as const}:{}),step:a.step,choice:a.choice,at:a.at,language:a.language,...(a.ackAt===undefined?{}:{ackAt:a.ackAt})}))}))}};
+ if(r.completedAt!==undefined&&(!Number.isSafeInteger(r.completedAt)||r.current!==3||r.completedAt<previous+5000||r.completedAt>p.observedAt||r.completedAt>=r.startedAt+LIMIT))return fail();
+ return {schema:RECORD_VERSION,playerId:p.playerId,language:p.language,observedAt:p.observedAt,run:{...(hasResearchConsent(r)?{consent:r.consent}:{}),version:r.version,...(r.flow?{flow:r.flow}:{}),...(r.missionOrder?{missionOrder:r.missionOrder}:{}),id:r.id,userId:r.userId,...(r.userIdEnteredAt===undefined?{}:{userIdEnteredAt:r.userIdEnteredAt}),...(r.completedAt===undefined?{}:{completedAt:r.completedAt}),startedAt:r.startedAt,current:r.current,rounds:r.rounds.map(x=>({openedAt:x.openedAt,actions:x.actions.map(a=>({...(a.automatic?{automatic:true as const}:{}),step:a.step,choice:a.choice,at:a.at,language:a.language,...(a.ackAt===undefined?{}:{ackAt:a.ackAt})}))}))}};
 }
 export function recordRevision(p:NewsRecord){return p.run.rounds.reduce((n,r)=>n+(r.openedAt===null?0:1)+r.actions.reduce((v,a)=>v+2+(a.ackAt===undefined?0:1),0),p.run.current)+(p.observedAt>=p.run.startedAt!+LIMIT&&p.run.current<3?1:0);}
 export function recordStatus(p:NewsRecord){return p.run.current===3?'complete':p.observedAt>=p.run.startedAt!+LIMIT?'timeout':'incomplete';}
