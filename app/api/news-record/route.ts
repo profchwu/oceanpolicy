@@ -14,6 +14,7 @@ export async function POST(req:Request){
  if(!parts||parts.length!==2||!/^\d{13}$/.test(parts[0])||Number(parts[0])<Date.now()||Number(parts[0])>Date.now()+86400000||parts[1]!==await signature(parts[0],s.NEWS_SHEETS_SECRET))return Response.json({error:'SESSION_EXPIRED'},{status:401});
  let p;try{const body=await req.text();if(body.length>16000)throw Error();p=validateNewsRecord(JSON.parse(body));}catch{return Response.json({error:'INVALID_RECORD'},{status:400});}
  if(!hasResearchConsent(p.run))return Response.json({error:'CONSENT_REQUIRED'},{status:400});
+ if(p.run.current!==3||!Number.isSafeInteger(p.run.completedAt)||!Number.isSafeInteger(p.run.userIdEnteredAt))return Response.json({error:'COMPLETION_REQUIRED'},{status:400});
  const revision=recordRevision(p),status=recordStatus(p),r=p.run;
  try{
   if(!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(s.NEWS_SHEETS_URL))throw Error();

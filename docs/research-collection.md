@@ -1,4 +1,12 @@
-# Research collection release — 2026-10-23
+# Research collection release — 2026-10-24
+
+## Current consent and upload behavior
+
+The opening consent has four reading pages and an unchecked consent checkbox. Starting requires checking the box. User IDs must contain 4–32 ASCII letters or digits only, with no spaces or symbols. Both the entry form and server validate this rule.
+
+Consent version: `research-2026-10-24-completion-only`. New progress uses sessionStorage under a new key. The game makes no record API request until all three levels are complete. The server also rejects incomplete runs, missing completion/ID timestamps and previous consent versions. Completed uploads retain a local retry queue for network failures.
+
+“Leave study” clears the current unfinished session. Closing the tab does not upload unfinished data; browsers may restore sessionStorage when restoring a tab, so the instructions distinguish closing from explicitly clearing the session. Historical records collected before this change are not deleted by this release. The study uses coded User IDs to link gameplay and questionnaires; the notice no longer claims fully untraceable anonymity.
 
 The game retains its scoring, research explanation and English translation. During data collection, `SHOW_RESEARCH_INFO` and `SHOW_LANGUAGE_SWITCH` in `lib/research-mode.ts` are false. Set either flag to true, rebuild and redeploy to restore that button.
 

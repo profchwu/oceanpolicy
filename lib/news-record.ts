@@ -3,7 +3,7 @@ import {missionsFor} from './news-missions';
 import {LIMIT,type NewsRun} from './news-flow';
 export const RECORD_VERSION='news-sheet-1';
 export type NewsRecord={schema:typeof RECORD_VERSION;playerId:string;run:NewsRun;observedAt:number;language:'zh-Hant'|'en'};
-export const validUserId=(x:unknown):x is string=>typeof x==='string'&&/^[A-Za-z0-9][A-Za-z0-9_-]{0,31}$/.test(x);
+export const validUserId=(x:unknown):x is string=>typeof x==='string'&&/^[A-Za-z0-9]{4,32}$/.test(x);
 const uuid=(x:unknown)=>typeof x==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(x);
 export function validateNewsRecord(value:unknown):NewsRecord{
  const p=value as NewsRecord,r=p?.run,fail=()=>{throw Error('INVALID_RECORD');};

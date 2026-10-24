@@ -1,5 +1,5 @@
 import type {NewsRun} from './news-flow';
-export const CONSENT_VERSION='research-2026-10-17-questionnaire-v2';
+export const CONSENT_VERSION='research-2026-10-24-completion-only';
 export type ResearchConsent={accepted:true;version:typeof CONSENT_VERSION;at:number;language:'zh-Hant'|'en'};
 export function hasResearchConsent(run:NewsRun|null|undefined):boolean{
  const c=run?.consent;

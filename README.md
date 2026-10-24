@@ -4,7 +4,7 @@
 國立清華大學 數理教育研究所 吳智鴻教授  
 National Tsing Hua University, Graduate Institute of Mathematics and Science Education. Professor Chih-Hung Wu
 
-**版本｜Version：2.0.1** · **更新日期｜Updated：2026-10-23**
+**版本｜Version：2.0.2** · **更新日期｜Updated：2026-10-24**
 
 透過真實新聞認識海洋政策，用決策改變海島環境。這是一款 **單人、點選操作、10 分鐘內完成** 的網頁政策教育遊戲，支援中文與英文。
 
@@ -102,3 +102,5 @@ npm run preview
 
 
 研究收集版：新增 User ID 確認時間、完成時間與總秒數；完成三關顯示通關密碼。暫時隱藏研究變數與英文按鈕，功能保留。設定、時間定義與欄位公式請見 [研究收集版說明](docs/research-collection.md)。
+
+2026-10-24：開場新增四頁研究說明與同意勾選；User ID 限 4–32 位英文字母或數字。完成三關才上傳，未完成可按「退出研究」清除本機暫存。
