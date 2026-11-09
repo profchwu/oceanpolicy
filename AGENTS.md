@@ -3,6 +3,7 @@
 The user requires development Prompt documentation and GitHub to be updated with every project change.
 
 1. Update `docs/development-prompts.md` and `docs/development-prompts.html` for the changed behavior, setup or deployment status, including the complete combined Prompt. Keep copy buttons and embedded GAS examples consistent with the source template.
+   Keep the complete Prompt and GAS source in separate sections with independent copy buttons. Do not concatenate GAS source into the Prompt. Format individual prompts and explanations as readable multiline text/paragraphs.
 2. Update README, installation instructions, HTML manual and related diagrams when affected. Do not invent documentation changes for unrelated sections.
 3. Run checks appropriate to the change, including `node scripts/test-prompt-docs.mjs` for Prompt updates and `node scripts/test-gas-template.mjs` when the template changes.
 4. Review the intended diff and run `node scripts/check-public-repository.mjs` after staging new public files. Never commit secrets, real research destinations, participant records or private backups.

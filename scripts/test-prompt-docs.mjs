@@ -3,11 +3,14 @@ const html=fs.readFileSync('docs/development-prompts.html','utf8'),md=fs.readFil
 const decode=s=>s.replaceAll('&lt;','<').replaceAll('&gt;','>').replaceAll('&quot;','"').replaceAll('&amp;','&');
 const nodes={status:{textContent:''},'copy-all':{textContent:'all',addEventListener(event,fn){this.click=fn;}}};
 for(const m of html.matchAll(/<pre id="([^"]+)">([\s\S]*?)<\/pre>/g))nodes[m[1]]={textContent:decode(m[2])};
-assert.equal(nodes['gas-template'].textContent,gas);assert(nodes['prompt-master'].textContent.includes(gas));assert(md.includes(gas));assert(nodes['prompt-master'].textContent.includes('10. 驗收與故障排查'));assert(nodes['prompt-master'].textContent.includes('16. 論文圖件'));
+assert.equal(nodes['gas-template'].textContent,gas);assert(!nodes['prompt-master'].textContent.includes('function setupNewResearchWorkbook'));assert(!md.includes(gas));assert(nodes['prompt-master'].textContent.includes('10. 驗收與故障排查'));assert(nodes['prompt-master'].textContent.includes('16. 論文圖件'));
+assert.equal((html.match(/id="gas-template"/g)||[]).length,1);
+for(let i=1;i<=16;i++)assert(nodes['prompt-'+i].textContent.includes('\n'),'Multiline prompt '+i);
+assert.equal((md.match(/### Prompt 解析/g)||[]).length,16);
 const buttons=[...html.matchAll(/<button data-copy="([^"]+)">/g)].map(m=>({dataset:{copy:m[1]},textContent:'copy',addEventListener(event,fn){this.click=fn;}}));
 let copied='',fallback=false;const document={getElementById:id=>nodes[id],querySelectorAll:()=>buttons,createElement:()=>({style:{},setAttribute(){},select(){copied=this.value;},remove(){}}),body:{appendChild(){}},execCommand:()=>{fallback=true;return true;}};
 const context={document,navigator:{clipboard:{async writeText(text){copied=text;}}},window:{isSecureContext:true},setTimeout(){}};vm.createContext(context);vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);
 await buttons.find(b=>b.dataset.copy==='gas-template').click();assert.equal(copied,gas);
 nodes['copy-all'].click();await new Promise(resolve=>setImmediate(resolve));assert.equal(copied,nodes['prompt-master'].textContent);
 context.window.isSecureContext=false;await buttons.find(b=>b.dataset.copy==='prompt-master').click();assert(fallback);assert.equal(copied,nodes['prompt-master'].textContent);
-console.log('PASS: standalone GAS matches HTML and Markdown; complete prompt includes setup and source; individual/all copy and offline fallback work in DOM simulation.');
+console.log('PASS: GAS copied separately and matches source; complete Prompt excludes GAS code; all 16 steps use multiline text; copy buttons and offline fallback work in DOM simulation.');

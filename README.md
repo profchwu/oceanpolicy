@@ -14,7 +14,7 @@ National Tsing Hua University, Graduate Institute of Mathematics and Science Edu
 
 HTML 下載後用瀏覽器開啟，可按「複製本步 Prompt」或「複製全部」；GitHub 頁面請使用 Markdown 版的程式碼複製按鈕。安裝與部署請見 [INSTALL.md](INSTALL.md)。
 
-**資料儲存教學：[Google Sheets 完整設定步驟](docs/google-sheets-setup.md) · [GAS 新專案範本](google-apps-script/NewsReceiver.template.gs)**。Prompt HTML 提供「複製完整 GAS 範本」，最後的整合 Prompt 也包含全部設定步驟與程式。此範本用於新空白試算表，不直接取代現行研究接收器。
+**資料儲存教學：[Google Sheets 完整設定步驟](docs/google-sheets-setup.md) · [GAS 新專案範本](google-apps-script/NewsReceiver.template.gs)**。Prompt HTML 提供「複製完整 GAS 範本」，最後的整合 Prompt 包含設定步驟，但不混入 GAS 原始碼；Prompt 與 GAS 各自獨立複製。此範本用於新空白試算表，不直接取代現行研究接收器。
 
 ![珊瑚保育海島場景](public/optimized/mission-reef-v2.webp)
 
