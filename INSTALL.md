@@ -47,6 +47,8 @@ Deploy uses generated dist/server/wrangler.json. Worker and static assets share 
 For Cloudflare Workers Builds, connect this repository to oceanpolicy-v2; root /; build command npm run build; deploy command npm run deploy. No automatic deploy workflow is enabled by default.
 
 ## Google Sheets setup
+For a **new empty spreadsheet**, follow [the complete setup guide](docs/google-sheets-setup.md) and use [NewsReceiver.template.gs](google-apps-script/NewsReceiver.template.gs). This separate template creates all five worksheets and the two-variable analysis view; it refuses to overwrite existing tables. It is not a drop-in migration for an existing research workbook. The HTML prompt guide includes copy buttons for both instructions and the full GAS source. Local simulation tests pass; deployment acceptance in the new Google Sheet is still required.
+
 Set secrets interactively; never commit values:
 ```sh
 npx wrangler secret put NEWS_SHEETS_URL --name oceanpolicy-v2

@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>海島新聞任務｜完整開發 Prompt 與解析</title><style>
 :root{font-family:system-ui,"Microsoft JhengHei",sans-serif;color:#183c49;background:#eff5f6;font-size:18px;line-height:1.75}*{box-sizing:border-box}body{margin:0}header{background:#153c4d;color:white;padding:42px max(22px,calc((100vw - 1080px)/2))}h1{font-size:clamp(28px,4vw,42px);line-height:1.3}header p{max-width:1000px;color:#d5e8ec}main{max-width:1124px;margin:auto;padding:24px 22px}a{color:#086b78}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px;padding:24px;background:white;border-radius:16px}nav a{text-decoration:none}article{background:white;border:1px solid #cfdee2;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px}h2{font-size:25px;line-height:1.5;margin:0}h2 span{color:#14838b}h3{font-size:18px;margin:22px 0 8px}p{margin:8px 0}pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;background:#edf5f7;border-left:4px solid #16838a;border-radius:8px;padding:20px;margin:0}.heading{display:flex;justify-content:space-between;gap:18px;align-items:start}button{font:inherit;cursor:pointer;background:#126f79;color:white;border:0;border-radius:8px;padding:11px 18px;white-space:nowrap}button:focus-visible,a:focus-visible{outline:3px solid #e8ae36;outline-offset:4px}.toolbar{position:sticky;top:0;z-index:2;background:#ffffffef;border-bottom:1px solid #b9d0d6;padding:12px 22px;display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}.notice{border-left:4px solid #dfac48;background:#fff7e6;padding:20px;margin:24px 0}#status{font-size:16px;min-height:28px}footer{padding:24px;text-align:center;color:#47606a}@media(max-width:680px){nav{grid-template-columns:1fr}.heading{display:block}.heading button{margin-top:15px}article{padding:20px}header{padding:28px 22px}main{padding:16px}h2{font-size:23px}}@media print{.toolbar,button,nav{display:none}header{background:white;color:#183c49;padding:0}header p{color:#183c49}body{background:white}article{break-inside:avoid;border:1px solid #aaa}main{padding:0}@page{size:A4;margin:15mm}}
-</style></head><body><header><p>ISLAND NEWS MISSIONS · DEVELOPMENT GUIDE</p><h1>海島新聞任務<br>完整開發 Prompt 與解析</h1><p>依需求演進整理的可重現開發 Prompt，非原始對話逐字紀錄。文件更新：2026-11-09。請按步驟使用並帶入當前專案；以下驗收項目是工作要求，不代表本文件更新時重新執行了全部測試。</p></header><div class="toolbar"><button id="copy-all">複製全部 16 步 Prompt</button><span id="status" role="status" aria-live="polite">可離線使用；每一步也可單獨複製。</span></div><main><div class="notice"><strong>使用方式與目前狀態</strong><p>先提供目前專案給開發工具，再按順序貼上 Prompt；每步完成驗收後繼續。中文版預設，English 按鈕暫時隱藏，「前後測設計」已顯示。重複 ID 檢查已於 2026-11-09 上線，整合方式詳見第 13 步。</p><p>本檔不包含私人密鑰、研究試算表網址或玩家資料。GitHub 不執行 HTML 的複製腳本，請下載本檔後用瀏覽器開啟；也可閱讀同目錄的 development-prompts.md。</p></div><nav aria-label="步驟目錄"><a href="#step-1">01 需求與研究範圍</a><a href="#step-2">02 新聞與政策證據</a><a href="#step-3">03 好玩的決策循環</a><a href="#step-4">04 完整流程與狀態控制</a><a href="#step-5">05 環境因果與數值</a><a href="#step-6">06 前後期評分設計</a><a href="#step-7">07 版面與可讀性</a><a href="#step-8">08 一致風格的圖片資產</a><a href="#step-9">09 動畫與載入效能</a><a href="#step-10">10 程式架構與可移植性</a><a href="#step-11">11 同意書與識別碼</a><a href="#step-12">12 Google Sheets 紀錄與時間</a><a href="#step-13">13 重複 ID 檢查與部署</a><a href="#step-14">14 完整驗證與研究測試</a><a href="#step-15">15 GitHub、Cloudflare 與保存</a><a href="#step-16">16 論文圖件與開發 Prompt 文件</a><a href="#master-prompt">完整整合 Prompt｜一次複製</a></nav><article id="step-1"><div class="heading"><h2><span>01</span> 需求與研究範圍</h2><button data-copy="prompt-1">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-1">建立一款單人、點選即可玩的海洋政策教育網頁遊戲。目標是讓一般玩家理解政策如何影響環境與氣候，在約十分鐘內完成三關。預設繁體中文，保留完整英文翻譯。先整理玩家、研究目的、限制、必要功能與驗收條件，再提出玩法；未確認玩法前不要大量實作。區分環境模擬結果與研究行為得分。</pre><h3>Prompt 解析</h3><p>先限定遊玩時間和操作負擔，避免把研究問卷直接搬進遊戲。以可觀察的決策行為衡量表現，不能把娛樂性或環境數值當作學習效果。</p><h3>產出與驗收</h3><p>需求表、操作流程、研究問題與驗收清單。</p></article>
+</style></head><body><header><p>ISLAND NEWS MISSIONS · DEVELOPMENT GUIDE</p><h1>海島新聞任務<br>完整開發 Prompt 與解析</h1><p>依需求演進整理的可重現開發 Prompt，非原始對話逐字紀錄。文件更新：2026-11-09。請按步驟使用並帶入當前專案；以下驗收項目是工作要求，不代表本文件更新時重新執行了全部測試。</p></header><div class="toolbar"><button id="copy-all">複製全部 Prompt＋GAS</button><span id="status" role="status" aria-live="polite">可離線使用；每一步也可單獨複製。</span></div><main><div class="notice"><strong>使用方式與目前狀態</strong><p>先提供目前專案給開發工具，再按順序貼上 Prompt；每步完成驗收後繼續。中文版預設，English 按鈕暫時隱藏，「前後測設計」已顯示。重複 ID 檢查已於 2026-11-09 上線，整合方式詳見第 13 步。</p><p>本檔不包含私人密鑰、研究試算表網址或玩家資料。GitHub 不執行 HTML 的複製腳本，請下載本檔後用瀏覽器開啟；也可閱讀同目錄的 development-prompts.md。</p></div><nav aria-label="步驟目錄"><a href="#step-1">01 需求與研究範圍</a><a href="#step-2">02 新聞與政策證據</a><a href="#step-3">03 好玩的決策循環</a><a href="#step-4">04 完整流程與狀態控制</a><a href="#step-5">05 環境因果與數值</a><a href="#step-6">06 前後期評分設計</a><a href="#step-7">07 版面與可讀性</a><a href="#step-8">08 一致風格的圖片資產</a><a href="#step-9">09 動畫與載入效能</a><a href="#step-10">10 程式架構與可移植性</a><a href="#step-11">11 同意書與識別碼</a><a href="#step-12">12 Google Sheets 紀錄與時間</a><a href="#step-13">13 重複 ID 檢查與部署</a><a href="#step-14">14 完整驗證與研究測試</a><a href="#step-15">15 GitHub、Cloudflare 與保存</a><a href="#step-16">16 論文圖件與開發 Prompt 文件</a><a href="#master-prompt">完整整合 Prompt｜一次複製</a><a href="#sheets-guide">Google Sheets 步驟與 GAS 範本</a></nav><article id="step-1"><div class="heading"><h2><span>01</span> 需求與研究範圍</h2><button data-copy="prompt-1">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-1">建立一款單人、點選即可玩的海洋政策教育網頁遊戲。目標是讓一般玩家理解政策如何影響環境與氣候，在約十分鐘內完成三關。預設繁體中文，保留完整英文翻譯。先整理玩家、研究目的、限制、必要功能與驗收條件，再提出玩法；未確認玩法前不要大量實作。區分環境模擬結果與研究行為得分。</pre><h3>Prompt 解析</h3><p>先限定遊玩時間和操作負擔，避免把研究問卷直接搬進遊戲。以可觀察的決策行為衡量表現，不能把娛樂性或環境數值當作學習效果。</p><h3>產出與驗收</h3><p>需求表、操作流程、研究問題與驗收清單。</p></article>
 <article id="step-2"><div class="heading"><h2><span>02</span> 新聞與政策證據</h2><button data-copy="prompt-2">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-2">調查海洋政策教育遊戲的既有類型及官方新聞來源。為珊瑚、海草、離岸風電各選一則可查證新聞，記錄原文連結、發布日期、事件日期與摘要。核對科學因果及政策限制。真實新聞與另設的遊戲情境必須分開標示；不可杜撰報導、研究數字或引用。新聞配圖若為 AI 生成，標明情境示意圖。</pre><h3>Prompt 解析</h3><p>新聞提供決策情境，官方來源支撐教育內容。發布時間不等於事件發生時間；遊戲中的暴雨或故障也不能假稱為原新聞事件。</p><h3>產出與驗收</h3><p>三則可追溯來源、改寫新聞及模擬情境說明。</p></article>
 <article id="step-3"><div class="heading"><h2><span>03</span> 好玩的決策循環</h2><button data-copy="prompt-3">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-3">將關卡順序固定為珊瑚、海草、風電。每關兩次決策，每次三個選項：先處理原始環境問題，再面對一項外部事件選擇應變。選項須具有可理解的取捨，選錯可能使環境惡化。移除額外『成效證據』測驗及重複觀察步驟。玩家點選政策後立即知道執行方向，再以約五秒動畫展示環境變化，最後說明原因。</pre><h3>Prompt 解析</h3><p>決策—回饋—應變讓玩家主動修正判斷。外部事件增加挑戰，但其自動造成的損失不可算成玩家的錯誤決策。</p><h3>產出與驗收</h3><p>三關各六個選項、預算及環境影響表；新玩家不需額外教學即可完成。</p></article>
 <article id="step-4"><div class="heading"><h2><span>04</span> 完整流程與狀態控制</h2><button data-copy="prompt-4">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-4">用明確狀態管理：研究說明與同意→User ID→彩色新聞→政策選擇→關閉選擇視窗→完整播放變化→影響說明→外部事件→應變選擇→完整播放變化→本關成果→下一關。第三關完成後進入總結、送出研究紀錄及通關密碼。禁止動畫尚未完成就跳關；完成後讓玩家看清場景再主動下一步。任何視窗不能殘留遮住動畫；重新整理不能重複扣預算或計分。</pre><h3>Prompt 解析</h3><p>流程的每一個狀態都要有唯一主要操作。用狀態機避免新聞、政策選單與結果視窗同時出現，也避免重複點擊造成不同資料。</p><h3>產出與驗收</h3><p>狀態轉移圖、重載與連點測試；每個狀態都有清楚下一步。</p></article>
@@ -15,7 +15,190 @@
 <article id="step-13"><div class="heading"><h2><span>13</span> 重複 ID 檢查與部署</h2><button data-copy="prompt-13">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-13">此功能已於 2026-11-09 在本專案上線。移植或重新開發時，仍須完成以下整合與驗證，不能只憑既有文件宣稱新環境已完成。開始前向同網域 API 檢查 ID 是否已存在，大小寫視為相同；檢查失敗時提示重試。檢查只讀取，不提前建立研究紀錄。GAS 最終寫入須在鎖定區段再次檢查，避免兩人同時使用同一 ID；相同 run_id 的重試仍允許。發生衝突時保存已完成結果，讓玩家換新 ID 再送出。先確認並更新實際 GAS 接收器，再部署前端與 API，最後用兩個瀏覽器驗證。不要覆蓋線上既有的客製公式。</pre><h3>Prompt 解析</h3><p>先查詢不能防止並行競爭；最終寫入仍須原子檢查。因未完成不能留下研究紀錄，此方案不提前保留 ID，需處理最後一刻衝突。</p><h3>產出與驗收</h3><p>GAS、API、前端三者版本一致；並行、大小寫、同局重試與斷線都有測試證據。</p></article>
 <article id="step-14"><div class="heading"><h2><span>14</span> 完整驗證與研究測試</h2><button data-copy="prompt-14">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-14">重玩全部政策分支並檢查評分、環境變化及動畫順序。三關共六次三選一決策，共 3^6=729 條路徑；保留英文時測兩語系。驗證每局六次玩家決策與三次外部事件，事件不計分。另以兩個合成玩家完整操作，確認開始時間、完成時間、差值及只在完成後寫入；測試紀錄排除於研究分析。測試連點、重新整理、慢網路、圖片失敗、倒數到期及退出。分開報告實際執行的測試與尚未驗證項目，不可只憑單元測試宣稱線上儲存成功。</pre><h3>Prompt 解析</h3><p>數學分支測試驗證規則，真實瀏覽器與試算表核對驗證整合；兩者不能互相取代。研究測試資料不得混入正式樣本。</p><h3>產出與驗收</h3><p>有日期、版本、預期值與實際值的測試報告；沒有未說明的失敗項目。</p></article>
 <article id="step-15"><div class="heading"><h2><span>15</span> GitHub、Cloudflare 與保存</h2><button data-copy="prompt-15">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-15">維持原 ChatGPT Sites 與 Version 2 為獨立部署。GitHub 保存可公開程式、圖片與文件；Cloudflare 執行 Version 2 與伺服器 API。發佈前檢查追蹤檔案及差異，排除密鑰、真實試算表接收網址、玩家資料、私有備份與測試匯出。透過 Cloudflare 私人環境設定連接 GAS。原站不得因新版部署被修改。備份版本、套件鎖定檔、GAS 程式、素材及安裝手冊；私人設定另行安全保存。部署後驗證資產、遊玩及資料接收，記錄可回復的版本。</pre><h3>Prompt 解析</h3><p>公開原始碼與私人研究設定必須分離。保留兩個站點有助對照與回復，但每站都需獨立確認後端相容性。</p><h3>產出與驗收</h3><p>乾淨的 GitHub 差異、安全檢查結果、部署網址及移機手冊；不把密鑰寫進 README。</p></article>
-<article id="step-16"><div class="heading"><h2><span>16</span> 論文圖件與開發 Prompt 文件</h2><button data-copy="prompt-16">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-16">製作兩張繁體中文及兩張英文說明圖：流程與評分、三關場景與政策。採 A4、300 dpi（直式2480×3508像素）或可縮放向量，文字用排版工具呈現，避免生成圖片中文字模糊。每個圖件標註版本，與實際評分規則核對。README 首頁放遊戲說明及輕量流程圖，安裝放 INSTALL。製作可離線閱讀的 HTML 開發手冊，每步包含可複製 Prompt、解析、預期產出與驗收。註明這是依需求整理的重建指南，非原始對話逐字稿；保留研究限制與待部署事項。</pre><h3>Prompt 解析</h3><p>論文圖件要能辨認文字並準確反映研究版本。GitHub 不執行 HTML 按鈕腳本，因此同時提供 Markdown 原生複製區塊與可下載 HTML。</p><h3>產出與驗收</h3><p>四張清晰圖件、GitHub 可讀文件、離線 HTML 複製按鈕與完整開發流程。</p></article><section id="master-prompt" style="background:white;border:2px solid #16838a;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px"><div class="heading"><h2>完整整合 Prompt</h2><button data-copy="prompt-master">複製完整 Prompt</button></div><p>以下整合全部 16 步需求與驗收。按一下即可完整複製，直接貼到 Gemini 或其他開發工具。</p><pre id="prompt-master">你是一位教育遊戲設計師、海洋政策內容編輯與全端工程師。請依下列完整需求，協助開發、驗證及保存「海島新聞任務」網頁政策教育遊戲。
+<article id="step-16"><div class="heading"><h2><span>16</span> 論文圖件與開發 Prompt 文件</h2><button data-copy="prompt-16">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-16">製作兩張繁體中文及兩張英文說明圖：流程與評分、三關場景與政策。採 A4、300 dpi（直式2480×3508像素）或可縮放向量，文字用排版工具呈現，避免生成圖片中文字模糊。每個圖件標註版本，與實際評分規則核對。README 首頁放遊戲說明及輕量流程圖，安裝放 INSTALL。製作可離線閱讀的 HTML 開發手冊，每步包含可複製 Prompt、解析、預期產出與驗收。註明這是依需求整理的重建指南，非原始對話逐字稿；保留研究限制與待部署事項。</pre><h3>Prompt 解析</h3><p>論文圖件要能辨認文字並準確反映研究版本。GitHub 不執行 HTML 按鈕腳本，因此同時提供 Markdown 原生複製區塊與可下載 HTML。</p><h3>產出與驗收</h3><p>四張清晰圖件、GitHub 可讀文件、離線 HTML 複製按鈕與完整開發流程。</p></article><section id="sheets-guide" style="background:white;border:1px solid #cfdee2;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px"><h2>Google Sheets 儲存步驟與 GAS 範本</h2><p>適用新的空白試算表，含自動建表、兩變數評分及重複 ID 檢查；不要覆蓋現行研究接收器。</p><button data-copy="sheets-steps">複製儲存設定步驟</button><pre id="sheets-steps">Google Sheets 儲存資料：新專案完整步驟
+
+適用範圍
+本範本供「新的空白試算表」使用，與本遊戲 /api/news-record 的資料格式相容。不要直接覆蓋目前已上線的 GAS 或既有研究表格。原有 NewsReceiver.gs 是既有欄位相容版；NewsReceiver.template.gs 是含建表程序的新專案範本，兩者擇一，不可貼進同一個 GAS 專案。本次只新增文件與範本，未替換線上接收器。
+
+1. 建立私人試算表
+建立新的 Google 試算表，不需要將試算表設為公開。從網址 /d/ 與 /edit 之間取得試算表 ID。此值不是 GAS 專案 ID，也不是部署作業 ID。不要把研究試算表的實際網址寫入公開 GitHub。
+
+2. 建立 GAS 專案並貼上範本
+可由試算表「擴充功能 → Apps Script」建立綁定專案，或建立獨立 Apps Script 專案。刪除新專案預設的 myFunction，完整貼上 NewsReceiver.template.gs，儲存。範本不依賴 getActiveSpreadsheet，而是讀取 SHEET_ID，兩種建立方式皆需下一步設定。
+
+3. 設定指令碼屬性
+在 GAS「專案設定 → 指令碼屬性」新增 SHEET_ID，填入自己的試算表 ID。NEWS_SHARED_SECRET 可先不填；初始化會產生隨機密鑰，之後在指令碼屬性中查看並安全保存。若自行設定，使用高強度隨機密鑰，勿使用範例字串。密鑰不要放在前端、Prompt、截圖、README 或 GitHub。
+
+4. 初始化空白表格
+在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。只對新空白研究工作表執行一次。若目標工作表已有內容，會回報 NONEMPTY_SHEET 並停止，不會清除資料。
+範本建立五張工作表：
+・前後測資料：放在第一張，輸入 User ID 時間在 user_id 前面，接著為政策、調整及整體前後測與差值。
+・遊玩資料：接收器原始欄位。保留相容欄位位置，不可任意搬移。
+・操作紀錄：每關兩次玩家決策及一次外部事件，共九筆事件。
+・同步紀錄：run_id、revision、完整 record_json、接收時間，處理同一局重試。
+・整體摘要：只統計「納入」紀錄的人數、前後測平均、平均差值及完成秒數。
+預設 Asia/Taipei 時區。前後測資料的 A2 是自動展開公式，下方不要手動輸入資料，避免 #REF!。
+
+5. 確認新範本欄位與公式
+前後測資料 A=輸入 User ID 時間、B=user_id、C–E=政策前／後／差值、F–H=調整前／後／差值、I–K=整體前／後／差值、L=run_id、M=完成狀態、N=完成時間、O=總秒數、P=統計納入狀態、Q–V=三關六次決策的 0/1。
+每關分數=(政策+調整)/2×100；前測=第1關；後測=第2、3關平均；差值=後測−前測（百分點）。總秒數=(completedAt−userIdEnteredAt)/1000，含閱讀及背景分頁時間。
+原始表 AF、AG、AH 存 ID 確認時間、完成時間、總秒數；舊證據欄位只保留空白相容位置，不納入評分。新範本的主分析表不顯示證據欄位。此欄位配置不代表既有正式表格已被搬移。
+
+6. 部署 GAS 網頁應用程式
+選「部署 → 新增部署作業 → 網頁應用程式」。執行身分選自己，存取權選允許伺服器無須 Google 登入即可呼叫的「所有人」。這只公開密鑰保護的接收端，不代表公開試算表。若 Workspace 管理政策不允許此選項，需請管理員處理，不能改成把密鑰放到前端繞過。
+複製正式部署的 /exec 網址；不是編輯器 /edit、測試 /dev 或試算表網址。瀏覽 /exec 只會看到服務健康 JSON，不會顯示研究資料。
+日後修改程式，需在「管理部署作業 → 編輯 → 建立新版本 → 部署」更新原部署，才會讓 /exec 使用新程式；單純儲存不等於上線。
+官方說明：https://developers.google.com/apps-script/guides/web
+
+7. 設定網站伺服器的兩個 Secret
+NEWS_SHEETS_URL = 自己的 GAS 正式 /exec 網址。
+NEWS_SHEETS_SECRET = GAS 的 NEWS_SHARED_SECRET，兩者值必須完全相同。
+Cloudflare 可在 Worker 的設定中新增 Secret，或使用專案的互動命令：
+npx wrangler secret put NEWS_SHEETS_URL --name oceanpolicy-v2
+npx wrangler secret put NEWS_SHEETS_SECRET --name oceanpolicy-v2
+不要將密鑰值直接寫進命令列。移植後 Worker 名稱不同時，同步修改 --name。原版 Sites 請在該站獨立的私人環境設定相同兩個變數，GitHub 並不會自動幫兩站傳遞密鑰。
+GAS 屬性官方說明：https://developers.google.com/apps-script/guides/properties
+
+8. 串接方式與資料契約
+瀏覽器 → 同網域 /api/news-record → GAS doPost → Google Sheets。
+瀏覽器只送遊玩紀錄或 {action:&quot;checkUserId&quot;,userId:&quot;TestA123&quot;}，不要送 secret。伺服器讀取 Secret，驗證 Origin、ID、同意版本、完成狀態、時間及決策，依正式政策設定計算 scores/events，再呼叫 GAS。
+GAS 查詢回覆 {ok:true,available:true/false}；寫入回覆 {ok:true,runId,revision}；網站核對 runId/revision 才視為已儲存。GAS 的業務錯誤可能仍是 HTTP 200，必須讀取 JSON 的 ok/error，不能只看 HTTP 狀態。
+沿用 app/api/news-record/route.ts、app/useNewsSync.ts、lib/news-record.ts 的完整資料契約，不要用單純 appendRow 取代。API 保存前會取得安全 Cookie；不要省略既有驗證流程。
+
+9. 完成後才寫入與重複 ID
+未同意、未完成或中途退出都不寫入研究紀錄；開始前查詢 ID 是只讀。ID 限4–32位 ASCII 英數字且至少一個英文字母，不分大小寫檢查重複。
+最終寫入在 GAS ScriptLock 內再次查重；同一 run_id 重試可重複確認但不新增紀錄。兩人同時使用尚未登記的 ID 時，開始查詢可能都通過；最後衝突者保留成果、換新 ID 再儲存。網路錯誤不得假裝儲存成功；保留完成紀錄重試。
+
+10. 驗收與故障排查
+先在新的測試試算表完成兩次合成測試，不用真實參與者資料。完成前表格無新增；完成後核對一筆遊玩資料、一筆同步紀錄、九筆操作紀錄，以及主分析表的 ID、時間、分數及差值。第一局完成後用相同 ID 與大小寫變體再開始，應被拒絕；1234 應拒絕，新英數 ID 應通過。同一 run_id 重試不能增加列。
+範例：珊瑚50分、海草100分、風電50分→前測50、後測75、差值+25百分點。若總耗時60秒，主分析表 O 應為60。將測試列的遊玩資料 A 欄改為「測試」，主分析表會顯示「示範不納入」，摘要排除。
+setup_required：尚未初始化或工作表名稱錯誤；unauthorized：兩端密鑰不一致；invalid_record：格式不符；completion_required：未完成或時間／同意欄位缺漏；user_id_taken：ID已登記；ID_CHECK_UNAVAILABLE：檢查部署版本、權限與網路後重試；SAVE_NOT_CONFIRMED：保留結果，不重建 run_id，檢查接收器再重試。
+不要直接在 GAS 編輯器執行 doPost（它需要 HTTP 事件參數）；初始化才執行 setupNewResearchWorkbook。新範本已做本機模擬測試，尚未在你的新試算表執行；移植時必須完成上述線上驗收。</pre><h3>可複製的完整 GAS</h3><button data-copy="gas-template">複製完整 GAS 範本</button><pre id="gas-template">// NEW spreadsheet template only. Do not overwrite an existing research receiver.
+// Copy this whole file into one Apps Script project; do not also paste NewsReceiver.gs.
+function setupNewResearchWorkbook(){
+ const book=SpreadsheetApp.openById(researchSheetId());
+ const names=['前後測資料','遊玩資料','操作紀錄','同步紀錄','整體摘要'];
+ for(const name of names){const s=book.getSheetByName(name);if(s&amp;&amp;s.getLastRow()&gt;0)throw Error('NONEMPTY_SHEET: '+name+'；請改用新的空白試算表，不會清除既有資料。');}
+ book.setSpreadsheetTimeZone('Asia/Taipei');
+ const rawHeaders=['sample_type','run_id','player_id','version','language','status','started_at','ended_at','pre_policy','reserved_pre','pre_adaptation','post1_policy','reserved_post1','post1_adaptation','post2_policy','reserved_post2','post2_adaptation','policy_pre','policy_post','policy_gain','reserved_1','reserved_2','reserved_3','adaptation_pre','adaptation_post','adaptation_gain','overall_pre','overall_post','overall_gain','inclusion','user_id','user_id_entered_at','completed_at','total_seconds'];
+ const headers=['輸入User ID時間','user_id','政策前測','政策後測','政策差值','調整前測','調整後測','調整差值','整體前測','整體後測','整體差值','run_id','完成狀態','遊戲完成時間','完成總時間（秒）','統計納入狀態','珊瑚政策0/1','珊瑚調整0/1','海草政策0/1','海草調整0/1','風電政策0/1','風電調整0/1'];
+ for(const [name,head] of [['前後測資料',headers],['遊玩資料',rawHeaders],['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']],['整體摘要',['項目','數值']]]){
+  const s=book.getSheetByName(name)||book.insertSheet(name);
+  if(s.getMaxColumns()&lt;head.length)s.insertColumnsAfter(s.getMaxColumns(),head.length-s.getMaxColumns());
+  s.getRange(1,1,1,head.length).setValues([head]).setBackground('#173D54').setFontColor('white');s.setFrozenRows(1);
+ }
+ const view=book.getSheetByName('前後測資料');
+ const cols=['AF','AE','R','S','T','X','Y','Z','AA','AB','AC','B','F','AG','AH','AD','I','K','L','N','O','Q'];
+ view.getRange('A2').setFormula('=ARRAYFORMULA(IF(\'遊玩資料\'!B2:B=&quot;&quot;,&quot;&quot;,{'+cols.map(c=&gt;&quot;'遊玩資料'!&quot;+c+'2:'+c).join(',')+'}))');
+ view.getRange('A2:A').setNumberFormat('yyyy-mm-dd hh:mm:ss');view.getRange('N2:N').setNumberFormat('yyyy-mm-dd hh:mm:ss');
+ view.getRange('C2:K').setNumberFormat('0.0');view.getRange('O2:O').setNumberFormat('0.000');view.getRange('B2:B').setNumberFormat('@');
+ const summary=book.getSheetByName('整體摘要');
+ summary.getRange(2,1,5,1).setValues([['完成且納入人數'],['整體前測平均'],['整體後測平均'],['平均差值（百分點）'],['平均完成秒數']]);
+ summary.getRange(2,2).setFormula('=COUNTIF(\'前後測資料\'!P2:P,&quot;納入&quot;)');
+ for(const [row,col] of [[3,'I'],[4,'J'],[5,'K'],[6,'O']])summary.getRange(row,2).setFormula('=IFERROR(AVERAGEIF(\'前後測資料\'!P2:P,&quot;納入&quot;,\'前後測資料\'!'+col+'2:'+col+'),&quot;&quot;)');
+ summary.getRange('B3:B6').setNumberFormat('0.000');
+ setupNewsReceiver();book.setActiveSheet(view);book.moveActiveSheet(1);
+ console.log('新表格初始化完成；密鑰請在指令碼屬性查看，勿貼到公開文件。');
+}
+
+
+// Bound to the research spreadsheet. Only ID availability is exposed, never records.
+function researchSheetId(){
+ const id=PropertiesService.getScriptProperties().getProperty('SHEET_ID');
+ if(!id)throw Error('SHEET_ID_NOT_CONFIGURED');
+ return id;
+}
+const EVENT_HEADERS=['event_id','run_id','level','mission_id','variable','choice_id','score','selected_at','confirmed_at','language','received_at','user_id'];
+function setupNewsReceiver(){
+ const book=SpreadsheetApp.openById(researchSheetId()),data=book.getSheetByName('遊玩資料');
+ if(!data||data.getRange('B1').getValue()!=='run_id'||data.getRange('I1').getValue()!=='pre_policy')throw Error('遊玩資料欄位與範本不符，未修改資料。');
+ if(data.getMaxColumns()&lt;31)data.insertColumnsAfter(data.getMaxColumns(),31-data.getMaxColumns());
+ data.getRange(1,31).setValue('user_id');data.getRange(2,31,data.getMaxRows()-1,1).setNumberFormat('@');
+ const existingEvents=book.getSheetByName('操作紀錄');if(existingEvents&amp;&amp;!existingEvents.getRange(1,12).getValue())existingEvents.getRange(1,12).setValue('user_id');
+ for(const spec of [['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']]]){
+  let s=book.getSheetByName(spec[0]);if(!s)s=book.insertSheet(spec[0]);
+  if(s.getLastRow()===0){s.getRange(1,1,1,spec[1].length).setValues([spec[1]]).setBackground('#173D54').setFontColor('white');s.setFrozenRows(1);}
+  else if(JSON.stringify(s.getRange(1,1,1,spec[1].length).getValues()[0])!==JSON.stringify(spec[1]))throw Error('欄位不符：'+spec[0]);
+ }
+ const props=PropertiesService.getScriptProperties();if(!props.getProperty('NEWS_SHARED_SECRET'))props.setProperty('NEWS_SHARED_SECRET',Utilities.getUuid()+Utilities.getUuid());
+ console.log('設定完成。請將指令碼屬性 NEWS_SHARED_SECRET 設為網站的 NEWS_SHEETS_SECRET，部署網頁應用程式後設定 NEWS_SHEETS_URL。');
+}
+function doGet(){return json({ok:true,service:'ocean-news-receiver',schema:'news-sheet-1'});}
+function json(value){return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON);}
+function doPost(e){
+ let lock;
+ try{
+  if(!e||!e.postData||e.postData.contents.length&gt;24000)throw Error('invalid_request');
+  const body=JSON.parse(e.postData.contents),secret=PropertiesService.getScriptProperties().getProperty('NEWS_SHARED_SECRET');
+  if(!secret||body.secret!==secret)throw Error('unauthorized');
+  if(body.action==='checkUserId'){
+   if(!validParticipantId(body.userId))throw Error('invalid_user_id');
+   const data=SpreadsheetApp.openById(researchSheetId()).getSheetByName('遊玩資料');
+   if(!data)throw Error('setup_required');
+   return json({ok:true,available:!userIdUsed(data,body.userId)});
+  }
+  const p=body.record,r=p&amp;&amp;p.run;
+  if(!p||p.schema!=='news-sheet-1'||!r||!Number.isInteger(body.revision)||!Array.isArray(body.scores)||body.scores.length!==9||!body.scores.every(x=&gt;x===null||x===0||x===1)||!Array.isArray(body.events)||body.events.length&gt;9)throw Error('invalid_record');
+  if(!validParticipantId(r.userId)||!/^[0-9a-f-]{36}$/i.test(r.id)||!/^[0-9a-f-]{36}$/i.test(p.playerId)||!['complete','incomplete','timeout'].includes(body.status))throw Error('invalid_record');
+  if(body.status!=='complete'||r.current!==3||!r.consent||r.consent.accepted!==true||r.consent.version!=='research-2026-10-24-completion-only'||!Number.isSafeInteger(r.userIdEnteredAt)||!Number.isSafeInteger(r.completedAt)||r.completedAt&lt;r.userIdEnteredAt)throw Error('completion_required');
+  lock=LockService.getScriptLock();if(!lock.tryLock(10000))throw Error('busy_retry');
+  const book=SpreadsheetApp.openById(researchSheetId()),data=book.getSheetByName('遊玩資料'),events=book.getSheetByName('操作紀錄'),ledger=book.getSheetByName('同步紀錄');
+  if(!data||!events||!ledger)throw Error('setup_required');
+  const match=findRow(ledger,1,r.id),old=match?ledger.getRange(match,1,1,4).getValues()[0]:null;
+  if(old){
+   const before=JSON.parse(old[2]);
+   if(before.run.userId!==r.userId||before.playerId!==p.playerId||before.run.startedAt!==r.startedAt)throw Error('record_conflict');
+   if(Number(old[1])&gt;=body.revision)return json({ok:true,runId:r.id,revision:body.revision,duplicate:true});
+   for(let i=0;i&lt;3;i++)for(let j=0;j&lt;before.run.rounds[i].actions.length;j++){
+    const a=before.run.rounds[i].actions[j],b=r.rounds[i].actions[j];
+    if(!b||a.choice!==b.choice||a.at!==b.at||a.language!==b.language||(a.ackAt!==undefined&amp;&amp;a.ackAt!==b.ackAt))throw Error('record_conflict');
+   }
+  }
+  if(userIdUsed(data,r.userId,r.id))throw Error('user_id_taken');
+  const received=new Date().toISOString();
+  for(const event of body.events){
+   const row=findRow(events,1,event.event_id)||events.getLastRow()+1;ensureRows(events,row);
+   const first=events.getRange(row,11).getValue()||received;
+   events.getRange(row,12).setNumberFormat('@');
+   events.getRange(row,1,1,12).setValues([[...EVENT_HEADERS.slice(0,10).map(k=&gt;safe(event[k])),first,r.userId]]);
+  }
+  let target=findRow(data,2,r.id);
+  if(!target){const ids=data.getRange(2,2,Math.max(1,data.getLastRow()-1),1).getValues();const gap=ids.findIndex(v=&gt;!v[0]);target=gap&gt;=0?gap+2:data.getLastRow()+1;}
+  ensureRows(data,target);
+  const ended=new Date(r.completedAt);
+  data.getRange(target,1,1,17).setValues([['正式',r.id,p.playerId,'news-pilot-1/sheet-1',p.language,body.status,new Date(r.startedAt),ended,...body.scores.map(x=&gt;x===null?'':x)]]);
+  data.getRange(target,7,1,2).setNumberFormat('yyyy-mm-dd hh:mm:ss');
+  data.getRange(target,18,1,13).setFormulas([scoreFormulas(target)]).setNumberFormat('0.0');
+  data.getRange(target,30).setNumberFormat('@');
+  data.getRange(target,31).setNumberFormat('@').setValues([[r.userId]]);
+  data.getRange(target,32,1,3).setValues([[new Date(r.userIdEnteredAt),new Date(r.completedAt),(r.completedAt-r.userIdEnteredAt)/1000]]);
+  data.getRange(target,32,1,2).setNumberFormat('yyyy-mm-dd hh:mm:ss');data.getRange(target,34).setNumberFormat('0.000');
+  const row=match||ledger.getLastRow()+1;ensureRows(ledger,row);
+  ledger.getRange(row,1,1,4).setValues([[r.id,body.revision,JSON.stringify(p),received]]);
+  // Extend existing summary bounds only when new records exceed its current capacity.
+  if(target&gt;504){const summary=book.getSheetByName('整體摘要');if(summary){const range=summary.getDataRange(),f=range.getFormulas();for(let i=0;i&lt;f.length;i++)for(let j=0;j&lt;f[i].length;j++)if(f[i][j]&amp;&amp;f[i][j].includes('遊玩資料')){const updated=f[i][j].replace(/\$([A-Z]+)\$(\d+)/g,(m,c,n)=&gt;Number(n)&gt;=504&amp;&amp;Number(n)&lt;target?'$'+c+'$'+target:m);if(updated!==f[i][j])summary.getRange(i+1,j+1).setFormula(updated);}}}
+  SpreadsheetApp.flush();return json({ok:true,runId:r.id,revision:body.revision});
+ }catch(err){return json({ok:false,error:String(err.message||'save_failed')});}finally{if(lock&amp;&amp;lock.hasLock())lock.releaseLock();}
+}
+function findRow(sheet,col,key){if(sheet.getLastRow()&lt;2)return 0;const found=sheet.getRange(2,col,sheet.getLastRow()-1,1).createTextFinder(key).matchEntireCell(true).useRegularExpression(false).findNext();return found?found.getRow():0;}
+function ensureRows(s,n){if(n&gt;s.getMaxRows())s.insertRowsAfter(s.getMaxRows(),Math.max(100,n-s.getMaxRows()));}
+function safe(x){return typeof x==='string'&amp;&amp;/^[=+@\-]/.test(x)?&quot;'&quot;+x:x;}
+function scoreFormulas(r){
+ const f=[],valid=c=&gt;'AND(ISNUMBER('+c+'),OR('+c+'=0,'+c+'=1))';
+ for(const cols of [['I','L','O','R','S'],null,['K','N','Q','X','Y']]){
+  if(!cols){f.push('','','');continue;}
+  const [a,b,c,pre,post]=cols.map(x=&gt;x+r);
+  f.push('=IF('+valid(a)+','+a+'*100,&quot;&quot;)','=IF(AND('+valid(b)+','+valid(c)+'),('+b+'+'+c+')/2*100,&quot;&quot;)','=IF(COUNT('+pre+':'+post+')=2,'+post+'-'+pre+',&quot;&quot;)');
+ }
+ f.push('=IF(COUNT(R'+r+',X'+r+')=2,AVERAGE(R'+r+',X'+r+'),&quot;&quot;)','=IF(COUNT(S'+r+',Y'+r+')=2,AVERAGE(S'+r+',Y'+r+'),&quot;&quot;)','=IF(COUNT(AA'+r+':AB'+r+')=2,AB'+r+'-AA'+r+',&quot;&quot;)','=IF(B'+r+'=&quot;&quot;,&quot;&quot;,IF(A'+r+'&lt;&gt;&quot;正式&quot;,&quot;示範不納入&quot;,IF(COUNTIF(B:B,B'+r+')&gt;1,&quot;重複 run_id&quot;,IF(F'+r+'&lt;&gt;&quot;complete&quot;,&quot;未完成&quot;,IF(COUNT(AA'+r+':AB'+r+')&lt;2,&quot;缺漏或非 0/1&quot;,&quot;納入&quot;)))))');return f;
+}
+
+function validParticipantId(id){return typeof id==='string'&amp;&amp;/^(?=.*[A-Za-z])[A-Za-z0-9]{4,32}$/.test(id);}
+function userIdUsed(data,id,ownRun){
+ if(data.getLastRow()&lt;2)return false;
+ const rows=data.getRange(2,2,data.getLastRow()-1,30).getValues(),key=id.toLowerCase();
+ return rows.some(row=&gt;row[29]!==''&amp;&amp;row[29]!=null&amp;&amp;String(row[29]).toLowerCase()===key&amp;&amp;(!ownRun||row[0]!==ownRun));
+}</pre><p><a href="https://github.com/profchwu/oceanpolicy/blob/main/google-apps-script/NewsReceiver.template.gs">GitHub GAS 範本</a> · <a href="https://developers.google.com/apps-script/guides/web">Google 官方部署說明</a></p></section><section id="master-prompt" style="background:white;border:2px solid #16838a;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px"><div class="heading"><h2>完整整合 Prompt</h2><button data-copy="prompt-master">複製完整 Prompt</button></div><p>以下整合全部 16 步需求與驗收，另含 Google Sheets 設定步驟與完整 GAS 範本。按一下即可完整複製，直接貼到 Gemini 或其他開發工具。</p><pre id="prompt-master">你是一位教育遊戲設計師、海洋政策內容編輯與全端工程師。請依下列完整需求，協助開發、驗證及保存「海島新聞任務」網頁政策教育遊戲。
 
 這份需求是整理後的開發規格，不是原始對話逐字稿。若已有專案，先閱讀現有程式及文件，保留已完成的功能，核對目前部署狀態，再補齊需求；若從零開始，先建立需求、玩法與架構，再逐步實作。不可聲稱尚未測試或部署的項目已完成。
 
@@ -85,7 +268,198 @@
 製作兩張繁體中文及兩張英文說明圖：流程與評分、三關場景與政策。採 A4、300 dpi（直式2480×3508像素）或可縮放向量，文字用排版工具呈現，避免生成圖片中文字模糊。每個圖件標註版本，與實際評分規則核對。README 首頁放遊戲說明及輕量流程圖，安裝放 INSTALL。製作可離線閱讀的 HTML 開發手冊，每步包含可複製 Prompt、解析、預期產出與驗收。註明這是依需求整理的重建指南，非原始對話逐字稿；保留研究限制與待部署事項。
 產出與驗收：四張清晰圖件、GitHub 可讀文件、離線 HTML 複製按鈕與完整開發流程。
 
-最終交付：可操作的遊戲、政策與評分設定、圖片動畫資產、測試報告、資料接收與試算表公式說明、安全的部署設定範本、INSTALL 安裝移機文件、README 遊戲說明、中英文論文圖件，以及具有複製按鈕的開發 Prompt HTML。最後列出已完成、已驗證、未驗證及需要外部授權的項目，並提供實際版本與可用連結。</pre></section></main><footer>文件版本 1.1 · 2026-11-09 · 開發重建指南；實際研究請記錄使用的軟體版本。</footer><script>
+最終交付：可操作的遊戲、政策與評分設定、圖片動畫資產、測試報告、資料接收與試算表公式說明、安全的部署設定範本、INSTALL 安裝移機文件、README 遊戲說明、中英文論文圖件，以及具有複製按鈕的開發 Prompt HTML。最後列出已完成、已驗證、未驗證及需要外部授權的項目，並提供實際版本與可用連結。
+
+附錄：Google Sheets 與 GAS 完整實作要求
+請依以下步驟建立新環境，保留既有站點；本範本不可直接覆蓋現行研究資料。
+
+Google Sheets 儲存資料：新專案完整步驟
+
+適用範圍
+本範本供「新的空白試算表」使用，與本遊戲 /api/news-record 的資料格式相容。不要直接覆蓋目前已上線的 GAS 或既有研究表格。原有 NewsReceiver.gs 是既有欄位相容版；NewsReceiver.template.gs 是含建表程序的新專案範本，兩者擇一，不可貼進同一個 GAS 專案。本次只新增文件與範本，未替換線上接收器。
+
+1. 建立私人試算表
+建立新的 Google 試算表，不需要將試算表設為公開。從網址 /d/ 與 /edit 之間取得試算表 ID。此值不是 GAS 專案 ID，也不是部署作業 ID。不要把研究試算表的實際網址寫入公開 GitHub。
+
+2. 建立 GAS 專案並貼上範本
+可由試算表「擴充功能 → Apps Script」建立綁定專案，或建立獨立 Apps Script 專案。刪除新專案預設的 myFunction，完整貼上 NewsReceiver.template.gs，儲存。範本不依賴 getActiveSpreadsheet，而是讀取 SHEET_ID，兩種建立方式皆需下一步設定。
+
+3. 設定指令碼屬性
+在 GAS「專案設定 → 指令碼屬性」新增 SHEET_ID，填入自己的試算表 ID。NEWS_SHARED_SECRET 可先不填；初始化會產生隨機密鑰，之後在指令碼屬性中查看並安全保存。若自行設定，使用高強度隨機密鑰，勿使用範例字串。密鑰不要放在前端、Prompt、截圖、README 或 GitHub。
+
+4. 初始化空白表格
+在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。只對新空白研究工作表執行一次。若目標工作表已有內容，會回報 NONEMPTY_SHEET 並停止，不會清除資料。
+範本建立五張工作表：
+・前後測資料：放在第一張，輸入 User ID 時間在 user_id 前面，接著為政策、調整及整體前後測與差值。
+・遊玩資料：接收器原始欄位。保留相容欄位位置，不可任意搬移。
+・操作紀錄：每關兩次玩家決策及一次外部事件，共九筆事件。
+・同步紀錄：run_id、revision、完整 record_json、接收時間，處理同一局重試。
+・整體摘要：只統計「納入」紀錄的人數、前後測平均、平均差值及完成秒數。
+預設 Asia/Taipei 時區。前後測資料的 A2 是自動展開公式，下方不要手動輸入資料，避免 #REF!。
+
+5. 確認新範本欄位與公式
+前後測資料 A=輸入 User ID 時間、B=user_id、C–E=政策前／後／差值、F–H=調整前／後／差值、I–K=整體前／後／差值、L=run_id、M=完成狀態、N=完成時間、O=總秒數、P=統計納入狀態、Q–V=三關六次決策的 0/1。
+每關分數=(政策+調整)/2×100；前測=第1關；後測=第2、3關平均；差值=後測−前測（百分點）。總秒數=(completedAt−userIdEnteredAt)/1000，含閱讀及背景分頁時間。
+原始表 AF、AG、AH 存 ID 確認時間、完成時間、總秒數；舊證據欄位只保留空白相容位置，不納入評分。新範本的主分析表不顯示證據欄位。此欄位配置不代表既有正式表格已被搬移。
+
+6. 部署 GAS 網頁應用程式
+選「部署 → 新增部署作業 → 網頁應用程式」。執行身分選自己，存取權選允許伺服器無須 Google 登入即可呼叫的「所有人」。這只公開密鑰保護的接收端，不代表公開試算表。若 Workspace 管理政策不允許此選項，需請管理員處理，不能改成把密鑰放到前端繞過。
+複製正式部署的 /exec 網址；不是編輯器 /edit、測試 /dev 或試算表網址。瀏覽 /exec 只會看到服務健康 JSON，不會顯示研究資料。
+日後修改程式，需在「管理部署作業 → 編輯 → 建立新版本 → 部署」更新原部署，才會讓 /exec 使用新程式；單純儲存不等於上線。
+官方說明：https://developers.google.com/apps-script/guides/web
+
+7. 設定網站伺服器的兩個 Secret
+NEWS_SHEETS_URL = 自己的 GAS 正式 /exec 網址。
+NEWS_SHEETS_SECRET = GAS 的 NEWS_SHARED_SECRET，兩者值必須完全相同。
+Cloudflare 可在 Worker 的設定中新增 Secret，或使用專案的互動命令：
+npx wrangler secret put NEWS_SHEETS_URL --name oceanpolicy-v2
+npx wrangler secret put NEWS_SHEETS_SECRET --name oceanpolicy-v2
+不要將密鑰值直接寫進命令列。移植後 Worker 名稱不同時，同步修改 --name。原版 Sites 請在該站獨立的私人環境設定相同兩個變數，GitHub 並不會自動幫兩站傳遞密鑰。
+GAS 屬性官方說明：https://developers.google.com/apps-script/guides/properties
+
+8. 串接方式與資料契約
+瀏覽器 → 同網域 /api/news-record → GAS doPost → Google Sheets。
+瀏覽器只送遊玩紀錄或 {action:&quot;checkUserId&quot;,userId:&quot;TestA123&quot;}，不要送 secret。伺服器讀取 Secret，驗證 Origin、ID、同意版本、完成狀態、時間及決策，依正式政策設定計算 scores/events，再呼叫 GAS。
+GAS 查詢回覆 {ok:true,available:true/false}；寫入回覆 {ok:true,runId,revision}；網站核對 runId/revision 才視為已儲存。GAS 的業務錯誤可能仍是 HTTP 200，必須讀取 JSON 的 ok/error，不能只看 HTTP 狀態。
+沿用 app/api/news-record/route.ts、app/useNewsSync.ts、lib/news-record.ts 的完整資料契約，不要用單純 appendRow 取代。API 保存前會取得安全 Cookie；不要省略既有驗證流程。
+
+9. 完成後才寫入與重複 ID
+未同意、未完成或中途退出都不寫入研究紀錄；開始前查詢 ID 是只讀。ID 限4–32位 ASCII 英數字且至少一個英文字母，不分大小寫檢查重複。
+最終寫入在 GAS ScriptLock 內再次查重；同一 run_id 重試可重複確認但不新增紀錄。兩人同時使用尚未登記的 ID 時，開始查詢可能都通過；最後衝突者保留成果、換新 ID 再儲存。網路錯誤不得假裝儲存成功；保留完成紀錄重試。
+
+10. 驗收與故障排查
+先在新的測試試算表完成兩次合成測試，不用真實參與者資料。完成前表格無新增；完成後核對一筆遊玩資料、一筆同步紀錄、九筆操作紀錄，以及主分析表的 ID、時間、分數及差值。第一局完成後用相同 ID 與大小寫變體再開始，應被拒絕；1234 應拒絕，新英數 ID 應通過。同一 run_id 重試不能增加列。
+範例：珊瑚50分、海草100分、風電50分→前測50、後測75、差值+25百分點。若總耗時60秒，主分析表 O 應為60。將測試列的遊玩資料 A 欄改為「測試」，主分析表會顯示「示範不納入」，摘要排除。
+setup_required：尚未初始化或工作表名稱錯誤；unauthorized：兩端密鑰不一致；invalid_record：格式不符；completion_required：未完成或時間／同意欄位缺漏；user_id_taken：ID已登記；ID_CHECK_UNAVAILABLE：檢查部署版本、權限與網路後重試；SAVE_NOT_CONFIRMED：保留結果，不重建 run_id，檢查接收器再重試。
+不要直接在 GAS 編輯器執行 doPost（它需要 HTTP 事件參數）；初始化才執行 setupNewResearchWorkbook。新範本已做本機模擬測試，尚未在你的新試算表執行；移植時必須完成上述線上驗收。
+
+完整 GAS 新專案範本（複製到單一 .gs 檔案）
+// NEW spreadsheet template only. Do not overwrite an existing research receiver.
+// Copy this whole file into one Apps Script project; do not also paste NewsReceiver.gs.
+function setupNewResearchWorkbook(){
+ const book=SpreadsheetApp.openById(researchSheetId());
+ const names=['前後測資料','遊玩資料','操作紀錄','同步紀錄','整體摘要'];
+ for(const name of names){const s=book.getSheetByName(name);if(s&amp;&amp;s.getLastRow()&gt;0)throw Error('NONEMPTY_SHEET: '+name+'；請改用新的空白試算表，不會清除既有資料。');}
+ book.setSpreadsheetTimeZone('Asia/Taipei');
+ const rawHeaders=['sample_type','run_id','player_id','version','language','status','started_at','ended_at','pre_policy','reserved_pre','pre_adaptation','post1_policy','reserved_post1','post1_adaptation','post2_policy','reserved_post2','post2_adaptation','policy_pre','policy_post','policy_gain','reserved_1','reserved_2','reserved_3','adaptation_pre','adaptation_post','adaptation_gain','overall_pre','overall_post','overall_gain','inclusion','user_id','user_id_entered_at','completed_at','total_seconds'];
+ const headers=['輸入User ID時間','user_id','政策前測','政策後測','政策差值','調整前測','調整後測','調整差值','整體前測','整體後測','整體差值','run_id','完成狀態','遊戲完成時間','完成總時間（秒）','統計納入狀態','珊瑚政策0/1','珊瑚調整0/1','海草政策0/1','海草調整0/1','風電政策0/1','風電調整0/1'];
+ for(const [name,head] of [['前後測資料',headers],['遊玩資料',rawHeaders],['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']],['整體摘要',['項目','數值']]]){
+  const s=book.getSheetByName(name)||book.insertSheet(name);
+  if(s.getMaxColumns()&lt;head.length)s.insertColumnsAfter(s.getMaxColumns(),head.length-s.getMaxColumns());
+  s.getRange(1,1,1,head.length).setValues([head]).setBackground('#173D54').setFontColor('white');s.setFrozenRows(1);
+ }
+ const view=book.getSheetByName('前後測資料');
+ const cols=['AF','AE','R','S','T','X','Y','Z','AA','AB','AC','B','F','AG','AH','AD','I','K','L','N','O','Q'];
+ view.getRange('A2').setFormula('=ARRAYFORMULA(IF(\'遊玩資料\'!B2:B=&quot;&quot;,&quot;&quot;,{'+cols.map(c=&gt;&quot;'遊玩資料'!&quot;+c+'2:'+c).join(',')+'}))');
+ view.getRange('A2:A').setNumberFormat('yyyy-mm-dd hh:mm:ss');view.getRange('N2:N').setNumberFormat('yyyy-mm-dd hh:mm:ss');
+ view.getRange('C2:K').setNumberFormat('0.0');view.getRange('O2:O').setNumberFormat('0.000');view.getRange('B2:B').setNumberFormat('@');
+ const summary=book.getSheetByName('整體摘要');
+ summary.getRange(2,1,5,1).setValues([['完成且納入人數'],['整體前測平均'],['整體後測平均'],['平均差值（百分點）'],['平均完成秒數']]);
+ summary.getRange(2,2).setFormula('=COUNTIF(\'前後測資料\'!P2:P,&quot;納入&quot;)');
+ for(const [row,col] of [[3,'I'],[4,'J'],[5,'K'],[6,'O']])summary.getRange(row,2).setFormula('=IFERROR(AVERAGEIF(\'前後測資料\'!P2:P,&quot;納入&quot;,\'前後測資料\'!'+col+'2:'+col+'),&quot;&quot;)');
+ summary.getRange('B3:B6').setNumberFormat('0.000');
+ setupNewsReceiver();book.setActiveSheet(view);book.moveActiveSheet(1);
+ console.log('新表格初始化完成；密鑰請在指令碼屬性查看，勿貼到公開文件。');
+}
+
+
+// Bound to the research spreadsheet. Only ID availability is exposed, never records.
+function researchSheetId(){
+ const id=PropertiesService.getScriptProperties().getProperty('SHEET_ID');
+ if(!id)throw Error('SHEET_ID_NOT_CONFIGURED');
+ return id;
+}
+const EVENT_HEADERS=['event_id','run_id','level','mission_id','variable','choice_id','score','selected_at','confirmed_at','language','received_at','user_id'];
+function setupNewsReceiver(){
+ const book=SpreadsheetApp.openById(researchSheetId()),data=book.getSheetByName('遊玩資料');
+ if(!data||data.getRange('B1').getValue()!=='run_id'||data.getRange('I1').getValue()!=='pre_policy')throw Error('遊玩資料欄位與範本不符，未修改資料。');
+ if(data.getMaxColumns()&lt;31)data.insertColumnsAfter(data.getMaxColumns(),31-data.getMaxColumns());
+ data.getRange(1,31).setValue('user_id');data.getRange(2,31,data.getMaxRows()-1,1).setNumberFormat('@');
+ const existingEvents=book.getSheetByName('操作紀錄');if(existingEvents&amp;&amp;!existingEvents.getRange(1,12).getValue())existingEvents.getRange(1,12).setValue('user_id');
+ for(const spec of [['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']]]){
+  let s=book.getSheetByName(spec[0]);if(!s)s=book.insertSheet(spec[0]);
+  if(s.getLastRow()===0){s.getRange(1,1,1,spec[1].length).setValues([spec[1]]).setBackground('#173D54').setFontColor('white');s.setFrozenRows(1);}
+  else if(JSON.stringify(s.getRange(1,1,1,spec[1].length).getValues()[0])!==JSON.stringify(spec[1]))throw Error('欄位不符：'+spec[0]);
+ }
+ const props=PropertiesService.getScriptProperties();if(!props.getProperty('NEWS_SHARED_SECRET'))props.setProperty('NEWS_SHARED_SECRET',Utilities.getUuid()+Utilities.getUuid());
+ console.log('設定完成。請將指令碼屬性 NEWS_SHARED_SECRET 設為網站的 NEWS_SHEETS_SECRET，部署網頁應用程式後設定 NEWS_SHEETS_URL。');
+}
+function doGet(){return json({ok:true,service:'ocean-news-receiver',schema:'news-sheet-1'});}
+function json(value){return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON);}
+function doPost(e){
+ let lock;
+ try{
+  if(!e||!e.postData||e.postData.contents.length&gt;24000)throw Error('invalid_request');
+  const body=JSON.parse(e.postData.contents),secret=PropertiesService.getScriptProperties().getProperty('NEWS_SHARED_SECRET');
+  if(!secret||body.secret!==secret)throw Error('unauthorized');
+  if(body.action==='checkUserId'){
+   if(!validParticipantId(body.userId))throw Error('invalid_user_id');
+   const data=SpreadsheetApp.openById(researchSheetId()).getSheetByName('遊玩資料');
+   if(!data)throw Error('setup_required');
+   return json({ok:true,available:!userIdUsed(data,body.userId)});
+  }
+  const p=body.record,r=p&amp;&amp;p.run;
+  if(!p||p.schema!=='news-sheet-1'||!r||!Number.isInteger(body.revision)||!Array.isArray(body.scores)||body.scores.length!==9||!body.scores.every(x=&gt;x===null||x===0||x===1)||!Array.isArray(body.events)||body.events.length&gt;9)throw Error('invalid_record');
+  if(!validParticipantId(r.userId)||!/^[0-9a-f-]{36}$/i.test(r.id)||!/^[0-9a-f-]{36}$/i.test(p.playerId)||!['complete','incomplete','timeout'].includes(body.status))throw Error('invalid_record');
+  if(body.status!=='complete'||r.current!==3||!r.consent||r.consent.accepted!==true||r.consent.version!=='research-2026-10-24-completion-only'||!Number.isSafeInteger(r.userIdEnteredAt)||!Number.isSafeInteger(r.completedAt)||r.completedAt&lt;r.userIdEnteredAt)throw Error('completion_required');
+  lock=LockService.getScriptLock();if(!lock.tryLock(10000))throw Error('busy_retry');
+  const book=SpreadsheetApp.openById(researchSheetId()),data=book.getSheetByName('遊玩資料'),events=book.getSheetByName('操作紀錄'),ledger=book.getSheetByName('同步紀錄');
+  if(!data||!events||!ledger)throw Error('setup_required');
+  const match=findRow(ledger,1,r.id),old=match?ledger.getRange(match,1,1,4).getValues()[0]:null;
+  if(old){
+   const before=JSON.parse(old[2]);
+   if(before.run.userId!==r.userId||before.playerId!==p.playerId||before.run.startedAt!==r.startedAt)throw Error('record_conflict');
+   if(Number(old[1])&gt;=body.revision)return json({ok:true,runId:r.id,revision:body.revision,duplicate:true});
+   for(let i=0;i&lt;3;i++)for(let j=0;j&lt;before.run.rounds[i].actions.length;j++){
+    const a=before.run.rounds[i].actions[j],b=r.rounds[i].actions[j];
+    if(!b||a.choice!==b.choice||a.at!==b.at||a.language!==b.language||(a.ackAt!==undefined&amp;&amp;a.ackAt!==b.ackAt))throw Error('record_conflict');
+   }
+  }
+  if(userIdUsed(data,r.userId,r.id))throw Error('user_id_taken');
+  const received=new Date().toISOString();
+  for(const event of body.events){
+   const row=findRow(events,1,event.event_id)||events.getLastRow()+1;ensureRows(events,row);
+   const first=events.getRange(row,11).getValue()||received;
+   events.getRange(row,12).setNumberFormat('@');
+   events.getRange(row,1,1,12).setValues([[...EVENT_HEADERS.slice(0,10).map(k=&gt;safe(event[k])),first,r.userId]]);
+  }
+  let target=findRow(data,2,r.id);
+  if(!target){const ids=data.getRange(2,2,Math.max(1,data.getLastRow()-1),1).getValues();const gap=ids.findIndex(v=&gt;!v[0]);target=gap&gt;=0?gap+2:data.getLastRow()+1;}
+  ensureRows(data,target);
+  const ended=new Date(r.completedAt);
+  data.getRange(target,1,1,17).setValues([['正式',r.id,p.playerId,'news-pilot-1/sheet-1',p.language,body.status,new Date(r.startedAt),ended,...body.scores.map(x=&gt;x===null?'':x)]]);
+  data.getRange(target,7,1,2).setNumberFormat('yyyy-mm-dd hh:mm:ss');
+  data.getRange(target,18,1,13).setFormulas([scoreFormulas(target)]).setNumberFormat('0.0');
+  data.getRange(target,30).setNumberFormat('@');
+  data.getRange(target,31).setNumberFormat('@').setValues([[r.userId]]);
+  data.getRange(target,32,1,3).setValues([[new Date(r.userIdEnteredAt),new Date(r.completedAt),(r.completedAt-r.userIdEnteredAt)/1000]]);
+  data.getRange(target,32,1,2).setNumberFormat('yyyy-mm-dd hh:mm:ss');data.getRange(target,34).setNumberFormat('0.000');
+  const row=match||ledger.getLastRow()+1;ensureRows(ledger,row);
+  ledger.getRange(row,1,1,4).setValues([[r.id,body.revision,JSON.stringify(p),received]]);
+  // Extend existing summary bounds only when new records exceed its current capacity.
+  if(target&gt;504){const summary=book.getSheetByName('整體摘要');if(summary){const range=summary.getDataRange(),f=range.getFormulas();for(let i=0;i&lt;f.length;i++)for(let j=0;j&lt;f[i].length;j++)if(f[i][j]&amp;&amp;f[i][j].includes('遊玩資料')){const updated=f[i][j].replace(/\$([A-Z]+)\$(\d+)/g,(m,c,n)=&gt;Number(n)&gt;=504&amp;&amp;Number(n)&lt;target?'$'+c+'$'+target:m);if(updated!==f[i][j])summary.getRange(i+1,j+1).setFormula(updated);}}}
+  SpreadsheetApp.flush();return json({ok:true,runId:r.id,revision:body.revision});
+ }catch(err){return json({ok:false,error:String(err.message||'save_failed')});}finally{if(lock&amp;&amp;lock.hasLock())lock.releaseLock();}
+}
+function findRow(sheet,col,key){if(sheet.getLastRow()&lt;2)return 0;const found=sheet.getRange(2,col,sheet.getLastRow()-1,1).createTextFinder(key).matchEntireCell(true).useRegularExpression(false).findNext();return found?found.getRow():0;}
+function ensureRows(s,n){if(n&gt;s.getMaxRows())s.insertRowsAfter(s.getMaxRows(),Math.max(100,n-s.getMaxRows()));}
+function safe(x){return typeof x==='string'&amp;&amp;/^[=+@\-]/.test(x)?&quot;'&quot;+x:x;}
+function scoreFormulas(r){
+ const f=[],valid=c=&gt;'AND(ISNUMBER('+c+'),OR('+c+'=0,'+c+'=1))';
+ for(const cols of [['I','L','O','R','S'],null,['K','N','Q','X','Y']]){
+  if(!cols){f.push('','','');continue;}
+  const [a,b,c,pre,post]=cols.map(x=&gt;x+r);
+  f.push('=IF('+valid(a)+','+a+'*100,&quot;&quot;)','=IF(AND('+valid(b)+','+valid(c)+'),('+b+'+'+c+')/2*100,&quot;&quot;)','=IF(COUNT('+pre+':'+post+')=2,'+post+'-'+pre+',&quot;&quot;)');
+ }
+ f.push('=IF(COUNT(R'+r+',X'+r+')=2,AVERAGE(R'+r+',X'+r+'),&quot;&quot;)','=IF(COUNT(S'+r+',Y'+r+')=2,AVERAGE(S'+r+',Y'+r+'),&quot;&quot;)','=IF(COUNT(AA'+r+':AB'+r+')=2,AB'+r+'-AA'+r+',&quot;&quot;)','=IF(B'+r+'=&quot;&quot;,&quot;&quot;,IF(A'+r+'&lt;&gt;&quot;正式&quot;,&quot;示範不納入&quot;,IF(COUNTIF(B:B,B'+r+')&gt;1,&quot;重複 run_id&quot;,IF(F'+r+'&lt;&gt;&quot;complete&quot;,&quot;未完成&quot;,IF(COUNT(AA'+r+':AB'+r+')&lt;2,&quot;缺漏或非 0/1&quot;,&quot;納入&quot;)))))');return f;
+}
+
+function validParticipantId(id){return typeof id==='string'&amp;&amp;/^(?=.*[A-Za-z])[A-Za-z0-9]{4,32}$/.test(id);}
+function userIdUsed(data,id,ownRun){
+ if(data.getLastRow()&lt;2)return false;
+ const rows=data.getRange(2,2,data.getLastRow()-1,30).getValues(),key=id.toLowerCase();
+ return rows.some(row=&gt;row[29]!==''&amp;&amp;row[29]!=null&amp;&amp;String(row[29]).toLowerCase()===key&amp;&amp;(!ownRun||row[0]!==ownRun));
+}</pre></section></main><footer>文件版本 1.2 · 2026-11-09 · 開發重建指南；實際研究請記錄使用的軟體版本。</footer><script>
 async function copyText(value){
  try { if(!navigator.clipboard || !window.isSecureContext) throw new Error('fallback'); await navigator.clipboard.writeText(value); }
  catch(error){const area=document.createElement('textarea');area.value=value;area.setAttribute('readonly','');area.style.position='fixed';area.style.top='0';area.style.left='0';document.body.appendChild(area);area.select();const ok=document.execCommand('copy');area.remove();if(!ok)throw new Error('copy unavailable');}
