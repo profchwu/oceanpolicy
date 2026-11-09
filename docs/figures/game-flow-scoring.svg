@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1040" viewBox="0 0 1200 1040" role="img" aria-labelledby="title desc">
+<title id="title">海島新聞任務：遊戲流程與評分</title><desc id="desc">同意與識別碼，三關新聞政策任務，完成後提交紀錄。每關記錄政策判斷與應變決策，第一關為早期基準，第二三關平均為後期表現。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10" fill="none" stroke="#147d85" stroke-width="2"/></marker></defs>
+<rect width="1200" height="1040" rx="24" fill="#f3f8fa"/>
+<g font-family="sans-serif" fill="#153c4d">
+<text x="60" y="65" font-size="34" font-weight="700">海島新聞任務｜流程與評分</text>
+<text x="60" y="104" font-size="21">單人點選操作 · 三關 · 約五秒政策動畫 · 十分鐘任務上限</text>
+<rect x="60" y="136" width="1080" height="70" rx="14" fill="#153c4d"/>
+<text x="600" y="181" text-anchor="middle" fill="white" font-size="25">閱讀說明並同意 → 輸入 User ID → 閱讀第一則新聞</text>
+<path d="M600 213V245" stroke="#147d85" stroke-width="3" marker-end="url(#arrow)"/>
+<g fill="#dceff0" stroke="#78afb6"><rect x="60" y="265" width="340" height="108" rx="14"/><rect x="430" y="265" width="340" height="108" rx="14"/><rect x="800" y="265" width="340" height="108" rx="14"/></g>
+<g text-anchor="middle"><text x="230" y="306" font-size="25" font-weight="700">① 珊瑚保育</text><text x="230" y="344" font-size="21">污水與熱浪｜早期基準</text><text x="600" y="306" font-size="25" font-weight="700">② 海草復育</text><text x="600" y="344" font-size="21">水質與泥沙｜後期表現 1</text><text x="970" y="306" font-size="25" font-weight="700">③ 離岸風電</text><text x="970" y="344" font-size="21">併網與海纜｜後期表現 2</text></g>
+<rect x="60" y="402" width="1080" height="170" rx="14" fill="white" stroke="#78afb6"/>
+<text x="90" y="443" font-size="25" font-weight="700">每關流程</text>
+<text x="90" y="483" font-size="23">新聞 → 政策選擇 P → 動畫與影響 → 外部事件 → 應變選擇 A</text>
+<text x="90" y="527" font-size="23">→ 完整播放動畫 → 檢視環境變化與成果報告 → 下一關</text>
+<path d="M600 579V610" stroke="#147d85" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="60" y="630" width="1080" height="68" rx="14" fill="#153c4d"/>
+<text x="600" y="674" text-anchor="middle" fill="white" font-size="24">完成三關 → 提交遊玩紀錄、顯示通關密碼 → 填寫後續問卷</text>
+<rect x="60" y="728" width="1080" height="216" rx="14" fill="white" stroke="#78afb6"/>
+<text x="90" y="770" font-size="25" font-weight="700">兩個行為變數｜政策判斷 P ＋ 應變決策 A</text>
+<text x="90" y="812" font-size="22">依情境規準各給 0 或 1 分；每關分數＝(P＋A) ÷ 2 × 100</text>
+<text x="90" y="853" font-size="22">前測＝第 1 關　　後測＝(第 2 關＋第 3 關) ÷ 2</text>
+<text x="90" y="894" font-size="22" font-weight="700">差值＝後測－前測（百分點）｜缺漏不補零；外部事件不計分</text>
+<text x="60" y="984" font-size="19">研究限制：不同主題並非等值測驗，差值不能單獨證明學習成效。</text>
+<text x="60" y="1015" font-size="18">流程文件更新：2026-11-09 · 環境指數與評量分數分開計算</text>
+</g></svg>

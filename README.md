@@ -10,6 +10,10 @@ National Tsing Hua University, Graduate Institute of Mathematics and Science Edu
 
 **[立即遊玩：Cloudflare Version 2](https://oceanpolicy-v2.nthuchwu.workers.dev)** · [原版 ChatGPT Sites](https://ocean-policy-dispatch.nthuchwu.chatgpt.site)
 
+**開發文件（2026-11-09）：[完整 16 步 Prompt 與解析](docs/development-prompts.md)** · [下載可離線複製的 HTML](https://github.com/profchwu/oceanpolicy/raw/refs/heads/main/docs/development-prompts.html)
+
+HTML 下載後用瀏覽器開啟，可按「複製本步 Prompt」或「複製全部」；GitHub 頁面請使用 Markdown 版的程式碼複製按鈕。安裝與部署請見 [INSTALL.md](INSTALL.md)。
+
 ![珊瑚保育海島場景](public/optimized/mission-reef-v2.webp)
 
 ## 怎麼玩？
@@ -52,9 +56,13 @@ National Tsing Hua University, Graduate Institute of Mathematics and Science Edu
 
 ## 流程與評分說明圖
 
-以下為既有 v55 中英文 A4 圖件；可開啟原圖供閱讀，投稿時請對照研究實際使用版本。
+以下使用輕量向量圖，可放大閱讀；圖件更新於 2026-11-09。
 
-![中文：遊戲流程與評分](docs/figures/01-flow-scoring-zh-A4.png)
+![中文：遊戲流程與評分](docs/figures/game-flow-scoring.svg)
+
+[直接開啟流程圖](docs/figures/game-flow-scoring.svg) · [既有中文 A4 PNG](docs/figures/01-flow-scoring-zh-A4.png) · [既有英文 A4 PNG](docs/figures/01-flow-scoring-en-A4.png)
+
+下列 A4 PNG 為既有 v55 圖件，保留供下載；投稿時請核對研究實際使用版本，不應視為新版流程圖的等同版本。
 
 ## 三關畫面與政策選項
 
@@ -75,7 +83,7 @@ National Tsing Hua University, Graduate Institute of Mathematics and Science Edu
 
 `玩家瀏覽器 → 同網域網站 API → Google Apps Script → Google Sheets`
 
-前端以 React 呈現新聞、SVG 動畫與政策結果；Cloudflare Workers 執行網站與資料驗證 API。研究同意後，系統才啟動遊玩紀錄上傳。
+前端以 React 呈現新聞、SVG 動畫與政策結果；Cloudflare Workers 執行網站與資料驗證 API。同意參與且完成三關後，系統才上傳研究遊玩紀錄；中途退出不送出未完成紀錄。
 
 使用 Node.js 22.13 以上與 npm：
 
@@ -101,6 +109,8 @@ npm run preview
 **本專案包含伺服器 API，不是可直接放上 GitHub Pages 的純靜態網站。** 移往其他主機時需處理伺服器環境與同網域 API，詳細步驟見 HTML 手冊。
 
 
-研究收集版：新增 User ID 確認時間、完成時間與總秒數；完成三關顯示通關密碼。暫時隱藏研究變數與英文按鈕，功能保留。設定、時間定義與欄位公式請見 [研究收集版說明](docs/research-collection.md)。
+研究收集版：新增 User ID 確認時間、完成時間與總秒數；完成三關顯示通關密碼。目前顯示「前後測設計」按鈕，English 按鈕暫時隱藏、功能保留。設定、時間定義與欄位公式請見 [研究收集版說明](docs/research-collection.md)。
 
-2026-10-24：開場新增四頁研究說明與同意勾選；User ID 限 4–32 位英文字母或數字。完成三關才上傳，未完成可按「退出研究」清除本機暫存。
+2026-10-24：開場新增四頁研究說明與同意勾選；User ID 限 4–32 位 ASCII 英文字母或數字，至少包含一個英文字母。完成三關才上傳，未完成可按「退出研究」清除本機暫存。
+
+2026-11-09 文件更新：新增完整開發 Prompt 與解析、輕量流程圖。重複 User ID 檢查仍待 GAS 與網站整合部署，不能視為已上線功能。
