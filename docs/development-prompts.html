@@ -200,6 +200,8 @@ function userIdUsed(data,id,ownRun){
  return rows.some(row=&gt;row[29]!==''&amp;&amp;row[29]!=null&amp;&amp;String(row[29]).toLowerCase()===key&amp;&amp;(!ownRun||row[0]!==ownRun));
 }</pre><p><a href="https://github.com/profchwu/oceanpolicy/blob/main/google-apps-script/NewsReceiver.template.gs">GitHub GAS 範本</a> · <a href="https://developers.google.com/apps-script/guides/web">Google 官方部署說明</a></p></section><section id="master-prompt" style="background:white;border:2px solid #16838a;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px"><div class="heading"><h2>完整整合 Prompt</h2><button data-copy="prompt-master">複製完整 Prompt</button></div><p>以下整合全部 16 步需求與驗收，另含 Google Sheets 設定步驟與完整 GAS 範本。按一下即可完整複製，直接貼到 Gemini 或其他開發工具。</p><pre id="prompt-master">你是一位教育遊戲設計師、海洋政策內容編輯與全端工程師。請依下列完整需求，協助開發、驗證及保存「海島新聞任務」網頁政策教育遊戲。
 
+每次修改專案，都必須同步更新逐步 Prompt 說明、完整整合 Prompt 與受影響的文件；完成適當測試及敏感資料檢查後，將本次變更提交並推送到既有 GitHub 儲存庫。不得上傳密鑰、私人研究網址或玩家資料；若推送受阻，明確回報原因，不可宣稱已更新。
+
 這份需求是整理後的開發規格，不是原始對話逐字稿。若已有專案，先閱讀現有程式及文件，保留已完成的功能，核對目前部署狀態，再補齊需求；若從零開始，先建立需求、玩法與架構，再逐步實作。不可聲稱尚未測試或部署的項目已完成。
 
 執行方式：依下面 16 步處理，每步都核對產出與驗收；先提出玩法與流程供確認，再進行大量實作。私人密鑰及研究資料只能透過私人設定提供，不可寫入公開程式或文件。本文第 13 步在原專案已上線；移植時請重新核實 GAS 與網站版本並驗證。
