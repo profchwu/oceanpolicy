@@ -6,6 +6,7 @@ const col=s=>[...s].reduce((a,c)=>a*26+c.charCodeAt(0)-64,0);
 class Sheet {
  constructor(name){this.name=name;this.rows=[];this.formulas={};this.columns=26;}
  getLastRow(){return this.rows.length;}
+ getLastColumn(){return Math.max(0,...this.rows.map(r=>r.length));}
  getMaxRows(){return 1000;}
  getMaxColumns(){return this.columns;}
  insertColumnsAfter(start,count){this.columns+=count;}
@@ -23,6 +24,14 @@ const book={getSheetByName:n=>sheets[n],insertSheet:n=>(sheets[n]=new Sheet(n)),
 const context={console,SpreadsheetApp:{openById:id=>{assert.equal(id,'test-sheet');return book;},flush(){}},PropertiesService:{getScriptProperties:()=>({getProperty:k=>props[k],setProperty:(k,v)=>{props[k]=v;}})},Utilities:{getUuid:()=> 'test-generated'},ContentService:{MimeType:{JSON:'json'},createTextOutput:text=>({setMimeType:()=>JSON.parse(text)})},LockService:{getScriptLock:()=>({tryLock:()=>{locks++;return true;},hasLock:()=>true,releaseLock(){locks--;}})}};
 vm.createContext(context);vm.runInContext(fs.readFileSync('google-apps-script/NewsReceiver.template.gs','utf8'),context);
 context.setupNewResearchWorkbook();assert.equal(active,'前後測資料');assert.equal(Object.keys(sheets).length,5);assert.equal(sheets['遊玩資料'].rows[0].length,34);assert.equal(sheets['前後測資料'].rows[0][0],'輸入User ID時間');assert.equal(sheets['前後測資料'].rows[0][1],'user_id');assert(sheets['前後測資料'].formulas['2:1'].includes("'遊玩資料'!AF2:AF"));assert.throws(()=>context.setupNewResearchWorkbook(),/NONEMPTY_SHEET/);
+// Simulate a freshly imported XLSX: all sheets contain exact header rows only.
+for(const s of Object.values(sheets)){s.rows=s.rows.slice(0,1);s.formulas={};}
+const beforeHeaders=JSON.stringify(sheets['遊玩資料'].rows);
+sheets['操作紀錄'].rows[0][0]='wrong_header';
+assert.throws(()=>context.setupNewResearchWorkbook(),/NONEMPTY_SHEET/);
+assert.equal(JSON.stringify(sheets['遊玩資料'].rows),beforeHeaders);
+sheets['操作紀錄'].rows[0][0]='event_id';context.setupNewResearchWorkbook();
+assert(sheets['前後測資料'].formulas['2:1'].startsWith('=ARRAYFORMULA'));
 const run={id:'11111111-1111-4111-8111-111111111111',userId:'Ab1234',current:3,startedAt:2000,userIdEnteredAt:1000,completedAt:61000,consent:{accepted:true,version:'research-2026-10-24-completion-only'},rounds:[{actions:[]},{actions:[]},{actions:[]}]};
 const body={secret:'test-secret',record:{schema:'news-sheet-1',playerId:'22222222-2222-4222-8222-222222222222',language:'zh-Hant',observedAt:70000,run},revision:20,status:'complete',scores:[1,null,0,1,null,1,0,null,1],events:[]};
 const send=b=>context.doPost({postData:{contents:JSON.stringify(b)}});

@@ -171,7 +171,7 @@ README 首頁放遊戲說明及輕量流程圖，安裝放 INSTALL。
 在 GAS「專案設定 → 指令碼屬性」新增 SHEET_ID，填入自己的試算表 ID。NEWS_SHARED_SECRET 可先不填；初始化會產生隨機密鑰，之後在指令碼屬性中查看並安全保存。若自行設定，使用高強度隨機密鑰，勿使用範例字串。密鑰不要放在前端、Prompt、截圖、README 或 GitHub。
 
 4. 初始化空白表格
-在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。只對新空白研究工作表執行一次。若目標工作表已有內容，會回報 NONEMPTY_SHEET 並停止，不會清除資料。
+在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。只對新空白研究工作表執行一次。接受空白表或僅有精確欄名的下載範本；已有資料或欄名不符時回報 NONEMPTY_SHEET，不會清除資料。
 範本建立五張工作表：
 ・前後測資料：放在第一張，輸入 User ID 時間在 user_id 前面，接著為政策、調整及整體前後測與差值。
 ・遊玩資料：接收器原始欄位。保留相容欄位位置，不可任意搬移。
@@ -454,7 +454,7 @@ NEWS_SHARED_SECRET 可先不填；
 4. 初始化空白表格
 在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。
 只對新空白研究工作表執行一次。
-若目標工作表已有內容，會回報 NONEMPTY_SHEET 並停止，不會清除資料。
+接受空白表或僅有精確欄名的下載範本；已有資料或欄名不符時回報 NONEMPTY_SHEET，不會清除資料。
 範本建立五張工作表：
 ・前後測資料：放在第一張，輸入 User ID 時間在 user_id 前面，接著為政策、調整及整體前後測與差值。
 ・遊玩資料：接收器原始欄位。
@@ -546,29 +546,45 @@ SAVE_NOT_CONFIRMED：保留結果，不重建 run_id，檢查接收器再重試�
 移植時必須完成上述線上驗收。
 
 GAS 程式請另外複製獨立範本：google-apps-script/NewsReceiver.template.gs。
-完整 Prompt 不包含 GAS 原始碼。</pre></section><section id="gas-source" style="background:white;border:2px solid #16838a;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px"><div class="heading"><h2>完整 GAS 範本（獨立程式）</h2><button data-copy="gas-template">複製 GAS 程式</button></div><p>此區僅提供 GAS 原始碼，與完整 Prompt 分開。用於新的空白試算表；設定步驟請見前方說明。</p><pre id="gas-template">// NEW spreadsheet template only. Do not overwrite an existing research receiver.
+完整 Prompt 不包含 GAS 原始碼。
+
+下載與圖解（2026-11-09）
+提供 docs/templates/oceanpolicy-research-template.xlsx，含五張工作表與精確欄位，沒有玩家資料或密鑰。
+在 Google Sheets 以「檔案 → 匯入 → 上傳」匯入為新的試算表；若從 Drive 開啟 Excel，先另存為 Google 試算表。
+不要匯入或覆蓋正式研究表格。
+下載檔僅有欄名與格式；匯入後執行 setupNewResearchWorkbook，才會安裝前後測 ARRAYFORMULA 與整體摘要公式。
+初始化接受空白表，或欄名完全一致且只有第一列的下載範本；有資料或欄名錯誤時停止，不會清除資料。
+操作圖解為 docs/google-sheets-setup.html，包含實際 GAS 軟體局部截圖與工作表格式預覽。
+軟體截圖取自既有介面，只示範按鈕位置；新專案請執行 setupNewResearchWorkbook，不要依截圖選舊版 setupNewsReceiver。
+圖片不得含帳號、研究資料、正式網址或密鑰。完整 Prompt 與 GAS 原始碼分開提供複製按鈕。</pre></section><section id="gas-source" style="background:white;border:2px solid #16838a;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px"><div class="heading"><h2>完整 GAS 範本（獨立程式）</h2><button data-copy="gas-template">複製 GAS 程式</button></div><p>此區僅提供 GAS 原始碼，與完整 Prompt 分開。用於新的空白試算表；設定步驟請見前方說明。</p><pre id="gas-template">// NEW spreadsheet template only. Do not overwrite an existing research receiver.
 // Copy this whole file into one Apps Script project; do not also paste NewsReceiver.gs.
 function setupNewResearchWorkbook(){
  const book=SpreadsheetApp.openById(researchSheetId());
  const names=['前後測資料','遊玩資料','操作紀錄','同步紀錄','整體摘要'];
- for(const name of names){const s=book.getSheetByName(name);if(s&amp;&amp;s.getLastRow()&gt;0)throw Error('NONEMPTY_SHEET: '+name+'；請改用新的空白試算表，不會清除既有資料。');}
  book.setSpreadsheetTimeZone('Asia/Taipei');
  const rawHeaders=['sample_type','run_id','player_id','version','language','status','started_at','ended_at','pre_policy','reserved_pre','pre_adaptation','post1_policy','reserved_post1','post1_adaptation','post2_policy','reserved_post2','post2_adaptation','policy_pre','policy_post','policy_gain','reserved_1','reserved_2','reserved_3','adaptation_pre','adaptation_post','adaptation_gain','overall_pre','overall_post','overall_gain','inclusion','user_id','user_id_entered_at','completed_at','total_seconds'];
  const headers=['輸入User ID時間','user_id','政策前測','政策後測','政策差值','調整前測','調整後測','調整差值','整體前測','整體後測','整體差值','run_id','完成狀態','遊戲完成時間','完成總時間（秒）','統計納入狀態','珊瑚政策0/1','珊瑚調整0/1','海草政策0/1','海草調整0/1','風電政策0/1','風電調整0/1'];
- for(const [name,head] of [['前後測資料',headers],['遊玩資料',rawHeaders],['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']],['整體摘要',['項目','數值']]]){
+ const specifications=[['前後測資料',headers],['遊玩資料',rawHeaders],['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']],['整體摘要',['項目','數值']]];
+ // Also accept the downloadable XLSX after conversion to Google Sheets: exact headers only.
+ // Validate every sheet before any content is changed. Never overwrite populated research sheets.
+ for(const [name,head] of specifications){
+  const s=book.getSheetByName(name);if(!s||s.getLastRow()===0)continue;
+  if(s.getLastRow()&gt;1||s.getLastColumn()!==head.length||JSON.stringify(s.getRange(1,1,1,head.length).getValues()[0])!==JSON.stringify(head))throw Error('NONEMPTY_SHEET: '+name+'；僅接受空白表或未填資料的標準下載範本，不會清除既有資料。');
+ }
+ for(const [name,head] of specifications){
   const s=book.getSheetByName(name)||book.insertSheet(name);
   if(s.getMaxColumns()&lt;head.length)s.insertColumnsAfter(s.getMaxColumns(),head.length-s.getMaxColumns());
   s.getRange(1,1,1,head.length).setValues([head]).setBackground('#173D54').setFontColor('white');s.setFrozenRows(1);
  }
  const view=book.getSheetByName('前後測資料');
  const cols=['AF','AE','R','S','T','X','Y','Z','AA','AB','AC','B','F','AG','AH','AD','I','K','L','N','O','Q'];
- view.getRange('A2').setFormula('=ARRAYFORMULA(IF(\'遊玩資料\'!B2:B=&quot;&quot;,&quot;&quot;,{'+cols.map(c=&gt;&quot;'遊玩資料'!&quot;+c+'2:'+c).join(',')+'}))');
+ view.getRange('A2').setFormula('=ARRAYFORMULA(IF(\'遊玩資料\'!B2:B="","",{'+cols.map(c=&gt;"'遊玩資料'!"+c+'2:'+c).join(',')+'}))');
  view.getRange('A2:A').setNumberFormat('yyyy-mm-dd hh:mm:ss');view.getRange('N2:N').setNumberFormat('yyyy-mm-dd hh:mm:ss');
  view.getRange('C2:K').setNumberFormat('0.0');view.getRange('O2:O').setNumberFormat('0.000');view.getRange('B2:B').setNumberFormat('@');
  const summary=book.getSheetByName('整體摘要');
  summary.getRange(2,1,5,1).setValues([['完成且納入人數'],['整體前測平均'],['整體後測平均'],['平均差值（百分點）'],['平均完成秒數']]);
- summary.getRange(2,2).setFormula('=COUNTIF(\'前後測資料\'!P2:P,&quot;納入&quot;)');
- for(const [row,col] of [[3,'I'],[4,'J'],[5,'K'],[6,'O']])summary.getRange(row,2).setFormula('=IFERROR(AVERAGEIF(\'前後測資料\'!P2:P,&quot;納入&quot;,\'前後測資料\'!'+col+'2:'+col+'),&quot;&quot;)');
+ summary.getRange(2,2).setFormula('=COUNTIF(\'前後測資料\'!P2:P,"納入")');
+ for(const [row,col] of [[3,'I'],[4,'J'],[5,'K'],[6,'O']])summary.getRange(row,2).setFormula('=IFERROR(AVERAGEIF(\'前後測資料\'!P2:P,"納入",\'前後測資料\'!'+col+'2:'+col+'),"")');
  summary.getRange('B3:B6').setNumberFormat('0.000');
  setupNewsReceiver();book.setActiveSheet(view);book.moveActiveSheet(1);
  console.log('新表格初始化完成；密鑰請在指令碼屬性查看，勿貼到公開文件。');
@@ -655,15 +671,15 @@ function doPost(e){
 }
 function findRow(sheet,col,key){if(sheet.getLastRow()&lt;2)return 0;const found=sheet.getRange(2,col,sheet.getLastRow()-1,1).createTextFinder(key).matchEntireCell(true).useRegularExpression(false).findNext();return found?found.getRow():0;}
 function ensureRows(s,n){if(n&gt;s.getMaxRows())s.insertRowsAfter(s.getMaxRows(),Math.max(100,n-s.getMaxRows()));}
-function safe(x){return typeof x==='string'&amp;&amp;/^[=+@\-]/.test(x)?&quot;'&quot;+x:x;}
+function safe(x){return typeof x==='string'&amp;&amp;/^[=+@\-]/.test(x)?"'"+x:x;}
 function scoreFormulas(r){
  const f=[],valid=c=&gt;'AND(ISNUMBER('+c+'),OR('+c+'=0,'+c+'=1))';
  for(const cols of [['I','L','O','R','S'],null,['K','N','Q','X','Y']]){
   if(!cols){f.push('','','');continue;}
   const [a,b,c,pre,post]=cols.map(x=&gt;x+r);
-  f.push('=IF('+valid(a)+','+a+'*100,&quot;&quot;)','=IF(AND('+valid(b)+','+valid(c)+'),('+b+'+'+c+')/2*100,&quot;&quot;)','=IF(COUNT('+pre+':'+post+')=2,'+post+'-'+pre+',&quot;&quot;)');
+  f.push('=IF('+valid(a)+','+a+'*100,"")','=IF(AND('+valid(b)+','+valid(c)+'),('+b+'+'+c+')/2*100,"")','=IF(COUNT('+pre+':'+post+')=2,'+post+'-'+pre+',"")');
  }
- f.push('=IF(COUNT(R'+r+',X'+r+')=2,AVERAGE(R'+r+',X'+r+'),&quot;&quot;)','=IF(COUNT(S'+r+',Y'+r+')=2,AVERAGE(S'+r+',Y'+r+'),&quot;&quot;)','=IF(COUNT(AA'+r+':AB'+r+')=2,AB'+r+'-AA'+r+',&quot;&quot;)','=IF(B'+r+'=&quot;&quot;,&quot;&quot;,IF(A'+r+'&lt;&gt;&quot;正式&quot;,&quot;示範不納入&quot;,IF(COUNTIF(B:B,B'+r+')&gt;1,&quot;重複 run_id&quot;,IF(F'+r+'&lt;&gt;&quot;complete&quot;,&quot;未完成&quot;,IF(COUNT(AA'+r+':AB'+r+')&lt;2,&quot;缺漏或非 0/1&quot;,&quot;納入&quot;)))))');return f;
+ f.push('=IF(COUNT(R'+r+',X'+r+')=2,AVERAGE(R'+r+',X'+r+'),"")','=IF(COUNT(S'+r+',Y'+r+')=2,AVERAGE(S'+r+',Y'+r+'),"")','=IF(COUNT(AA'+r+':AB'+r+')=2,AB'+r+'-AA'+r+',"")','=IF(B'+r+'="","",IF(A'+r+'&lt;&gt;"正式","示範不納入",IF(COUNTIF(B:B,B'+r+')&gt;1,"重複 run_id",IF(F'+r+'&lt;&gt;"complete","未完成",IF(COUNT(AA'+r+':AB'+r+')&lt;2,"缺漏或非 0/1","納入")))))');return f;
 }
 
 function validParticipantId(id){return typeof id==='string'&amp;&amp;/^(?=.*[A-Za-z])[A-Za-z0-9]{4,32}$/.test(id);}

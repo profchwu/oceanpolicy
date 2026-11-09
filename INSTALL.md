@@ -74,3 +74,10 @@ Open [readme.html](readme.html) locally for installation, migration, private con
 研究收集版：新增 User ID 確認時間、完成時間與總秒數；完成三關顯示通關密碼。暫時隱藏研究變數與英文按鈕，功能保留。設定、時間定義與欄位公式請見 [研究收集版說明](docs/research-collection.md)。
 
 2026-10-24：開場新增四頁研究說明與同意勾選；User ID 限 4–32 位英文字母或數字。完成三關才上傳，未完成可按「退出研究」清除本機暫存。
+
+
+### Google Sheets 下載範本與 GAS 操作圖解
+
+[下載空白範本](docs/templates/oceanpolicy-research-template.xlsx) · [圖文操作手冊](docs/google-sheets-setup.html) · [可在 GitHub 閱讀的步驟與截圖](docs/google-sheets-setup.md)
+
+範本不含研究資料或密鑰；匯入 Google Sheets 後由 GAS 初始化公式與摘要。

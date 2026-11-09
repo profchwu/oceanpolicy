@@ -3,11 +3,17 @@
 function setupNewResearchWorkbook(){
  const book=SpreadsheetApp.openById(researchSheetId());
  const names=['前後測資料','遊玩資料','操作紀錄','同步紀錄','整體摘要'];
- for(const name of names){const s=book.getSheetByName(name);if(s&&s.getLastRow()>0)throw Error('NONEMPTY_SHEET: '+name+'；請改用新的空白試算表，不會清除既有資料。');}
  book.setSpreadsheetTimeZone('Asia/Taipei');
  const rawHeaders=['sample_type','run_id','player_id','version','language','status','started_at','ended_at','pre_policy','reserved_pre','pre_adaptation','post1_policy','reserved_post1','post1_adaptation','post2_policy','reserved_post2','post2_adaptation','policy_pre','policy_post','policy_gain','reserved_1','reserved_2','reserved_3','adaptation_pre','adaptation_post','adaptation_gain','overall_pre','overall_post','overall_gain','inclusion','user_id','user_id_entered_at','completed_at','total_seconds'];
  const headers=['輸入User ID時間','user_id','政策前測','政策後測','政策差值','調整前測','調整後測','調整差值','整體前測','整體後測','整體差值','run_id','完成狀態','遊戲完成時間','完成總時間（秒）','統計納入狀態','珊瑚政策0/1','珊瑚調整0/1','海草政策0/1','海草調整0/1','風電政策0/1','風電調整0/1'];
- for(const [name,head] of [['前後測資料',headers],['遊玩資料',rawHeaders],['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']],['整體摘要',['項目','數值']]]){
+ const specifications=[['前後測資料',headers],['遊玩資料',rawHeaders],['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']],['整體摘要',['項目','數值']]];
+ // Also accept the downloadable XLSX after conversion to Google Sheets: exact headers only.
+ // Validate every sheet before any content is changed. Never overwrite populated research sheets.
+ for(const [name,head] of specifications){
+  const s=book.getSheetByName(name);if(!s||s.getLastRow()===0)continue;
+  if(s.getLastRow()>1||s.getLastColumn()!==head.length||JSON.stringify(s.getRange(1,1,1,head.length).getValues()[0])!==JSON.stringify(head))throw Error('NONEMPTY_SHEET: '+name+'；僅接受空白表或未填資料的標準下載範本，不會清除既有資料。');
+ }
+ for(const [name,head] of specifications){
   const s=book.getSheetByName(name)||book.insertSheet(name);
   if(s.getMaxColumns()<head.length)s.insertColumnsAfter(s.getMaxColumns(),head.length-s.getMaxColumns());
   s.getRange(1,1,1,head.length).setValues([head]).setBackground('#173D54').setFontColor('white');s.setFrozenRows(1);

@@ -116,3 +116,10 @@ npm run preview
 2026-10-24：開場新增四頁研究說明與同意勾選；User ID 限 4–32 位 ASCII 英文字母或數字，至少包含一個英文字母。完成三關才上傳，未完成可按「退出研究」清除本機暫存。
 
 2026-11-09 文件更新：新增完整開發 Prompt 與解析、輕量流程圖。重複 User ID 檢查已同步部署至 GAS、Cloudflare 與原版 Sites：不分英文大小寫，開始前查詢、最終寫入再次驗證，相同 run_id 重試不會重複新增。查詢失敗時請重試，系統不會直接放行。
+
+
+### Google Sheets 下載範本與 GAS 操作圖解
+
+[下載空白範本](docs/templates/oceanpolicy-research-template.xlsx) · [圖文操作手冊](docs/google-sheets-setup.html) · [可在 GitHub 閱讀的步驟與截圖](docs/google-sheets-setup.md)
+
+範本不含研究資料或密鑰；匯入 Google Sheets 後由 GAS 初始化公式與摘要。

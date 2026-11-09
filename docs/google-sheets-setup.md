@@ -17,7 +17,7 @@ Google Sheets 儲存資料：新專案完整步驟
 在 GAS「專案設定 → 指令碼屬性」新增 SHEET_ID，填入自己的試算表 ID。NEWS_SHARED_SECRET 可先不填；初始化會產生隨機密鑰，之後在指令碼屬性中查看並安全保存。若自行設定，使用高強度隨機密鑰，勿使用範例字串。密鑰不要放在前端、Prompt、截圖、README 或 GitHub。
 
 4. 初始化空白表格
-在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。只對新空白研究工作表執行一次。若目標工作表已有內容，會回報 NONEMPTY_SHEET 並停止，不會清除資料。
+在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。只對新空白研究工作表執行一次。可接受只有精確欄名的下載範本；若目標工作表已有資料或欄名不符，會回報 NONEMPTY_SHEET 並停止，不會清除資料。
 範本建立五張工作表：
 ・前後測資料：放在第一張，輸入 User ID 時間在 user_id 前面，接著為政策、調整及整體前後測與差值。
 ・遊玩資料：接收器原始欄位。保留相容欄位位置，不可任意搬移。
@@ -70,11 +70,17 @@ setup_required：尚未初始化或工作表名稱錯誤；unauthorized：兩端
 function setupNewResearchWorkbook(){
  const book=SpreadsheetApp.openById(researchSheetId());
  const names=['前後測資料','遊玩資料','操作紀錄','同步紀錄','整體摘要'];
- for(const name of names){const s=book.getSheetByName(name);if(s&&s.getLastRow()>0)throw Error('NONEMPTY_SHEET: '+name+'；請改用新的空白試算表，不會清除既有資料。');}
  book.setSpreadsheetTimeZone('Asia/Taipei');
  const rawHeaders=['sample_type','run_id','player_id','version','language','status','started_at','ended_at','pre_policy','reserved_pre','pre_adaptation','post1_policy','reserved_post1','post1_adaptation','post2_policy','reserved_post2','post2_adaptation','policy_pre','policy_post','policy_gain','reserved_1','reserved_2','reserved_3','adaptation_pre','adaptation_post','adaptation_gain','overall_pre','overall_post','overall_gain','inclusion','user_id','user_id_entered_at','completed_at','total_seconds'];
  const headers=['輸入User ID時間','user_id','政策前測','政策後測','政策差值','調整前測','調整後測','調整差值','整體前測','整體後測','整體差值','run_id','完成狀態','遊戲完成時間','完成總時間（秒）','統計納入狀態','珊瑚政策0/1','珊瑚調整0/1','海草政策0/1','海草調整0/1','風電政策0/1','風電調整0/1'];
- for(const [name,head] of [['前後測資料',headers],['遊玩資料',rawHeaders],['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']],['整體摘要',['項目','數值']]]){
+ const specifications=[['前後測資料',headers],['遊玩資料',rawHeaders],['操作紀錄',EVENT_HEADERS],['同步紀錄',['run_id','revision','record_json','received_at']],['整體摘要',['項目','數值']]];
+ // Also accept the downloadable XLSX after conversion to Google Sheets: exact headers only.
+ // Validate every sheet before any content is changed. Never overwrite populated research sheets.
+ for(const [name,head] of specifications){
+  const s=book.getSheetByName(name);if(!s||s.getLastRow()===0)continue;
+  if(s.getLastRow()>1||s.getLastColumn()!==head.length||JSON.stringify(s.getRange(1,1,1,head.length).getValues()[0])!==JSON.stringify(head))throw Error('NONEMPTY_SHEET: '+name+'；僅接受空白表或未填資料的標準下載範本，不會清除既有資料。');
+ }
+ for(const [name,head] of specifications){
   const s=book.getSheetByName(name)||book.insertSheet(name);
   if(s.getMaxColumns()<head.length)s.insertColumnsAfter(s.getMaxColumns(),head.length-s.getMaxColumns());
   s.getRange(1,1,1,head.length).setValues([head]).setBackground('#173D54').setFontColor('white');s.setFrozenRows(1);
@@ -192,3 +198,60 @@ function userIdUsed(data,id,ownRun){
  return rows.some(row=>row[29]!==''&&row[29]!=null&&String(row[29]).toLowerCase()===key&&(!ownRun||row[0]!==ownRun));
 }
 ```
+
+
+## 下載範本與軟體操作截圖
+
+[下載空白 Excel／Google Sheets 範本](templates/oceanpolicy-research-template.xlsx) · [開啟圖文操作手冊](google-sheets-setup.html)
+
+下載與圖解（2026-11-09）
+提供 docs/templates/oceanpolicy-research-template.xlsx，含五張工作表與精確欄位，沒有玩家資料或密鑰。
+在 Google Sheets 以「檔案 → 匯入 → 上傳」匯入為新的試算表；若從 Drive 開啟 Excel，先另存為 Google 試算表。
+不要匯入或覆蓋正式研究表格。
+下載檔僅有欄名與格式；匯入後執行 setupNewResearchWorkbook，才會安裝前後測 ARRAYFORMULA 與整體摘要公式。
+初始化接受空白表，或欄名完全一致且只有第一列的下載範本；有資料或欄名錯誤時停止，不會清除資料。
+操作圖解為 docs/google-sheets-setup.html，包含實際 GAS 軟體局部截圖與工作表格式預覽。
+軟體截圖取自既有介面，只示範按鈕位置；新專案請執行 setupNewResearchWorkbook，不要依截圖選舊版 setupNewsReceiver。
+圖片不得含帳號、研究資料、正式網址或密鑰。完整 Prompt 與 GAS 原始碼分開提供複製按鈕。
+
+### 1. 下載並匯入 Google Sheets
+
+下載下方 XLSX，至新的 Google 試算表選「檔案 → 匯入 → 上傳」，選擇建立新的試算表。若從 Drive 直接開啟 XLSX，先以「檔案 → 另存為 Google 試算表」轉換。不要覆蓋正式研究表格。
+
+![範本格式預覽：前後測資料 A–H。完整檔案含 A–V 共 22 欄。](images/gas/sheet-1.png)
+
+### 2. 貼入 GAS 程式並儲存
+
+在新試算表選「擴充功能 → Apps Script」，刪除預設 myFunction，貼上完整 NewsReceiver.template.gs，儲存。只貼這一份，勿與舊版 NewsReceiver.gs 混用。
+
+![實際 GAS 編輯器工具列局部截圖。圖中舊專案函式名稱僅示範選單位置；新範本要選 setupNewResearchWorkbook。](images/gas/01-editor.png)
+
+### 3. 設定指令碼屬性
+
+左側齒輪「專案設定」→「指令碼屬性」→「新增／編輯指令碼屬性」。新增 SHEET_ID，值為你新試算表網址 /d/ 與 /edit 間的 ID。NEWS_SHARED_SECRET 初始化時自動產生；只在私人後端設定保存。
+
+![實際 GAS 設定頁局部截圖。裁切只保留屬性名稱與編輯按鈕，不顯示任何屬性值。](images/gas/02-properties.png)
+
+### 4. 初始化五張工作表
+
+回編輯器，在函式下拉選 setupNewResearchWorkbook，按「執行」，由帳號擁有者完成 Google 授權。初始化只接受空白表，或本下載檔那樣只有精確欄名的工作表；已有研究資料會停止。成功後前後測資料置於第一張，A2 安裝 ARRAYFORMULA，摘要出現計算列。不要手動改寫主表公式或原始欄位順序。
+
+### 5. 新增網頁應用程式部署
+
+右上「部署 → 新增部署作業」，類型選「網頁應用程式」，填入版本說明。
+
+![實際 GAS 新增部署對話框，未提交變更。](images/gas/03-deployment-type.png)
+
+### 6. 設定執行身分與存取範圍
+
+執行身分選「我」，誰可以存取選「所有人」，再按部署。若組織政策不允許所有人，先請管理員確認。試算表本身維持私人；接收器會檢查密鑰。複製部署後以 /exec 結尾的網址，勿使用 /dev 或專案編輯網址。
+
+![實際 GAS 存取設定與部署按鈕局部截圖；含帳號的執行身分列未納入圖片。](images/gas/04-deployment-access.png)
+
+### 7. 連接網站後端
+
+在 Cloudflare 私人 Secrets 設 NEWS_SHEETS_URL＝部署的 /exec 網址；NEWS_SHEETS_SECRET＝GAS 的 NEWS_SHARED_SECRET。重新部署網站讓設定生效。不要將這些值貼進 GitHub、公開 HTML 或前端 JavaScript。Sites 版本需在自己的私人後端環境另行設定。
+
+### 8. 驗收記錄與公式
+
+使用測試 ID 完整玩三關，確認遊玩資料 1 列、操作紀錄 9 筆、同步紀錄 1 列，主表顯示輸入時間、完成時間、總秒數及分數。把測試的 sample_type 改為「測試」，摘要應排除。用同一 run_id 重試不應重複新增；大小寫相同的 ID 應拒絕；中途退出不應上傳研究記錄。

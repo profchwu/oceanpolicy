@@ -461,7 +461,7 @@ Google Sheets 儲存資料：新專案完整步驟
 在 GAS「專案設定 → 指令碼屬性」新增 SHEET_ID，填入自己的試算表 ID。NEWS_SHARED_SECRET 可先不填；初始化會產生隨機密鑰，之後在指令碼屬性中查看並安全保存。若自行設定，使用高強度隨機密鑰，勿使用範例字串。密鑰不要放在前端、Prompt、截圖、README 或 GitHub。
 
 4. 初始化空白表格
-在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。只對新空白研究工作表執行一次。若目標工作表已有內容，會回報 NONEMPTY_SHEET 並停止，不會清除資料。
+在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。只對新空白研究工作表執行一次。接受空白表或僅有精確欄名的下載範本；已有資料或欄名不符時回報 NONEMPTY_SHEET，不會清除資料。
 範本建立五張工作表：
 ・前後測資料：放在第一張，輸入 User ID 時間在 user_id 前面，接著為政策、調整及整體前後測與差值。
 ・遊玩資料：接收器原始欄位。保留相容欄位位置，不可任意搬移。
@@ -751,7 +751,7 @@ NEWS_SHARED_SECRET 可先不填；
 4. 初始化空白表格
 在函式選單選 setupNewResearchWorkbook，按執行並由帳號擁有者完成 Google 授權。
 只對新空白研究工作表執行一次。
-若目標工作表已有內容，會回報 NONEMPTY_SHEET 並停止，不會清除資料。
+接受空白表或僅有精確欄名的下載範本；已有資料或欄名不符時回報 NONEMPTY_SHEET，不會清除資料。
 範本建立五張工作表：
 ・前後測資料：放在第一張，輸入 User ID 時間在 user_id 前面，接著為政策、調整及整體前後測與差值。
 ・遊玩資料：接收器原始欄位。
@@ -844,4 +844,19 @@ SAVE_NOT_CONFIRMED：保留結果，不重建 run_id，檢查接收器再重試�
 
 GAS 程式請另外複製獨立範本：google-apps-script/NewsReceiver.template.gs。
 完整 Prompt 不包含 GAS 原始碼。
+
+下載與圖解（2026-11-09）
+提供 docs/templates/oceanpolicy-research-template.xlsx，含五張工作表與精確欄位，沒有玩家資料或密鑰。
+在 Google Sheets 以「檔案 → 匯入 → 上傳」匯入為新的試算表；若從 Drive 開啟 Excel，先另存為 Google 試算表。
+不要匯入或覆蓋正式研究表格。
+下載檔僅有欄名與格式；匯入後執行 setupNewResearchWorkbook，才會安裝前後測 ARRAYFORMULA 與整體摘要公式。
+初始化接受空白表，或欄名完全一致且只有第一列的下載範本；有資料或欄名錯誤時停止，不會清除資料。
+操作圖解為 docs/google-sheets-setup.html，包含實際 GAS 軟體局部截圖與工作表格式預覽。
+軟體截圖取自既有介面，只示範按鈕位置；新專案請執行 setupNewResearchWorkbook，不要依截圖選舊版 setupNewsReceiver。
+圖片不得含帳號、研究資料、正式網址或密鑰。完整 Prompt 與 GAS 原始碼分開提供複製按鈕。
 ```
+
+
+## 範本下載與操作截圖
+
+[下載 Excel／Google Sheets 範本](templates/oceanpolicy-research-template.xlsx) · [圖文操作手冊（HTML）](google-sheets-setup.html) · [圖文說明](google-sheets-setup.md)

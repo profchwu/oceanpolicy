@@ -54,6 +54,8 @@ next-env.d.ts
 *.csv
 *.tsv
 *.xlsx
+# Reviewed blank template only; the public scanner pins its SHA-256 digest.
+!/docs/templates/oceanpolicy-research-template.xlsx
 *.sqlite*
 *.db
 *.p12
