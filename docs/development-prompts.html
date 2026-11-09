@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>海島新聞任務｜完整開發 Prompt 與解析</title><style>
 :root{font-family:system-ui,"Microsoft JhengHei",sans-serif;color:#183c49;background:#eff5f6;font-size:18px;line-height:1.75}*{box-sizing:border-box}body{margin:0}header{background:#153c4d;color:white;padding:42px max(22px,calc((100vw - 1080px)/2))}h1{font-size:clamp(28px,4vw,42px);line-height:1.3}header p{max-width:1000px;color:#d5e8ec}main{max-width:1124px;margin:auto;padding:24px 22px}a{color:#086b78}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px;padding:24px;background:white;border-radius:16px}nav a{text-decoration:none}article{background:white;border:1px solid #cfdee2;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px}h2{font-size:25px;line-height:1.5;margin:0}h2 span{color:#14838b}h3{font-size:18px;margin:22px 0 8px}p{margin:8px 0}pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;background:#edf5f7;border-left:4px solid #16838a;border-radius:8px;padding:20px;margin:0}.heading{display:flex;justify-content:space-between;gap:18px;align-items:start}button{font:inherit;cursor:pointer;background:#126f79;color:white;border:0;border-radius:8px;padding:11px 18px;white-space:nowrap}button:focus-visible,a:focus-visible{outline:3px solid #e8ae36;outline-offset:4px}.toolbar{position:sticky;top:0;z-index:2;background:#ffffffef;border-bottom:1px solid #b9d0d6;padding:12px 22px;display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}.notice{border-left:4px solid #dfac48;background:#fff7e6;padding:20px;margin:24px 0}#status{font-size:16px;min-height:28px}footer{padding:24px;text-align:center;color:#47606a}@media(max-width:680px){nav{grid-template-columns:1fr}.heading{display:block}.heading button{margin-top:15px}article{padding:20px}header{padding:28px 22px}main{padding:16px}h2{font-size:23px}}@media print{.toolbar,button,nav{display:none}header{background:white;color:#183c49;padding:0}header p{color:#183c49}body{background:white}article{break-inside:avoid;border:1px solid #aaa}main{padding:0}@page{size:A4;margin:15mm}}
-</style></head><body><header><p>ISLAND NEWS MISSIONS · DEVELOPMENT GUIDE</p><h1>海島新聞任務<br>完整開發 Prompt 與解析</h1><p>依需求演進整理的可重現開發 Prompt，非原始對話逐字紀錄。文件更新：2026-11-09。請按步驟使用並帶入當前專案；以下驗收項目是工作要求，不代表本文件更新時重新執行了全部測試。</p></header><div class="toolbar"><button id="copy-all">複製全部 16 步 Prompt</button><span id="status" role="status" aria-live="polite">可離線使用；每一步也可單獨複製。</span></div><main><div class="notice"><strong>使用方式與目前狀態</strong><p>先提供目前專案給開發工具，再按順序貼上 Prompt；每步完成驗收後繼續。中文版預設，English 按鈕暫時隱藏，「前後測設計」已顯示。重複 ID 檢查尚待完成部署，詳見第 13 步。</p><p>本檔不包含私人密鑰、研究試算表網址或玩家資料。GitHub 不執行 HTML 的複製腳本，請下載本檔後用瀏覽器開啟；也可閱讀同目錄的 development-prompts.md。</p></div><nav aria-label="步驟目錄"><a href="#step-1">01 需求與研究範圍</a><a href="#step-2">02 新聞與政策證據</a><a href="#step-3">03 好玩的決策循環</a><a href="#step-4">04 完整流程與狀態控制</a><a href="#step-5">05 環境因果與數值</a><a href="#step-6">06 前後期評分設計</a><a href="#step-7">07 版面與可讀性</a><a href="#step-8">08 一致風格的圖片資產</a><a href="#step-9">09 動畫與載入效能</a><a href="#step-10">10 程式架構與可移植性</a><a href="#step-11">11 同意書與識別碼</a><a href="#step-12">12 Google Sheets 紀錄與時間</a><a href="#step-13">13 重複 ID 檢查（待完成部署）</a><a href="#step-14">14 完整驗證與研究測試</a><a href="#step-15">15 GitHub、Cloudflare 與保存</a><a href="#step-16">16 論文圖件與開發 Prompt 文件</a></nav><article id="step-1"><div class="heading"><h2><span>01</span> 需求與研究範圍</h2><button data-copy="prompt-1">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-1">建立一款單人、點選即可玩的海洋政策教育網頁遊戲。目標是讓一般玩家理解政策如何影響環境與氣候，在約十分鐘內完成三關。預設繁體中文，保留完整英文翻譯。先整理玩家、研究目的、限制、必要功能與驗收條件，再提出玩法；未確認玩法前不要大量實作。區分環境模擬結果與研究行為得分。</pre><h3>Prompt 解析</h3><p>先限定遊玩時間和操作負擔，避免把研究問卷直接搬進遊戲。以可觀察的決策行為衡量表現，不能把娛樂性或環境數值當作學習效果。</p><h3>產出與驗收</h3><p>需求表、操作流程、研究問題與驗收清單。</p></article>
+</style></head><body><header><p>ISLAND NEWS MISSIONS · DEVELOPMENT GUIDE</p><h1>海島新聞任務<br>完整開發 Prompt 與解析</h1><p>依需求演進整理的可重現開發 Prompt，非原始對話逐字紀錄。文件更新：2026-11-09。請按步驟使用並帶入當前專案；以下驗收項目是工作要求，不代表本文件更新時重新執行了全部測試。</p></header><div class="toolbar"><button id="copy-all">複製全部 16 步 Prompt</button><span id="status" role="status" aria-live="polite">可離線使用；每一步也可單獨複製。</span></div><main><div class="notice"><strong>使用方式與目前狀態</strong><p>先提供目前專案給開發工具，再按順序貼上 Prompt；每步完成驗收後繼續。中文版預設，English 按鈕暫時隱藏，「前後測設計」已顯示。重複 ID 檢查尚待完成部署，詳見第 13 步。</p><p>本檔不包含私人密鑰、研究試算表網址或玩家資料。GitHub 不執行 HTML 的複製腳本，請下載本檔後用瀏覽器開啟；也可閱讀同目錄的 development-prompts.md。</p></div><nav aria-label="步驟目錄"><a href="#step-1">01 需求與研究範圍</a><a href="#step-2">02 新聞與政策證據</a><a href="#step-3">03 好玩的決策循環</a><a href="#step-4">04 完整流程與狀態控制</a><a href="#step-5">05 環境因果與數值</a><a href="#step-6">06 前後期評分設計</a><a href="#step-7">07 版面與可讀性</a><a href="#step-8">08 一致風格的圖片資產</a><a href="#step-9">09 動畫與載入效能</a><a href="#step-10">10 程式架構與可移植性</a><a href="#step-11">11 同意書與識別碼</a><a href="#step-12">12 Google Sheets 紀錄與時間</a><a href="#step-13">13 重複 ID 檢查（待完成部署）</a><a href="#step-14">14 完整驗證與研究測試</a><a href="#step-15">15 GitHub、Cloudflare 與保存</a><a href="#step-16">16 論文圖件與開發 Prompt 文件</a><a href="#master-prompt">完整整合 Prompt｜一次複製</a></nav><article id="step-1"><div class="heading"><h2><span>01</span> 需求與研究範圍</h2><button data-copy="prompt-1">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-1">建立一款單人、點選即可玩的海洋政策教育網頁遊戲。目標是讓一般玩家理解政策如何影響環境與氣候，在約十分鐘內完成三關。預設繁體中文，保留完整英文翻譯。先整理玩家、研究目的、限制、必要功能與驗收條件，再提出玩法；未確認玩法前不要大量實作。區分環境模擬結果與研究行為得分。</pre><h3>Prompt 解析</h3><p>先限定遊玩時間和操作負擔，避免把研究問卷直接搬進遊戲。以可觀察的決策行為衡量表現，不能把娛樂性或環境數值當作學習效果。</p><h3>產出與驗收</h3><p>需求表、操作流程、研究問題與驗收清單。</p></article>
 <article id="step-2"><div class="heading"><h2><span>02</span> 新聞與政策證據</h2><button data-copy="prompt-2">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-2">調查海洋政策教育遊戲的既有類型及官方新聞來源。為珊瑚、海草、離岸風電各選一則可查證新聞，記錄原文連結、發布日期、事件日期與摘要。核對科學因果及政策限制。真實新聞與另設的遊戲情境必須分開標示；不可杜撰報導、研究數字或引用。新聞配圖若為 AI 生成，標明情境示意圖。</pre><h3>Prompt 解析</h3><p>新聞提供決策情境，官方來源支撐教育內容。發布時間不等於事件發生時間；遊戲中的暴雨或故障也不能假稱為原新聞事件。</p><h3>產出與驗收</h3><p>三則可追溯來源、改寫新聞及模擬情境說明。</p></article>
 <article id="step-3"><div class="heading"><h2><span>03</span> 好玩的決策循環</h2><button data-copy="prompt-3">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-3">將關卡順序固定為珊瑚、海草、風電。每關兩次決策，每次三個選項：先處理原始環境問題，再面對一項外部事件選擇應變。選項須具有可理解的取捨，選錯可能使環境惡化。移除額外『成效證據』測驗及重複觀察步驟。玩家點選政策後立即知道執行方向，再以約五秒動畫展示環境變化，最後說明原因。</pre><h3>Prompt 解析</h3><p>決策—回饋—應變讓玩家主動修正判斷。外部事件增加挑戰，但其自動造成的損失不可算成玩家的錯誤決策。</p><h3>產出與驗收</h3><p>三關各六個選項、預算及環境影響表；新玩家不需額外教學即可完成。</p></article>
 <article id="step-4"><div class="heading"><h2><span>04</span> 完整流程與狀態控制</h2><button data-copy="prompt-4">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-4">用明確狀態管理：研究說明與同意→User ID→彩色新聞→政策選擇→關閉選擇視窗→完整播放變化→影響說明→外部事件→應變選擇→完整播放變化→本關成果→下一關。第三關完成後進入總結、送出研究紀錄及通關密碼。禁止動畫尚未完成就跳關；完成後讓玩家看清場景再主動下一步。任何視窗不能殘留遮住動畫；重新整理不能重複扣預算或計分。</pre><h3>Prompt 解析</h3><p>流程的每一個狀態都要有唯一主要操作。用狀態機避免新聞、政策選單與結果視窗同時出現，也避免重複點擊造成不同資料。</p><h3>產出與驗收</h3><p>狀態轉移圖、重載與連點測試；每個狀態都有清楚下一步。</p></article>
@@ -15,12 +15,82 @@
 <article id="step-13"><div class="heading"><h2><span>13</span> 重複 ID 檢查（待完成部署）</h2><button data-copy="prompt-13">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-13">這一步是尚待完成的整合工作，不可寫成已上線。開始前向同網域 API 檢查 ID 是否已存在，大小寫視為相同；檢查失敗時提示重試。檢查只讀取，不提前建立研究紀錄。GAS 最終寫入須在鎖定區段再次檢查，避免兩人同時使用同一 ID；相同 run_id 的重試仍允許。發生衝突時保存已完成結果，讓玩家換新 ID 再送出。先確認並更新實際 GAS 接收器，再部署前端與 API，最後用兩個瀏覽器驗證。不要覆蓋線上既有的客製公式。</pre><h3>Prompt 解析</h3><p>先查詢不能防止並行競爭；最終寫入仍須原子檢查。因未完成不能留下研究紀錄，此方案不提前保留 ID，需處理最後一刻衝突。</p><h3>產出與驗收</h3><p>GAS、API、前端三者版本一致；並行、大小寫、同局重試與斷線都有測試證據。</p></article>
 <article id="step-14"><div class="heading"><h2><span>14</span> 完整驗證與研究測試</h2><button data-copy="prompt-14">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-14">重玩全部政策分支並檢查評分、環境變化及動畫順序。三關共六次三選一決策，共 3^6=729 條路徑；保留英文時測兩語系。驗證每局六次玩家決策與三次外部事件，事件不計分。另以兩個合成玩家完整操作，確認開始時間、完成時間、差值及只在完成後寫入；測試紀錄排除於研究分析。測試連點、重新整理、慢網路、圖片失敗、倒數到期及退出。分開報告實際執行的測試與尚未驗證項目，不可只憑單元測試宣稱線上儲存成功。</pre><h3>Prompt 解析</h3><p>數學分支測試驗證規則，真實瀏覽器與試算表核對驗證整合；兩者不能互相取代。研究測試資料不得混入正式樣本。</p><h3>產出與驗收</h3><p>有日期、版本、預期值與實際值的測試報告；沒有未說明的失敗項目。</p></article>
 <article id="step-15"><div class="heading"><h2><span>15</span> GitHub、Cloudflare 與保存</h2><button data-copy="prompt-15">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-15">維持原 ChatGPT Sites 與 Version 2 為獨立部署。GitHub 保存可公開程式、圖片與文件；Cloudflare 執行 Version 2 與伺服器 API。發佈前檢查追蹤檔案及差異，排除密鑰、真實試算表接收網址、玩家資料、私有備份與測試匯出。透過 Cloudflare 私人環境設定連接 GAS。原站不得因新版部署被修改。備份版本、套件鎖定檔、GAS 程式、素材及安裝手冊；私人設定另行安全保存。部署後驗證資產、遊玩及資料接收，記錄可回復的版本。</pre><h3>Prompt 解析</h3><p>公開原始碼與私人研究設定必須分離。保留兩個站點有助對照與回復，但每站都需獨立確認後端相容性。</p><h3>產出與驗收</h3><p>乾淨的 GitHub 差異、安全檢查結果、部署網址及移機手冊；不把密鑰寫進 README。</p></article>
-<article id="step-16"><div class="heading"><h2><span>16</span> 論文圖件與開發 Prompt 文件</h2><button data-copy="prompt-16">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-16">製作兩張繁體中文及兩張英文說明圖：流程與評分、三關場景與政策。採 A4、300 dpi（直式2480×3508像素）或可縮放向量，文字用排版工具呈現，避免生成圖片中文字模糊。每個圖件標註版本，與實際評分規則核對。README 首頁放遊戲說明及輕量流程圖，安裝放 INSTALL。製作可離線閱讀的 HTML 開發手冊，每步包含可複製 Prompt、解析、預期產出與驗收。註明這是依需求整理的重建指南，非原始對話逐字稿；保留研究限制與待部署事項。</pre><h3>Prompt 解析</h3><p>論文圖件要能辨認文字並準確反映研究版本。GitHub 不執行 HTML 按鈕腳本，因此同時提供 Markdown 原生複製區塊與可下載 HTML。</p><h3>產出與驗收</h3><p>四張清晰圖件、GitHub 可讀文件、離線 HTML 複製按鈕與完整開發流程。</p></article></main><footer>文件版本 1.0 · 2026-11-09 · 開發重建指南；實際研究請記錄使用的軟體版本。</footer><script>
+<article id="step-16"><div class="heading"><h2><span>16</span> 論文圖件與開發 Prompt 文件</h2><button data-copy="prompt-16">複製本步 Prompt</button></div><h3>可複製 Prompt</h3><pre id="prompt-16">製作兩張繁體中文及兩張英文說明圖：流程與評分、三關場景與政策。採 A4、300 dpi（直式2480×3508像素）或可縮放向量，文字用排版工具呈現，避免生成圖片中文字模糊。每個圖件標註版本，與實際評分規則核對。README 首頁放遊戲說明及輕量流程圖，安裝放 INSTALL。製作可離線閱讀的 HTML 開發手冊，每步包含可複製 Prompt、解析、預期產出與驗收。註明這是依需求整理的重建指南，非原始對話逐字稿；保留研究限制與待部署事項。</pre><h3>Prompt 解析</h3><p>論文圖件要能辨認文字並準確反映研究版本。GitHub 不執行 HTML 按鈕腳本，因此同時提供 Markdown 原生複製區塊與可下載 HTML。</p><h3>產出與驗收</h3><p>四張清晰圖件、GitHub 可讀文件、離線 HTML 複製按鈕與完整開發流程。</p></article><section id="master-prompt" style="background:white;border:2px solid #16838a;border-radius:16px;padding:28px;margin:24px 0;scroll-margin-top:95px"><div class="heading"><h2>完整整合 Prompt</h2><button data-copy="prompt-master">複製完整 Prompt</button></div><p>以下整合全部 16 步需求與驗收。按一下即可完整複製，直接貼到 Gemini 或其他開發工具。</p><pre id="prompt-master">你是一位教育遊戲設計師、海洋政策內容編輯與全端工程師。請依下列完整需求，協助開發、驗證及保存「海島新聞任務」網頁政策教育遊戲。
+
+這份需求是整理後的開發規格，不是原始對話逐字稿。若已有專案，先閱讀現有程式及文件，保留已完成的功能，核對目前部署狀態，再補齊需求；若從零開始，先建立需求、玩法與架構，再逐步實作。不可聲稱尚未測試或部署的項目已完成。
+
+執行方式：依下面 16 步處理，每步都核對產出與驗收；先提出玩法與流程供確認，再進行大量實作。私人密鑰及研究資料只能透過私人設定提供，不可寫入公開程式或文件。本文第 13 步是待完成部署的整合需求，請先核實 GAS 與網站版本。
+
+1. 需求與研究範圍
+建立一款單人、點選即可玩的海洋政策教育網頁遊戲。目標是讓一般玩家理解政策如何影響環境與氣候，在約十分鐘內完成三關。預設繁體中文，保留完整英文翻譯。先整理玩家、研究目的、限制、必要功能與驗收條件，再提出玩法；未確認玩法前不要大量實作。區分環境模擬結果與研究行為得分。
+產出與驗收：需求表、操作流程、研究問題與驗收清單。
+
+2. 新聞與政策證據
+調查海洋政策教育遊戲的既有類型及官方新聞來源。為珊瑚、海草、離岸風電各選一則可查證新聞，記錄原文連結、發布日期、事件日期與摘要。核對科學因果及政策限制。真實新聞與另設的遊戲情境必須分開標示；不可杜撰報導、研究數字或引用。新聞配圖若為 AI 生成，標明情境示意圖。
+產出與驗收：三則可追溯來源、改寫新聞及模擬情境說明。
+
+3. 好玩的決策循環
+將關卡順序固定為珊瑚、海草、風電。每關兩次決策，每次三個選項：先處理原始環境問題，再面對一項外部事件選擇應變。選項須具有可理解的取捨，選錯可能使環境惡化。移除額外『成效證據』測驗及重複觀察步驟。玩家點選政策後立即知道執行方向，再以約五秒動畫展示環境變化，最後說明原因。
+產出與驗收：三關各六個選項、預算及環境影響表；新玩家不需額外教學即可完成。
+
+4. 完整流程與狀態控制
+用明確狀態管理：研究說明與同意→User ID→彩色新聞→政策選擇→關閉選擇視窗→完整播放變化→影響說明→外部事件→應變選擇→完整播放變化→本關成果→下一關。第三關完成後進入總結、送出研究紀錄及通關密碼。禁止動畫尚未完成就跳關；完成後讓玩家看清場景再主動下一步。任何視窗不能殘留遮住動畫；重新整理不能重複扣預算或計分。
+產出與驗收：狀態轉移圖、重載與連點測試；每個狀態都有清楚下一步。
+
+5. 環境因果與數值
+建立每個政策的數值增減、影響位置、動畫類型、原因及限制。珊瑚關：減污可減輕地方壓力，不能直接消除海洋熱浪。海草關：先改善水質與底質，種植數不代表存活率或已驗證碳匯。風電關：風機數不等於供電，須考慮併網、海纜與棲地。採 0–100 教學指數，禁止標成實測溫度、排放或碳匯。外部事件與政策效應分開記帳。結果顯示原值→新值、帶正負號差值及上升下降文字；顏色依指標的好壞方向決定。
+產出與驗收：可核對的政策效果矩陣；畫面、報告與儲存值一致，且不混淆事件損失。
+
+6. 前後期評分設計
+只記錄政策判斷 P 與應變決策 A，依當關情境各給 0 或 1 分。逐一從政策設定列出三關所有選項及分數，不可自行猜測。每關=(P+A)/2×100；前測為第一關；後測為第二、三關平均；差值=後測−前測，以百分點呈現。個別 P、A 用相同前後期算法。未作答保留缺漏，不記零；外部事件不計分。用同一個視窗呈現公式圖、完整得分表與例子。註明不同關卡不是經驗證的等值測驗，差值只能代表早期／後期行為表現差異。
+產出與驗收：完整政策評分表、公式圖、缺漏處理；例：50、100、50→後測75、差值+25百分點。
+
+7. 版面與可讀性
+設計同一視窗內的遊戲版面，海島為最大區域，儀表板及操作列保持精簡。PC 不需整頁捲動；窄螢幕重排而非縮小所有字體，必要長篇內容使用分頁。標題、內文、數字、觸控按鈕有明確尺寸層級。新聞使用彩色照片、報頭、日期、標題、分欄及來源，像完整報紙。主要視窗固定置中，開啟時有焦點管理。保留中英文文字及研究設計功能，以設定控制按鈕顯示；目前中文預設，English 隱藏，『前後測設計』顯示。
+產出與驗收：桌機與手機截圖；沒有數字溢出、遮住海島或看不清的得分列表。
+
+8. 一致風格的圖片資產
+使用 image 工具製作三關新聞圖及政策環境變化圖。採明亮、立體微縮海島風格；同一關固定鏡頭、地形、光源與主要物件位置。依實際政策效果表列出需要的受損、中間、改善及惡化狀態，先生成再串接，不要將同一張健康海島套用所有數值。珊瑚開局應呈現白化及污染，海草開局稀疏且混濁，風電開局呈現供電問題。人物、車輛、船隻與設施同風格，避免平面貼紙感。圖片不要生成文字；標題和數值由介面排版。
+產出與驗收：資產清單、狀態對照表及授權／AI 來源標示；所有分支都有合適圖片或組合圖層。
+
+9. 動畫與載入效能
+為每個政策設定對應區域與約五秒漸變：施工分階段、污染擴散或消退、珊瑚逐步變色、海草疏密改變、風機與海纜運作改變。用同風格但高對比的光圈、指引及正負數字標出受影響位置；結束清除臨時特效，保留新的環境狀態。人物、車輛、船與海浪持續運動，避免擋住重點。預先生成圖片並轉 WebP；優先載入當關新聞與初始場景，背景預載下一步素材，不在每次遊玩即時生成圖片。載入失敗有可見替代內容。
+產出與驗收：每個政策動畫逐一對照影響表；慢網路測試、圖片網址檢查與特效清除檢查。
+
+10. 程式架構與可移植性
+以 TypeScript、React 及資料驅動的關卡設定實作。分離政策資料、評分、狀態流程、場景呈現與儲存同步。沿用專案目前的建置與 Cloudflare Workers 設定，不任意更換框架。架構為瀏覽器→同網域 API→Google Apps Script→Google Sheets。所有密鑰只在伺服器與 GAS 私人設定；前端不能取得密鑰。提供本機啟動、測試、建置、部署及移機說明，圖片使用專案內可攜路徑。
+產出與驗收：模組圖、設定範本、可重現安裝與建置指令，沒有寫死私人主機路徑。
+
+11. 同意書與識別碼
+遊戲開頭提供簡短分頁說明、資料用途及自願參與條款，勾選後才能開始。不要顯示研究者的姓名或學校於玩家介面。說明研究參與者需完整遊玩後填寫後續問卷。User ID 限 4–32 位 ASCII 英數字，至少一個英文字母；前後端都驗證，1234 不可通過。不要要求姓名或信箱。僅在完成三關後上傳研究紀錄；中途退出清除本機未完成進度，不送出研究紀錄。將代碼資料稱為編碼化資料，不宣稱完全無法連結身分。
+產出與驗收：未勾選不可開始、1234拒絕、英數代碼可用；中途退出無研究資料寫入。
+
+12. Google Sheets 紀錄與時間
+以 run_id 作為重試與更新的穩定識別，送出 User ID、確認 ID 的時間、完成時間、總秒數、政策選擇、兩項行為分數、環境前後值與版本。總秒數=(completedAt−userIdEnteredAt)/1000，包含閱讀與背景分頁時間；不是純操作時間。主要分析表第一欄為輸入 ID 時間，其後為 user_id，再列前後期分數與差值。未完成及缺資料保持空白；測試紀錄標示不納入。GAS 驗證密鑰、欄位與完成狀態，寫入後回覆成功；失敗可重試且不產生重複紀錄。公開文件只列 NEWS_SHEETS_URL、NEWS_SHEETS_SECRET 等設定名稱及占位符。
+產出與驗收：試算表公式與遊戲分數一致；完成一局只產生一筆分析紀錄，重試不改完成時間。
+
+13. 重複 ID 檢查（待完成部署）
+這一步是尚待完成的整合工作，不可寫成已上線。開始前向同網域 API 檢查 ID 是否已存在，大小寫視為相同；檢查失敗時提示重試。檢查只讀取，不提前建立研究紀錄。GAS 最終寫入須在鎖定區段再次檢查，避免兩人同時使用同一 ID；相同 run_id 的重試仍允許。發生衝突時保存已完成結果，讓玩家換新 ID 再送出。先確認並更新實際 GAS 接收器，再部署前端與 API，最後用兩個瀏覽器驗證。不要覆蓋線上既有的客製公式。
+產出與驗收：GAS、API、前端三者版本一致；並行、大小寫、同局重試與斷線都有測試證據。
+
+14. 完整驗證與研究測試
+重玩全部政策分支並檢查評分、環境變化及動畫順序。三關共六次三選一決策，共 3^6=729 條路徑；保留英文時測兩語系。驗證每局六次玩家決策與三次外部事件，事件不計分。另以兩個合成玩家完整操作，確認開始時間、完成時間、差值及只在完成後寫入；測試紀錄排除於研究分析。測試連點、重新整理、慢網路、圖片失敗、倒數到期及退出。分開報告實際執行的測試與尚未驗證項目，不可只憑單元測試宣稱線上儲存成功。
+產出與驗收：有日期、版本、預期值與實際值的測試報告；沒有未說明的失敗項目。
+
+15. GitHub、Cloudflare 與保存
+維持原 ChatGPT Sites 與 Version 2 為獨立部署。GitHub 保存可公開程式、圖片與文件；Cloudflare 執行 Version 2 與伺服器 API。發佈前檢查追蹤檔案及差異，排除密鑰、真實試算表接收網址、玩家資料、私有備份與測試匯出。透過 Cloudflare 私人環境設定連接 GAS。原站不得因新版部署被修改。備份版本、套件鎖定檔、GAS 程式、素材及安裝手冊；私人設定另行安全保存。部署後驗證資產、遊玩及資料接收，記錄可回復的版本。
+產出與驗收：乾淨的 GitHub 差異、安全檢查結果、部署網址及移機手冊；不把密鑰寫進 README。
+
+16. 論文圖件與開發 Prompt 文件
+製作兩張繁體中文及兩張英文說明圖：流程與評分、三關場景與政策。採 A4、300 dpi（直式2480×3508像素）或可縮放向量，文字用排版工具呈現，避免生成圖片中文字模糊。每個圖件標註版本，與實際評分規則核對。README 首頁放遊戲說明及輕量流程圖，安裝放 INSTALL。製作可離線閱讀的 HTML 開發手冊，每步包含可複製 Prompt、解析、預期產出與驗收。註明這是依需求整理的重建指南，非原始對話逐字稿；保留研究限制與待部署事項。
+產出與驗收：四張清晰圖件、GitHub 可讀文件、離線 HTML 複製按鈕與完整開發流程。
+
+最終交付：可操作的遊戲、政策與評分設定、圖片動畫資產、測試報告、資料接收與試算表公式說明、安全的部署設定範本、INSTALL 安裝移機文件、README 遊戲說明、中英文論文圖件，以及具有複製按鈕的開發 Prompt HTML。最後列出已完成、已驗證、未驗證及需要外部授權的項目，並提供實際版本與可用連結。</pre></section></main><footer>文件版本 1.1 · 2026-11-09 · 開發重建指南；實際研究請記錄使用的軟體版本。</footer><script>
 async function copyText(value){
  try { if(!navigator.clipboard || !window.isSecureContext) throw new Error('fallback'); await navigator.clipboard.writeText(value); }
  catch(error){const area=document.createElement('textarea');area.value=value;area.setAttribute('readonly','');area.style.position='fixed';area.style.top='0';area.style.left='0';document.body.appendChild(area);area.select();const ok=document.execCommand('copy');area.remove();if(!ok)throw new Error('copy unavailable');}
 }
 async function copyWithFeedback(value,button){const old=button.textContent;try{await copyText(value);button.textContent='已複製 ✓';document.getElementById('status').textContent='已複製，可以貼到 Gemini 或其他開發工具。';setTimeout(()=>button.textContent=old,1800);}catch(error){document.getElementById('status').textContent='瀏覽器未允許剪貼簿，請選取 Prompt 文字後按 Ctrl+C（Mac：⌘C）。';}}
 document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',()=>copyWithFeedback(document.getElementById(button.dataset.copy).textContent,button)));
-document.getElementById('copy-all').addEventListener('click',function(){const parts=["海島新聞任務開發指南。這是整理後的重建要求，非逐字對話紀錄。按步驟實作並驗收。注意：第13步重複ID檢查尚待完成部署，不得宣稱已上線。"];document.querySelectorAll('article').forEach(article=>parts.push(article.querySelector('h2').textContent+'\n'+article.querySelector('pre').textContent));copyWithFeedback(parts.join('\n\n'),this);});
+document.getElementById('copy-all').addEventListener('click',function(){copyWithFeedback(document.getElementById('prompt-master').textContent,this);});
 </script></body></html>
