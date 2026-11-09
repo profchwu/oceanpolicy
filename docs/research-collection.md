@@ -8,7 +8,7 @@ Consent version: `research-2026-10-24-completion-only`. New progress uses sessio
 
 “Leave study” clears the current unfinished session. Closing the tab does not upload unfinished data; browsers may restore sessionStorage when restoring a tab, so the instructions distinguish closing from explicitly clearing the session. Historical records collected before this change are not deleted by this release. The study uses coded User IDs to link gameplay and questionnaires; the notice no longer claims fully untraceable anonymity.
 
-The game retains its scoring, research explanation and English translation. As of 2026-11-09, `SHOW_RESEARCH_INFO` is true (the “前後測設計” button is visible), while `SHOW_LANGUAGE_SWITCH` remains false in `lib/research-mode.ts`. Change the relevant flag, rebuild and redeploy to change button visibility. Duplicate-ID checks still require coordinated GAS/API/frontend deployment; they are not a verified live feature.
+The game retains its scoring, research explanation and English translation. As of 2026-11-09, `SHOW_RESEARCH_INFO` is true (the “前後測設計” button is visible), while `SHOW_LANGUAGE_SWITCH` remains false in `lib/research-mode.ts`. Change the relevant flag, rebuild and redeploy to change button visibility. Duplicate-ID checks were deployed to GAS, Cloudflare and Sites on 2026-11-09. Checks are case-insensitive and read-only before play; the receiver rechecks under a script lock before writing, while same-run retries remain idempotent. Availability errors fail closed and ask the player to retry. IDs are not reserved before completion, so a concurrent conflict can require a replacement ID after play; results are retained.
 
 ## Timing
 

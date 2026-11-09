@@ -1,0 +1,15 @@
+import {build} from 'esbuild';
+import assert from 'node:assert/strict';
+const bundle=await build({stdin:{contents:"export {GET,POST} from './app/api/news-record/route';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',write:false,plugins:[{name:'test-env',setup(b){b.onResolve({filter:/^cloudflare:workers$/},()=>({path:'env',namespace:'mock'}));b.onLoad({filter:/.*/,namespace:'mock'},()=>({contents:"export const env={NEWS_SHEETS_URL:'https://script.google.com/macros/s/test-only/exec',NEWS_SHEETS_SECRET:'test-only-secret'}"}));}}]});
+const api=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
+let calls=[];let answer={ok:true,available:false};
+globalThis.fetch=async(url,options)=>{calls.push(JSON.parse(options.body));return Response.json(answer);};
+const req=(userId,origin='https://game.example')=>new Request('https://game.example/api/news-record',{method:'POST',headers:{origin,'Content-Type':'application/json'},body:JSON.stringify({action:'checkUserId',userId})});
+assert.equal((await api.POST(req('1234'))).status,400);assert.equal(calls.length,0);
+assert.equal((await api.POST(req('Ab12','https://other.example'))).status,403);assert.equal(calls.length,0);
+let response=await api.POST(req('Ab12'));assert.equal(response.status,200);assert.deepEqual(await response.json(),{available:false});assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(calls[0].userId,'Ab12');
+answer={ok:true,available:true};response=await api.POST(req('New123'));assert.deepEqual(await response.json(),{available:true});
+answer={ok:false,error:'setup_required'};assert.equal((await api.POST(req('New123'))).status,503);
+globalThis.fetch=async()=>{throw Error('network');};assert.equal((await api.POST(req('New123'))).status,503);
+let retryCalls=0;globalThis.fetch=async()=>{if(++retryCalls===1)throw Error('temporary network');return Response.json({ok:true,available:true});};assert.deepEqual(await (await api.POST(req('New123'))).json(),{available:true});assert.equal(retryCalls,2);
+console.log('PASS: availability API validates IDs and origin, returns no records or secrets, disables caching, fails closed on receiver/network errors.');

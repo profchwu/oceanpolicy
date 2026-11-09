@@ -5,18 +5,20 @@ import {LIMIT,type NewsRun} from '@/lib/news-flow';
 import {hasResearchConsent} from '@/lib/research-consent';
 const QUEUE='ocean-news-completed-upload-20261024',PLAYER='ocean-news-player-1';
 export function useNewsSync(run:NewsRun|null,now:number,en:boolean){
- const [status,setStatus]=useState<'checking'|'unconfigured'|'ready'|'pending'|'saved'|'error'>('checking');
- const queue=useRef<Record<string,NewsRecord>>({}),busy=useRef(false),enabled=useRef(false),player=useRef(''),last=useRef('');
+ const [status,setStatus]=useState<'checking'|'unconfigured'|'ready'|'pending'|'saved'|'error'|'duplicate'>('checking');
+ const queue=useRef<Record<string,NewsRecord>>({}),busy=useRef(false),enabled=useRef(false),player=useRef(''),last=useRef(''),conflicts=useRef<Record<string,string>>({}),activeRun=useRef(run);activeRun.current=run;
  const allowed=hasResearchConsent(run)&&run?.current===3&&Number.isSafeInteger(run.completedAt),allowedRef=useRef(allowed);allowedRef.current=allowed;
  const persist=()=>{try{localStorage.setItem(QUEUE,JSON.stringify(queue.current));}catch{setStatus('error');}};
  const flush=async()=>{
   if(busy.current||!enabled.current||!allowedRef.current)return;busy.current=true;let succeeded=false;
   try{for(const p of Object.values(queue.current)){
    if(!allowedRef.current)return;if(!hasResearchConsent(p.run)||p.run.current!==3||!Number.isSafeInteger(p.run.completedAt))continue;
-   setStatus('pending');const response=await fetch('/api/news-record',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p),keepalive:true});const receipt=await response.json() as {saved?:boolean;runId?:string;revision?:number};
+   if(conflicts.current[p.run.id]===p.run.userId)continue;
+   setStatus('pending');const response=await fetch('/api/news-record',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p),keepalive:true});const receipt=await response.json() as {saved?:boolean;runId?:string;revision?:number;error?:string};
+   if(response.status===409&&receipt.error==='USER_ID_TAKEN'){conflicts.current[p.run.id]=p.run.userId!;continue;}
    if(!response.ok||receipt.saved!==true||receipt.runId!==p.run.id||receipt.revision!==recordRevision(p))throw Error();
    if(queue.current[p.run.id]===p)delete queue.current[p.run.id];persist();
-  }succeeded=true;setStatus(Object.keys(queue.current).length?'pending':'saved');}catch{setStatus('error');}finally{busy.current=false;if(succeeded&&Object.keys(queue.current).length)setTimeout(()=>void flush(),100);}
+  }succeeded=true;const current=activeRun.current;setStatus(current&&conflicts.current[current.id]===current.userId?'duplicate':current&&queue.current[current.id]?'pending':'saved');}catch{setStatus('error');}finally{busy.current=false;if(succeeded&&Object.values(queue.current).some(p=>conflicts.current[p.run.id]!==p.run.userId))setTimeout(()=>void flush(),100);}
  };
  useEffect(()=>{
   if(!allowed){enabled.current=false;return;}let active=true;
@@ -28,7 +30,7 @@ export function useNewsSync(run:NewsRun|null,now:number,en:boolean){
  useEffect(()=>{
   if(!allowed||!run||!validUserId(run.userId)||run.startedAt===null||!player.current)return;
   const p:NewsRecord={schema:RECORD_VERSION,playerId:player.current,run,observedAt:Math.max(now,Date.now()),language:en?'en':'zh-Hant'};
-  const key=run.id+':'+recordRevision(p);if(last.current===key)return;last.current=key;queue.current[run.id]=p;persist();if(enabled.current){setStatus('pending');void flush();}
+  const key=run.id+':'+run.userId+':'+recordRevision(p);if(last.current===key)return;last.current=key;queue.current[run.id]=p;persist();if(enabled.current){setStatus('pending');void flush();}
  },[run,expired,allowed]);
  return {status,retry:()=>void flush()};
 }

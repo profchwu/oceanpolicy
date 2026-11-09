@@ -1,4 +1,4 @@
-// Bound to the research spreadsheet. No record-reading endpoint is exposed.
+// Bound to the research spreadsheet. Only ID availability is exposed, never records.
 function researchSheetId(){
  const id=PropertiesService.getScriptProperties().getProperty('SHEET_ID');
  if(!id)throw Error('SHEET_ID_NOT_CONFIGURED');
@@ -27,9 +27,15 @@ function doPost(e){
   if(!e||!e.postData||e.postData.contents.length>24000)throw Error('invalid_request');
   const body=JSON.parse(e.postData.contents),secret=PropertiesService.getScriptProperties().getProperty('NEWS_SHARED_SECRET');
   if(!secret||body.secret!==secret)throw Error('unauthorized');
+  if(body.action==='checkUserId'){
+   if(!validParticipantId(body.userId))throw Error('invalid_user_id');
+   const data=SpreadsheetApp.openById(researchSheetId()).getSheetByName('遊玩資料');
+   if(!data)throw Error('setup_required');
+   return json({ok:true,available:!userIdUsed(data,body.userId)});
+  }
   const p=body.record,r=p&&p.run;
   if(!p||p.schema!=='news-sheet-1'||!r||!Number.isInteger(body.revision)||!Array.isArray(body.scores)||body.scores.length!==9||!body.scores.every(x=>x===null||x===0||x===1)||!Array.isArray(body.events)||body.events.length>9)throw Error('invalid_record');
-  if(typeof r.userId!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_-]{0,31}$/.test(r.userId)||!/^[0-9a-f-]{36}$/i.test(r.id)||!/^[0-9a-f-]{36}$/i.test(p.playerId)||!['complete','incomplete','timeout'].includes(body.status))throw Error('invalid_record');
+  if(!validParticipantId(r.userId)||!/^[0-9a-f-]{36}$/i.test(r.id)||!/^[0-9a-f-]{36}$/i.test(p.playerId)||!['complete','incomplete','timeout'].includes(body.status))throw Error('invalid_record');
   lock=LockService.getScriptLock();if(!lock.tryLock(10000))throw Error('busy_retry');
   const book=SpreadsheetApp.openById(researchSheetId()),data=book.getSheetByName('遊玩資料'),events=book.getSheetByName('操作紀錄'),ledger=book.getSheetByName('同步紀錄');
   if(!data||!events||!ledger)throw Error('setup_required');
@@ -43,6 +49,7 @@ function doPost(e){
     if(!b||a.choice!==b.choice||a.at!==b.at||a.language!==b.language||(a.ackAt!==undefined&&a.ackAt!==b.ackAt))throw Error('record_conflict');
    }
   }
+  if(userIdUsed(data,r.userId,r.id))throw Error('user_id_taken');
   const received=new Date().toISOString();
   for(const event of body.events){
    const row=findRow(events,1,event.event_id)||events.getLastRow()+1;ensureRows(events,row);
@@ -76,4 +83,11 @@ function scoreFormulas(r){
   f.push('=IF('+valid(a)+','+a+'*100,"")','=IF(AND('+valid(b)+','+valid(c)+'),('+b+'+'+c+')/2*100,"")','=IF(COUNT('+pre+':'+post+')=2,'+post+'-'+pre+',"")');
  }
  f.push('=IF(COUNT(R'+r+',U'+r+',X'+r+')=3,AVERAGE(R'+r+',U'+r+',X'+r+'),"")','=IF(COUNT(S'+r+',V'+r+',Y'+r+')=3,AVERAGE(S'+r+',V'+r+',Y'+r+'),"")','=IF(COUNT(AA'+r+':AB'+r+')=2,AB'+r+'-AA'+r+',"")','=IF(B'+r+'="","",IF(A'+r+'<>"正式","示範不納入",IF(COUNTIF(B:B,B'+r+')>1,"重複 run_id",IF(F'+r+'<>"complete","未完成",IF(COUNT(AA'+r+':AB'+r+')<2,"缺漏或非 0/1","納入")))))');return f;
+}
+
+function validParticipantId(id){return typeof id==='string'&&/^(?=.*[A-Za-z])[A-Za-z0-9]{4,32}$/.test(id);}
+function userIdUsed(data,id,ownRun){
+ if(data.getLastRow()<2)return false;
+ const rows=data.getRange(2,2,data.getLastRow()-1,30).getValues(),key=id.toLowerCase();
+ return rows.some(row=>row[29]!==''&&row[29]!=null&&String(row[29]).toLowerCase()===key&&(!ownRun||row[0]!==ownRun));
 }
